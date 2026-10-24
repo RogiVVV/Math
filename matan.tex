@@ -1,0 +1,4620 @@
+% !TeX program = xelatex
+\documentclass[12pt,a4paper]{article}
+
+% =========================================================
+% ЯЗЫК И ШРИФТЫ
+% =========================================================
+
+\usepackage{fontspec}
+\usepackage{polyglossia}
+\usepackage{dsfont}
+
+\setdefaultlanguage{russian}
+\setotherlanguage{english}
+
+\setmainfont{CMU Serif}
+\setsansfont{CMU Sans Serif}
+\setmonofont{CMU Typewriter Text}
+
+
+% =========================================================
+% МАТЕМАТИКА
+% =========================================================
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage{bm}
+\usepackage{mathrsfs}
+
+% =========================================================
+% СТРАНИЦА
+% =========================================================
+\usepackage[a4paper, margin=2cm]{geometry}
+
+% =========================================================
+% ЦВЕТА И РАМКИ
+% =========================================================
+\usepackage{xcolor}
+\usepackage[most]{tcolorbox}
+
+% =========================================================
+% ГРАФИКА
+% =========================================================
+\usepackage{graphicx}
+
+% =========================================================
+% СПИСКИ
+% =========================================================
+\usepackage{enumitem}
+
+% =========================================================
+% ЗАГОЛОВКИ
+% =========================================================
+\usepackage{titlesec}
+
+% =========================================================
+% КОЛОНТИТУЛЫ
+% =========================================================
+\usepackage{fancyhdr}
+
+% =========================================================
+% ТАБЛИЦЫ
+% =========================================================
+\usepackage{booktabs}
+\usepackage{array}
+
+% =========================================================
+% ССЫЛКИ
+% =========================================================
+\usepackage{hyperref}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    urlcolor=blue,
+    citecolor=blue
+}
+
+% =========================================================
+% НАСТРОЙКИ
+% =========================================================
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+
+% -------------------------
+% Определение
+% -------------------------
+\newtcolorbox{definition}[1][]{
+    breakable,
+    colback=red!5,
+    colframe=red!75!black,
+    fonttitle=\bfseries,
+    title=Определение,
+    #1
+}
+
+% -------------------------
+% Теорема
+% -------------------------
+\newtcolorbox{theorem}[2][]{
+    breakable,
+    colback=green!5,
+    colframe=green!50!black,
+    fonttitle=\bfseries,
+    title=Теорема #2,
+    #1
+}
+
+% -------------------------
+% Лемма
+% -------------------------
+\newtcolorbox{lemma}[2][]{
+    breakable,
+    colback=orange!5,
+    colframe=orange!70!black,
+    fonttitle=\bfseries,
+    title=Лемма #2,
+    #1
+}
+
+% -------------------------
+% Следствие
+% -------------------------
+\newtcolorbox{corollary}[1][]{
+    breakable,
+    colback=green!5,
+    colframe=green!35!black,
+    fonttitle=\bfseries,
+    title=Следствие,
+    #1
+}
+
+% -------------------------
+% Доказательство
+% -------------------------
+\newtcolorbox{proofbox}[2][]{
+    breakable,
+    colback=blue!5,
+    colframe=blue!50,
+    fonttitle=\bfseries,
+    title=Доказательство #2,
+    #1
+}
+
+% -------------------------
+% Замечание
+% -------------------------
+\newtcolorbox{note}[1][]{
+    breakable,
+    colback=purple!5,
+    colframe=purple!80!black,
+    fonttitle=\bfseries,
+    title=Замечание,
+    #1
+}
+
+% -------------------------
+% Свойства
+% -------------------------
+\newtcolorbox{props}[2][]{
+    breakable,
+    colback=green!5,
+    colframe=green!70!black,
+    fonttitle=\bfseries,
+    title=Свойства #2,
+    #1
+}
+
+% -------------------------
+% Примеры
+% -------------------------
+\newtcolorbox{example}[1][]{
+    breakable,
+    colback=brown!5,
+    colframe=brown!40!black,
+    fonttitle=\bfseries,
+    title=Примеры,
+    #1
+}
+
+% =========================================================
+% ДОКУМЕНТ
+% =========================================================
+\begin{document}
+
+\tableofcontents
+
+\newpage
+
+\section{Алгебра\, $\sigma$-алгебра и мера}
+
+\subsection{Алгебра и $\sigma$-алгебра}
+
+Пусть X — унивёрсум, $A \subset X$
+
+\begin{definition}
+
+\textbf{Алгебра} — непустая система множеств ($\mathcal{M}$) из X, удовлетворяющая двум условиям:
+
+1) Если множетсво лежит в $\mathcal{M}$, то его дополнение тоже лежит в $\mathcal{M}$
+
+$A \in \mathcal{M} \Longrightarrow A^C \in \mathcal{M}$
+
+2) Если n множеств лежит в $\mathcal{M}$, то их объединение тоже лежит в $\mathcal{M}$
+
+$\forall n < \infty: A_1, A_2,...,A_n \in \mathcal{M} \Longrightarrow \cup_{i=1}^{n} A_i \in \mathcal{M}$
+
+\end{definition}
+
+\begin{note}
+Если второе условие верно для счётного числа множеств, то $\mathcal{M}$ — $\sigma$-алгебра
+\end{note}
+
+\begin{example}
+
+1) $\{\emptyset, X\}$
+
+2) $2^X$
+
+3) $X = \{1, 2, 3\};\quad \mathcal{M} = \{\emptyset, {1}, {2, 3}, X\}$
+
+\end{example}
+
+\begin{props}{алгебры}
+
+1) $\emptyset, X\ \in \mathcal{M}$
+
+
+2) $A, B \in \mathcal{M} \Longrightarrow A \cap B \in \mathcal{M}$
+
+
+3) $A, B \in \mathcal{M} \Longrightarrow A \backslash B \in \mathcal{M}$
+
+
+4) $A, B \in \mathcal{M} \Longrightarrow A \triangle B \in \mathcal{M}$
+
+
+5) Если $\mathcal{M}$ — $\sigma$-алгебра, то объединение счётного количества множеств, лежащх в $\mathcal{M}$, лежит в $\mathcal{M}$
+(Если $A_i \in \mathcal{M}$, то $\cup_{i=1}^{\infty} A_i \in \mathcal{M}$)
+
+\end{props}
+
+\begin{proofbox}{свойства 1}
+Пусть $A \in \mathcal{M}$. Тогда $A^C \in \mathcal{M}$. Тогда $(A \cup A^C) = X \in \mathcal{M}$
+\end{proofbox}
+
+\begin{proofbox}{свойства 2}
+
+\[
+A, B \in \mathcal{M} \Longrightarrow A^C, B^C \in \mathcal{M} \Longrightarrow (A^C \cup B^C) \in \mathcal{M} \Longrightarrow (A^C \cup B^C)^C = (A \cap B) \in \mathcal{M}
+\]
+
+\end{proofbox}
+
+\begin{proofbox}{свойства 3}
+
+$B \in \mathcal{M} \Longrightarrow B^C \in \mathcal{M} \\$
+Тогда $A \backslash B = A \cap B^C \in \mathcal{M}$
+
+\end{proofbox}
+
+
+
+\begin{proofbox}{свойства 4}
+
+$A, B \in \mathcal{M} \Longrightarrow A \backslash B \in \mathcal{M}$ и $B \backslash A \in \mathcal{M}$
+
+Тогда $A \backslash B \cup B \backslash A = A \triangle B \in \mathcal{M}$
+
+\end{proofbox}
+
+
+\subsection{Мера}
+
+Пусть $A \cap B = \emptyset$. Тогда $A \sqcup B$ — \textbf{дизъюнктное объединение}
+
+Пусть $\mathcal{M}$ — система множеств, $\emptyset \in \mathcal{M}$. Тогда
+
+\begin{definition}
+
+\textbf{Мера} — отображение $\mu: \mathcal{M} \rightarrow [0, +\infty]$, если:
+
+1) $\mu(\emptyset) = 0$
+
+2) $A_i \in \mathcal{M}, \sqcup_{i=1}^\infty A_i \in \mathcal{M} \Longrightarrow \mu(\sqcup_{i=1}^\infty A_i) = \sum_{i=1}^\infty \mu(A_i) \quad (\sigma-$аддитивность)
+
+\end{definition}
+
+\begin{example}
+
+1) Нулевая мера: $\mu(A) = 0 \quad \forall A$
+\begin{flalign*}
+2)\quad \mu(A) &=
+\begin{cases}
+|A|, & \text{если A конечно},\\
+\infty, & \text{иначе}
+\end{cases}
+&
+\end{flalign*}
+
+3) Дискретная мера: пусть $a \in X$. Тогда:
+\begin{flalign*}
+\mu(A) &=
+\begin{cases}
+1, & \text{если $a \in A$},\\
+0, & \text{иначе}
+\end{cases}
+&
+\end{flalign*}
+
+\end{example}
+
+Пусть $\mathcal{M}$ --- $\sigma$-алгебра, $\mu$ --- мера на $\mathcal{M}$, $A,B\in\mathcal{M}$.
+
+\begin{props}{меры}
+
+1. \textbf{Монотонность:}
+
+$$
+A\subset B \Longrightarrow \mu(A)\leq\mu(B)
+$$
+
+
+2. \textbf{Непрерывность.} Пусть $\mathcal{M}$ --- $\sigma$-алгебра, $\mu$ --- мера. Тогда:
+
+Пусть $A_i\in\mathcal{M}$,
+\(    A_1\subset A_2\subset\ldots\subset A_n\subset A_{n+1}\subset\ldots
+   \)
+Тогда
+\(    \lim_{n\to\infty}\mu(A_n)
+    =
+    \mu\left(\bigsqcup_{i=1}^{\infty}A_i\right).
+   \)
+
+
+Пусть $A_i\in\mathcal{M}$,
+\[
+A_1\supset A_2\supset A_3\supset\ldots\supset A_n\supset A_{n+1}\supset\ldots
+\]
+и $\mu(A_1)<+\infty$. Тогда
+\[
+\lim_{n\to\infty}\mu(A_n)
+=
+\mu\left(\bigcap_{i=1}^{\infty}A_i\right)
+\]
+
+\end{props}
+
+\begin{proofbox}{свойства 1}
+
+Пусть $C=B\setminus A$. Тогда
+
+$$
+\mu(A\sqcup C)=\mu(A)+\mu(C)=\mu(B)
+$$
+
+откуда
+
+$$
+\mu(B)\geq\mu(A)
+$$
+
+\end{proofbox}
+
+\begin{proofbox}{свойства 2}
+Пусть $A_0=\varnothing$. Тогда
+\[
+\bigsqcup_{i=1}^{\infty}A_i
+=
+A_1\sqcup(A_2\setminus A_1)\sqcup(A_3\setminus A_2)\sqcup\ldots
+\]
+и, следовательно,
+\[
+\mu\left(\bigsqcup_{i=1}^{\infty}A_i\right)
+=
+\sum_{i=1}^{\infty}\mu(A_i\setminus A_{i-1})
+\]
+Поэтому
+\[
+\mu\left(\bigsqcup_{i=1}^{\infty}A_i\right)
+=
+\lim_{n\to\infty}
+\sum_{i=1}^{n}\mu(A_i\setminus A_{i-1})
+=
+\lim_{n\to\infty}\mu(A_n)
+\]
+\end{proofbox}
+
+\begin{proofbox}{свойства 3}
+Обозначим
+\[
+B_n=A_n\setminus A_{n+1}
+\]
+Тогда
+\[
+A_1=
+\left(\bigcap_{i=1}^{\infty}A_i\right)
+\sqcup
+\bigsqcup_{i=1}^{\infty}B_i
+\]
+Поэтому
+\[
+\mu(A_1)
+=
+\mu\left(\bigcap_{i=1}^{\infty}A_i\right)
++
+\sum_{i=1}^{\infty}\mu(B_i)
+\]
+Для каждого $n$ имеем
+\[
+A_n=
+\left(\bigcap_{i=1}^{\infty}A_i\right)
+\sqcup
+\bigsqcup_{i=n}^{\infty}B_i
+\]
+откуда
+\[
+\mu(A_n)
+=
+\mu\left(\bigcap_{i=1}^{\infty}A_i\right)
++
+\sum_{i=n}^{\infty}\mu(B_i)
+\]
+Так как $\mu(A_1)<+\infty$, хвост ряда стремится к нулю. Следовательно,
+\[
+\lim_{n\to\infty}\mu(A_n)
+=
+\mu\left(\bigcap_{i=1}^{\infty}A_i\right)
+\]
+\end{proofbox}
+
+
+\newpage
+
+\section{Мера Лебега в $\mathbb{R}^n$}
+
+\subsection{Определение}
+
+Пусть $a,b\in\mathbb{R}^n$:
+\[
+a=(a^1,\ldots,a^n),\qquad b=(b^1,\ldots,b^n),\qquad a^i<b^i
+\]
+
+\[
+(a,b)=(a^1,b^1)\times\ldots\times(a^n,b^n) \text{ — открытый брус}
+\]
+
+\[
+[a,b]=[a^1,b^1]\times\ldots\times[a^n,b^n] \text{ — закрытый брус}
+\]
+
+\begin{definition}
+\textbf{Брусом в $\mathbb{R}^n$} называется множество вида
+\[
+\Pi=\langle a,b\rangle
+\]
+где $a,b\in\mathbb{R}^n$, $a^i<b^i$.
+
+\[
+\mu(\Pi)=(b^1-a^1)(b^2-a^2)\cdots(b^n-a^n)
+=\prod_{i=1}^n(b^i-a^i)
+\]
+
+Это называется \textbf{мерой Лебега} на брусах.
+\end{definition}
+
+\begin{lemma}{}
+Пусть $P_k$ и $P$ --- брусы.
+
+\[
+P_k\in\mathcal P,\qquad P\in\mathcal P
+\]
+
+Тогда:
+
+\[
+\bigcup_{k=1}^{m}P_k\subset P \Longrightarrow \sum_{k=1}^{m}\mu(P_k)\leq\mu(P)
+\]
+
+\[
+P\subset\bigcup_{k=1}^{m}P_k \Longrightarrow \mu(P)\leq\sum_{k=1}^{m}\mu(P_k)
+\]
+\end{lemma}
+
+\begin{theorem}{}
+Определение меры Лебега корректно.
+\end{theorem}
+
+\begin{proofbox}{}
+Пусть $\mu$ — мера на $\mathcal P$ ($\mathcal P$ — НЕ алгебра)
+
+Доказательство счётной аддитивности:
+
+Пусть \(P_k, P \subset \mathcal P\) и
+\[
+P=\bigsqcup_{k=1}^{\infty}P_k
+\]
+
+\[
+P_k=\langle a_k,b_k\rangle,\qquad a_k,b_k\in\mathbb R^n,\qquad P=\langle a,b\rangle
+\]
+
+1) По лемме:
+\[
+\bigsqcup_{k=1}^{m}P_k\subset P
+\quad\Longrightarrow\quad
+\sum_{k=1}^{m}\mu P_k\leq \mu P
+\]
+
+При \(m\to\infty\):
+\[
+\sum_{k=1}^{\infty}\mu P_k\leq \mu P
+\]
+
+2) Для каждого \(P_k\): построим \(\widetilde P_k=\langle \widetilde a_k,\widetilde b_k\rangle\supset P_k\) (можем, потому что функция площади непрерывна) так, что
+\[
+\mu\widetilde P_k<\mu P_k+\frac{\varepsilon}{2^k}
+\]
+
+Имеем
+\[
+P\subset \overline P\subset \bigcup_{k=1}^{\infty}\widetilde P_k
+\]
+где \(P\) — компакт, \(\overline P\) — его замыкание, \(\widetilde P_k\) — открытые множества.
+
+Выделяем конечное подпокрытие:
+\[
+\overline P\subset\bigcup_{k=1}^{m}\widetilde P_k
+\]
+
+По лемме (п. 2):
+\[
+\mu P=\mu\overline P\leq\sum_{k=1}^{m}\mu\widetilde P_k
+\leq
+\sum_{k=1}^{\infty}\mu P_k+\sum_{k=1}^{\infty}\frac{\varepsilon}{2^k}
+\]
+
+\[
+\sum_{k=1}^{\infty}\mu P_k \leq \mu P \leq \sum_{k=1}^{\infty}\mu P_k+\varepsilon,
+\qquad \text{верно при } \forall \varepsilon>0
+\]
+
+При \(\varepsilon\to 0\):
+\[
+\Rightarrow\quad
+\sum_{k=1}^{\infty}\mu P_k\leq \mu P\leq\sum_{k=1}^{\infty}\mu P_k
+\]
+
+Отсюда
+\[
+\mu P=\sum_{k=1}^{\infty}\mu P_k
+\]
+
+Т.е. мы доказали счётную аддитивность.
+
+\end{proofbox}
+
+\subsection{Внутренняя и внешняя меры}
+
+\begin{definition}
+Пусть $A\subset\mathbb{R}^n$.
+
+\textbf{Внешней мерой Лебега} называется
+
+\[
+\mu^*A=
+\inf\left\{
+\sum_{k=1}^{\infty}\mu(P_k):
+A\subset\bigcup_{k=1}^{\infty}P_k,\
+P_k\in\mathcal P
+\right\}
+\]
+
+\begin{note}
+
+Это ещё не мера.
+
+\end{note}
+
+\end{definition}
+
+\begin{definition}
+Пусть $A\subset\mathbb{R}^n$.
+
+\textbf{Внутренней мерой Лебега} называется
+
+\[
+\mu_*A = \mu\Pi-\mu^*(\Pi-A)
+\]
+
+\begin{note}
+
+1) Также можно определить внутреннюю меру таким образом:
+
+\[
+\mu^*A=
+\sup\left\{
+\sum_{k=1}^{\infty}\mu(P_k):
+\bigcup_{k=1}^{\infty}P_k\subset A,\
+P_k\in\mathcal P
+\right\}
+\]
+
+2) Определение внутренней меры не зависит от бруса
+
+3) Это тоже не мера
+
+\end{note}
+
+\end{definition}
+
+\begin{definition}
+Пусть $A\subset\mathbb{R}^n, A$ — ограничено.
+
+$A$ называется измеримым по Лебегу, если
+
+\[
+\mu^*A=\mu_*A
+\]
+
+Тогда мера Лебега:
+
+\[
+\mu A=\mu^*A=\mu_*A
+\]
+
+\begin{note}
+
+Брус измерим по Лебегу
+
+\end{note}
+
+\end{definition}
+
+\begin{definition}
+Пусть $A\subset\mathbb{R}^n, A$ — неограничено.
+
+$A$ называется измеримым по Лебегу, если для любого $k\in\mathbb N$
+
+\[
+A\cap Q_k \forall k
+\]
+
+измеримо, где
+
+\[
+Q_k=[-k,k]^n \text{- кубы}
+\]
+
+Тогда
+
+\[
+\lambda A=\lim_{k\to\infty}\lambda(A\cap Q_k)
+\]
+
+\begin{note}
+
+Предел $\exists$ в $[0; +\infty]$ по теореме Вейерштрасса, так как последовательность $\lambda(A\cap Q_k)$ возрастает
+
+\end{note}
+
+\end{definition}
+
+\begin{theorem}{Каратеодори}
+Семейство всех измеримых по Лебегу множеств в $\mathbb R^n$ является $\sigma$-алгеброй.
+
+На этой $\sigma$-алгебре $\lambda$ является мерой.
+\end{theorem}
+
+\begin{lemma}{о структуре открытого множества}
+Пусть $G\subset\mathbb R^n$ --- открытое.
+
+Тогда существует счётное покрытие брусами:
+
+\[
+G=\bigcup_{i=1}^{\infty}P_i
+\]
+
+\end{lemma}
+
+\begin{proofbox}{}
+
+Пусть $x \in G, x$ — внутренняя $\Longrightarrow \exists B(x) \subset G \Longrightarrow \exists \: \text{брус} \: \Pi = [a;b) \subset B(x) \\ a, b \in \mathbb{Q}$
+
+Получается счётное покрытие
+\[
+\bigcup_{i=1}^{\infty}P_i \supset G
+\]
+
+\[
+\bigcup_{i=1}^{\infty}P_i = \bigsqcup_{i=1}^{\infty}(P_i\backslash P_{i-1}), P_0 = \emptyset, P_i\backslash P_{i — 1} = \bigsqcup \widetilde P_i
+\]
+Но $\bigcup_{i=1}^{\infty}P_i \subset G$
+
+Таким образом
+
+\[
+\exists P_i (\widetilde P_i) : G = \bigcup_{i=1}^{\infty}P_i
+\]
+
+\end{proofbox}
+
+\begin{note}
+В $\mathbb R^n$ измеримы:
+
+\begin{itemize}
+\item брусы;
+\item открытые множества;
+\item замкнутые множества;
+\item счётные объединения и пересечения измеримых множеств.
+\end{itemize}
+\end{note}
+
+\begin{lemma}{об инвариантности относительно движения}
+Мера Лебега не меняется относительно движения.
+
+Пусть
+
+\[
+F:\mathbb R^n\to\mathbb R^n
+\]
+
+--- движение, а $A$ --- измеримое множество.
+
+Тогда
+
+\[
+\mu(F(A))=\mu(A)
+\]
+\end{lemma}
+
+\begin{example}
+\textbf{\textit{Множество Витали}}
+Пусть
+
+\[
+A=[0,1]\subset\mathbb R
+\]
+
+Рассмотрим отношение:
+
+\[
+x\sim y\Longleftrightarrow x-y\in\mathbb Q
+\]
+
+Пусть $A$ содержит по одному представителю каждого класса.
+
+Тогда существуют $r_k\in[-1,1]\cap\mathbb Q$ такие, что
+
+\[
+[0, 1] \subset B = \bigcup_{k=1}^{\infty}(A+r_k) \subset [-1,2]
+\]
+
+Так как
+
+\begin{flalign*}
+\lambda B =\sum_{k=1}^\infty \lambda A =
+\begin{cases}
+0, & \text{если} $\lambda A = 0$,\\
+$\infty$, & \text{если $\lambda A > 0$}
+\end{cases}
+\end{flalign*}
+
+Но это невозможно. Следовательно, множество $A$ неизмеримо.
+\end{example}
+
+\newpage
+
+\section{Регулярность меры}
+
+\begin{theorem}{о регулярности меры}
+Пусть $A \subset \mathbb{R}^n$, $A$ измеримо по Лебегу. Тогда:
+
+\[
+\lambda A = \inf\{\lambda G \mid G \text{ --- открыто},\ A \subset G\}
+\]
+(внешняя регулярность),
+
+\[
+\lambda A = \sup\{\lambda F \mid F \text{ --- замкнуто},\ F \subset A\}
+\]
+(внутренняя регулярность).
+\end{theorem}
+
+\begin{proofbox}{}
+1) Докажем внешнюю регулярность.
+
+Очевидно, что для любого открытого $G$, содержащего $A$,
+\[
+\lambda A \leq \lambda G
+\]
+по монотонности меры.
+
+Пусть $\varepsilon>0$. Так как
+\[
+\lambda A
+=
+\inf\left\{
+\sum_{k=1}^{\infty}\lambda P_k
+\ \middle|\
+A\subset\bigcup_{k=1}^{\infty}P_k,\ P_k\in\mathcal{P}
+\right\}
+\]
+существуют брусы $P_k$ такие, что
+\[
+A\subset\bigcup_{k=1}^{\infty}P_k,
+\qquad
+\sum_{k=1}^{\infty}\lambda P_k<\lambda A+\varepsilon
+\]
+
+Для каждого $P_k$ выберем открытый брус $\widetilde P_k$ такой, что
+\[
+P_k\subset\widetilde P_k,
+\qquad
+\lambda\widetilde P_k<\lambda P_k+\frac{\varepsilon}{2^k}
+\]
+
+Обозначим
+\[
+G=\bigcup_{k=1}^{\infty}\widetilde P_k
+\]
+Тогда $G$ открыто и $A\subset G$. Кроме того,
+\[
+\lambda G
+\leq
+\sum_{k=1}^{\infty}\lambda\widetilde P_k
+\leq
+\sum_{k=1}^{\infty}\lambda P_k+\varepsilon
+<
+\lambda A+2\varepsilon
+\]
+
+Следовательно,
+\[
+\lambda A
+=
+\inf\{\lambda G\mid G\text{ --- открыто},\ A\subset G\}
+\]
+
+2) Докажем внутреннюю регулярность.
+
+Сначала пусть $A$ ограничено. Тогда существует брус $\Pi$ такой, что
+\[
+A\subset\Pi
+\]
+
+Для любого $\varepsilon>0$ по внешней регулярности существует открытое множество $G$ такое, что
+\[
+\Pi\setminus A\subset G,
+\qquad
+\lambda G<\lambda(\Pi\setminus A)+\varepsilon
+\]
+
+Множество $\Pi\setminus G$ замкнуто и $\Pi\setminus G\subset A$
+
+При этом
+\[
+\lambda(\Pi\setminus G)
+=
+\lambda\Pi-\lambda(G\cap\Pi)
+>
+\lambda\Pi-\lambda(\Pi\setminus A)-\varepsilon
+=
+\lambda A-\varepsilon
+\]
+
+Следовательно,
+\[
+\lambda A
+=
+\sup\{\lambda F\mid F\text{ --- замкнуто},\ F\subset A\}
+\]
+
+Теперь пусть $A$ неограничено. Тогда
+\[
+\lambda A
+=
+\lim_{k\to\infty}\lambda(A\cap Q_k)
+=
+\sup_k\lambda(A\cap Q_k)
+\]
+
+Для каждого $k$ множество $A\cap Q_k$ ограничено, поэтому
+\[
+\lambda(A\cap Q_k)
+=
+\sup\{\lambda F\mid F\subset A\cap Q_k,\ F\text{ --- замкнуто}\}
+\]
+
+Для каждого $k$ выберем замкнутое $F_k\subset A\cap Q_k$ так, что
+\[
+\lambda F_k>\lambda(A\cap Q_k)-\frac{1}{k}
+\]
+
+Можно считать, что
+\[
+F_k\subset F_{k+1}
+\]
+
+Тогда
+\[
+\lambda\left(\bigcup_{k=1}^{\infty}F_k\right)
+=
+\lim_{k\to\infty}\lambda F_k
+\geq \lambda A
+\]
+
+Следовательно, для любого $\varepsilon>0$ найдётся замкнутое множество $F_m\subset A$ такое, что
+\[
+\lambda F_m>\lambda A-\varepsilon
+\]
+
+Значит,
+\[
+\lambda A
+=
+\sup\{\lambda F\mid F\text{ --- замкнуто},\ F\subset A\}
+\]
+\end{proofbox}
+
+\begin{props}{}
+Пусть $A$ измеримо по Лебегу. Тогда для любого $\varepsilon>0$ существуют открытое множество $G$ и замкнутое множество $F$ такие, что
+\[
+F\subset A\subset G
+\]
+\[
+\lambda(G\setminus A)<\varepsilon,
+\qquad
+\lambda(A\setminus F)<\varepsilon
+\]
+\end{props}
+
+\begin{note}
+Вместо замкнутых множеств во внутренней регулярности можно брать компактные множества.
+\end{note}
+
+\newpage
+
+\section{Мера Лебега--Стилтьеса}
+
+\subsection{Опрделение}
+
+В $\mathbb{R}$ в качестве полуинтервалов возьмём множества $[a,b)$, где
+\[
+a,b\in\mathbb{R},
+\qquad
+a\leq b
+\]
+
+Пусть
+\[
+f:\mathbb{R}\to\mathbb{R}
+\]
+причём $f$ не убывает.
+
+\begin{definition}
+На полуинтервалах $[a,b)$ зададим
+\[
+\mu_f[a,b)=f(b)-f(a)
+\]
+\end{definition}
+
+Если $\mu_f$ является мерой, то она непрерывна. Пусть
+\[
+b_1<b_2<b_3<\ldots<b_n<b_{n+1}<\ldots,
+\qquad
+b_n\to b
+\]
+
+Тогда
+\[
+[a,b_n)\subset[a,b_{n+1})
+\]
+и
+\[
+\lim_{n\to\infty}\mu_f[a,b_n)
+=
+\mu_f\left(\bigcup_{n=1}^{\infty}[a,b_n)\right)
+\]
+
+Следовательно,
+\[
+\lim_{n\to\infty}\bigl(f(b_n)-f(a)\bigr)
+=
+f(b)-f(a)
+\]
+то есть
+\[
+\lim_{n\to\infty}f(b_n)=f(b)
+\]
+
+Таким образом,
+\[
+f(b-0)=f(b)
+\]
+то есть $f$ непрерывна слева.
+
+\begin{note}
+Если $f$ не убывает и непрерывна слева, то $\mu_f$ является мерой на системе полуинтервалов $[a,b)$.
+\end{note}
+
+\begin{note}
+Если
+\[
+f(x)=x
+\]
+то
+\[
+\mu_f=\lambda
+\]
+то есть мера Лебега является частным случаем меры Лебега--Стилтьеса.
+\end{note}
+
+\subsection{Мера точки}
+
+Имеем
+\[
+\bigcap_{k=1}^{\infty}\left[a,a+\frac{1}{k}\right)=\{a\}
+\]
+
+По непрерывности меры сверху
+\[
+\mu_f\{a\}
+=
+\lim_{k\to\infty}
+\mu_f\left[a,a+\frac{1}{k}\right)
+=
+\lim_{k\to\infty}
+\left(
+f\left(a+\frac{1}{k}\right)-f(a)
+\right)
+\]
+
+Следовательно,
+\[
+\mu_f\{a\}=f(a+0)-f(a)
+\]
+
+\begin{example}
+
+\[
+Пусть f(x)= \mathds{1}_{(0,+\infty)}(x)=
+\begin{cases}
+1, & x\in(0,+\infty),\\
+0, & x\notin(0,+\infty).
+\end{cases}
+\]
+
+Тогда мера $\mu_f$ сосредоточена в точке $0$.
+\end{example}
+
+Пусть $\lceil x\rceil=n$, то есть
+\[
+x\in(n-1,n]
+\]
+
+Для полуинтервалов получаем
+\[
+\mu_f[a,b)=f(b-0)-f(a+0)
+\]
+а для отрезков
+\[
+\mu_f[a,b]=f(b+0)-f(a)
+\]
+
+\newpage
+
+\section{Измеримые функции}
+
+\subsection{Определение}
+
+Пусть $(X,\mathcal{A},\mu)$ --- измеримое пространство, где $X$ --- пространство, с которым мы работаем, $\mathcal{A}$ --- $\sigma$-алгебра измеримых подмножеств $X$, $\mu$ --- мера на $\mathcal{A}$.
+
+\begin{definition}
+\textbf{Измеримая функция} $f:X\to\overline{\mathbb{R}}$ --- функция, для которой все её лебеговы множества измеримы для любых a
+
+\begin{align*}
+\forall a\in\mathbb{R}\qquad
+&E(f<a)=\{x\in X:f(x)<a\}\in\mathcal{A},\\
+&E(f\leq a)=\{x\in X:f(x)\leq a\}\in\mathcal{A},\\
+&E(f\geq a)=\{x\in X:f(x)\geq a\}\in\mathcal{A},\\
+&E(f>a)=\{x\in X:f(x)>a\}\in\mathcal{A}.
+\end{align*}
+
+\end{definition}
+
+\begin{theorem}{о лебеговых множествах}
+Пусть $f:X\to\overline{\mathbb{R}}$. Тогда следующие условия эквивалентны:
+\[
+\forall a\in\mathbb{R}\quad E(f<a)\in\mathcal{A}
+\]
+\[
+\forall a\in\mathbb{R}\quad E(f\leq a)\in\mathcal{A}
+\]
+\[
+\forall a\in\mathbb{R}\quad E(f>a)\in\mathcal{A}
+\]
+\[
+\forall a\in\mathbb{R}\quad E(f\geq a)\in\mathcal{A}
+\]
+\end{theorem}
+
+\begin{proofbox}{}
+Например,
+\[
+E(f\leq a)=\bigcap_{k=1}^{\infty}E\left(f<a+\frac1k\right)
+\]
+Так как все множества $E(f<a+\frac1k)$ измеримы, а $\mathcal{A}$ является $\sigma$-алгеброй, получаем измеримость пересечения.
+
+Остальные случаи получаются аналогично с использованием дополнения множеств.
+\end{proofbox}
+
+\begin{note}
+Если $f:\mathbb{R}\to\overline{\mathbb{R}}$ измерима, то множества E также измеримы.
+\end{note}
+
+\begin{example}
+
+1) $f(x)=c$ на $E$ --- измерима, так как
+\[
+E(f<a)=
+\begin{cases}
+E,&a>c,\\
+\varnothing,&a\leq c.
+\end{cases}
+\]
+
+2) $f\in C(\mathbb{R})$ --- измерима, так как прообраз открытого множества при непрерывном отображении открыт.
+
+3) Функция Дирихле:
+\[
+D(x)=
+\begin{cases}
+1,&x\in\mathbb{Q},\\
+0,&x\in\mathbb{R}\setminus\mathbb{Q}
+\end{cases}
+\]
+измерима.
+\end{example}
+
+Пусть $f:E\to\overline{\mathbb{R}}$ --- измеримая функция.
+
+\begin{props}{измеримых функций}
+
+1) Для любого $a\in\overline{\mathbb{R}}$
+\[
+f^{-1}(\{a\})
+\]
+измеримо.
+
+2) Для любых $a,b\in\overline{\mathbb{R}}$
+\[
+f^{-1}(\langle a,b\rangle)
+\]
+измеримо.
+
+3) Для любого открытого $G\subset\mathbb{R}$ множество
+\[
+f^{-1}(G)
+\]
+измеримо, а также замкнутого множества.
+
+4) Если $A$ измеримо и $A\subset E$, то сужение
+\[
+f|_A
+\]
+измеримо.
+
+5) Если $f|_{A_n}$ измерима $\forall n$, $n\in\mathbb{N}$, то $f$ измерима на
+\[
+\bigcup_{n=1}^{\infty}A_n
+\]
+
+6) Если $f$ является сужением некоторой функции на $X$, то она измерима.
+
+\end{props}
+
+\begin{theorem}{об измеримости композиции}
+Пусть
+\[
+\varphi:\mathbb{R}^n\supset D\to\overline{\mathbb{R}},
+\qquad
+\varphi\in C(D)
+\]
+и
+\[
+f:\mathbb{R}\to D\subset\mathbb{R}^n
+\]
+где
+\[
+f=(f_1,f_2,\ldots,f_n)
+\]
+а все $f_i$ измеримы.
+
+Тогда
+\[
+\varphi\circ f
+\]
+измерима.
+\end{theorem}
+
+\begin{proofbox}{}
+Рассмотрим прообраз луча:
+\[
+(\varphi\circ f)^{-1}((-\infty,a))
+=
+f^{-1}\left(\varphi^{-1}((-\infty,a))\right)
+\]
+
+Так как $\varphi$ непрерывна, множество
+\[
+\varphi^{-1}((-\infty,a))
+\]
+является открытым в $D$.
+
+Следовательно, его можно представить через счётное объединение:
+\[
+\bigcup_{i=1}^{\infty}[a_i,b_i)
+\]
+а прообразы этих множеств измеримы.
+
+Значит, $(\varphi\circ f)$ измерима.
+\end{proofbox}
+
+\subsection{Операции над измеримыми функциями}
+
+Пусть $f,g$ --- измеримые на $X$ функции.
+
+\begin{props}
+
+1) Функции
+\[
+f+g,\qquad f-g,\qquad fg,\qquad \frac fg\;(g\neq0)
+\]
+измеримы.
+
+2) Функции
+\[
+\max(f,g),\qquad \min(f,g),\qquad |f|
+\]
+измеримы.
+
+\end{props}
+
+\begin{note}
+
+1) $0 \: \cdot \: (\pm\infty) = 0$
+2) $(\pm\infty) — (\pm\infty) = 0$
+3) $(\mp\infty) + (\pm\infty) = 0$
+4) $\frac{a}{\pm\infty} = 0 \;\; \forall a \in \overline{\mathbb{R}}$
+
+\end{note}
+
+\begin{theorem}{о предельном переходе}
+Пусть
+\[
+f_n(x):X\to\overline{\mathbb{R}}
+\]
+измеримы. Тогда:
+
+1)
+\[
+\inf f_n,\qquad \sup f_n
+\]
+измеримы.
+
+2)
+\[
+\overline{\lim} f_n,\qquad \underline{\lim} f_n
+\]
+измеримы.
+
+3) Если существует
+\[
+\lim f_n
+\]
+то предел измерим.
+\end{theorem}
+
+\begin{proofbox}{}
+Например,
+\[
+\sup f_n
+=
+\lim_{n\to\infty}\sup_{k\leq n}f_k
+\]
+
+Так как конечные максимумы измеримы, то и предел измерим.
+
+Аналогично рассматриваются $\inf$, $\limsup$ и $\liminf$.
+\end{proofbox}
+
+\newpage
+
+\section{Простые функции}
+
+\begin{definition}
+\textbf{Простой функцией} называется измеримая функция
+\[
+f:X\to\mathbb{R}
+\]
+если она принимает конечное число значений.
+
+Например:
+\[
+\operatorname{sign}(x),\qquad \cos(x)=c
+\]
+
+Пусть
+\[
+f(x)=
+\begin{cases}
+c_1,\ x\in A_1,\\
+\vdots\\
+c_n,\ x\in A_n,
+\end{cases}
+\]
+где $A_i$ — измеримые дизъюнктные множества и
+\[
+\bigsqcup_{i=1}^{n}A_i=X
+\]
+
+Тогда $\{A_i\}$ — дизъюнктное разбиение множества $X$, и оно не единственно.
+\end{definition}
+
+Простую функцию можно записать в виде:
+\[
+f(x)=\sum_{k=1}^{n}c_k\cdot\chi_{A_k}(x)
+\]
+где
+\[
+\chi_{A}(x)=
+\begin{cases}
+1,\ x\in A,\\
+0,\ x\notin A.
+\end{cases}
+\]
+
+\begin{props}{простых функций}
+
+1) Для любой простой функции существует такое дизъюнктное разбиение множества $X$, и оно не единственно.
+
+2) Сумма, произведение, частное (знаменатель $\neq0$) конечного числа простых функций даёт снова простую функцию.
+
+3) $\min$ и $\max$ конечного числа простых функций дают простую функцию.
+
+4) Если $f$ — простая функция, то $f^{-1}((a,b))$, $a,b\in\overline{\mathbb{R}}$, измеримо.
+
+\end{props}
+
+\begin{theorem}{об аппроксимации измеримых функций простыми}
+Пусть
+\[
+f:X\to[0,+\infty]
+\]
+измерима. Тогда существует возрастающая последовательность простых функций $f_n$, такая что
+\[
+\forall x\in X\qquad f_n(x)\to f(x)
+\]
+\end{theorem}
+
+\begin{proofbox}{}
+Пусть
+\[
+\Delta_i=
+\left[
+\frac{i}{2^n},
+\frac{i+1}{2^n}
+\right),
+\qquad i=0,\ldots,n^2-1
+\]
+а также
+\[
+\Delta_{n^2}=[n,+\infty)
+\]
+
+Положим
+\[
+A_i=f^{-1}(\Delta_i)
+\]
+
+Тогда определим простую функцию
+\[
+g_n(x)=
+\sum_{i=0}^{n^2}
+\frac{i}{2^n}\chi_{A_i}(x)
+\]
+
+Но последовательность может быть невозрастающей
+
+Тогда пусть $f_n(x) = \max\{g_1(x), g_2(x),...,g_n(x)\}$ — последовательность возрастает и стремится к f так как $0 \leq f-f_n \leq \frac{1}{n} \; \forall x \in X$
+
+Следовательно, существует возрастающая последовательность простых функций, сходящаяся к $f$.
+\end{proofbox}
+
+\newpage
+
+\section{Интеграл по мере}
+
+Пусть $(X,\mathcal{A},\mu)$ — пространство с мерой
+
+\begin{definition}
+\textbf{Интегралом простой функции} называется число:
+\[
+\int_E f d\mu=
+\sum_{k=1}^{n}c_k\mu(A_k)
+\]
+где
+\[
+f=\sum_{k=1}^{n}c_k\chi_{A_k}
+\]
+\end{definition}
+
+\begin{definition}
+Пусть
+\[
+f:X\supset E\to[0,+\infty]
+\]
+измерима.
+
+Тогда
+\[
+\int_E f d\mu
+:=
+\sup\int_E g d\mu
+\]
+где $g$ — простая функция и
+\[
+0\leq g\leq f
+\]
+\end{definition}
+
+\begin{definition}
+Пусть
+\[
+f:X\supset E\to\overline{\mathbb{R}}
+\]
+измерима.
+
+Положим
+\[
+f_+=\max\{f,0\}
+\]
+\[
+f_-=\max\{-f,0\}
+\]
+
+Тогда
+\[
+f=f_+-f_-
+\]
+
+Интеграл определяется как
+\[
+\int_E f d\mu
+:=
+\int_E f_+ d\mu-
+\int_E f_- d\mu
+\]
+\end{definition}
+
+\begin{note}
+Если оба интеграла
+\[
+\int_E f_+ d\mu,\qquad
+\int_E f_- d\mu
+\]
+конечны, то $f$ называется суммируемой на $E$.
+
+Если ровно один из интегралов равен $+\infty$, то
+\[
+\int_E f d\mu=\pm\infty
+\]
+
+Если оба интеграла бесконечны, то $f$ называется неинтегрируемой и
+\[
+\int_E f d\mu
+\]
+не существует.
+\end{note}
+
+\begin{example}
+1) \[
+f(x)=c=\operatorname{const}
+\]
+
+Если $c\geq0$, то
+\[
+\int_E c d\mu
+=
+c\cdot\mu(E)
+\]
+
+Если $c<0$, то
+\[
+\int_E c d\mu
+=
+(-c)\cdot\mu(E)
+\]
+
+\bigskip
+
+2) Рассмотрим функцию Дирихле:
+\[
+D(x)=
+\begin{cases}
+1,\ x\in\mathbb{Q},\\
+0,\ x\in\mathbb{R}\setminus\mathbb{Q}.
+\end{cases}
+\]
+
+Пусть
+\[
+(\mathbb{R},\mathcal{A},\lambda)
+\]
+— пространство с мерой Лебега.
+
+Тогда
+\[
+\int D(x) d\lambda
+=
+1\cdot\lambda(\mathbb{Q})
++
+0\cdot\lambda(\mathbb{R}\setminus\mathbb{Q})
+=0
+\]
+\end{example}
+
+\begin{lemma}{о неучёте нулевых значений функции}
+Пусть
+\[
+f:X\supset E\to\overline{\mathbb{R}}
+\]
+измерима, $E_1,\subset E$ измерима, причём
+\[
+f|_{E\backslash E_1}=0
+\]
+
+Тогда
+\[
+\int_{E}f d\mu=\int_{E_1}f_1d\mu
+\]
+Причём они существуют или не существуют одновременно
+\end{lemma}
+
+\begin{proofbox}{}
+Если
+\[
+f=0
+\]
+то утверждение очевидно по определению.
+
+Если
+\[
+f\geq0
+\]
+то по определению интеграла
+\[
+\int_E f d\mu
+=
+\sup\int_E g d\mu
+\]
+где $g$ — простая функция и $g\leq f$.
+
+Тогда утверждение опять очевидно по 1 пункту
+
+Для знакопеременной функции делим её на $f_+$ и $f_-$. Дальше действуем как в пункте 2
+\end{proofbox}
+
+\begin{corollary}
+$\int_E fd\mu = \int_X f\:\cdot\:\chi_Ed\mu$
+\end{corollary}
+
+\begin{props}{}
+
+1) Если $f=0$ на множестве, то интеграл по этому множеству равен нулю.
+
+2) Если множества отличаются только на множество меры ноль, то интегралы совпадают.
+\end{props}
+
+\begin{theorem}{о монотонности по функции}
+Пусть
+\[
+f,g:E\to\overline{\mathbb{R}}
+\]
+причём
+\[
+f\leq g\quad \forall x\in E
+\]
+и
+\[
+\int_E f d\mu, \int_E g d\mu \;\: \exists\; \text{в} \; \overline{\mathbb{R}}
+\]
+
+Тогда
+\[
+\int_E f d\mu\leq\int_E g d\mu
+\]
+\end{theorem}
+
+\begin{proofbox}{}
+
+1) Пусть $f$ и $g$ — простые функции, и
+\[
+\{A_k\}
+\]
+— общее допустимое разбиение.
+
+Тогда
+\[
+f=\sum_{k=1}^{n}c_k\chi_{A_k},
+\qquad
+g=\sum_{k=1}^{n}d_k\chi_{A_k}
+\]
+где
+\[
+c_k\leq d_k
+\]
+
+Следовательно,
+\[
+\int_E f d\mu\leq\int_E g d\mu
+\]
+
+2) Пусть
+\[
+f,g\geq0
+\]
+
+Имеем:
+\[
+\{h\mid h\text{ простая},\ h\leq f\}
+\subset
+\{h\mid h\text{ простая},\ h\leq g\}
+\]
+
+Следовательно,
+\[
+\sup\{\ldots\}\leq\sup\{\ldots\}
+\]
+то есть
+\[
+\int_E f d\mu\leq\int_E g d\mu
+\]
+
+3) Пусть $f,g$ — знакопеременные
+
+Имеем
+\[
+f_+\leq g_+,
+\qquad
+f_-\geq g_-
+\]
+
+Следовательно,
+\[
+\int_E f_+ d\mu-\int_E f_- d\mu
+\leq
+\int_E g_+ d\mu-\int_E g_- d\mu
+\]
+
+То есть
+\[
+\int_E f d\mu\leq\int_E g d\mu
+\]
+
+\end{proofbox}
+
+\begin{corollary}
+\textbf{Монотонность по множеству}
+
+Пусть
+\[
+f:E\to[0,+\infty],
+\qquad
+E_1\subset E
+\]
+
+Тогда
+\[
+\int_{E_1}f d\mu
+\leq
+\int_Ef d\mu
+\]
+
+\end{corollary}
+
+\begin{proofbox}{}
+
+\[
+\int_{E_1}f d\mu
+=
+\int_X f\chi_{E_1} d\mu
+\]
+
+\[
+\int_{E}f d\mu
+=
+\int_X f\chi_{E} d\mu
+\]
+
+Но $E_1 \subset E$. Следовательно
+
+\[
+\int_{E_1}f d\mu
+\leq
+\int_Ef d\mu
+\]
+
+\end{proofbox}
+
+\begin{corollary}
+\textbf{Достаточное условие измеримости функции}
+
+Пусть $f$ измерима и ограничена на $E$, причём
+\[
+\mu(E)<+\infty
+\]
+
+Тогда $f$ суммируема.
+\end{corollary}
+
+\begin{theorem}{Беппо Леви}
+Пусть
+\[
+f_n:E\to[0,+\infty]
+\]
+— измеримые функции, такие что
+
+\[
+f_n(x)\leq f_{n+1}(x)
+\quad
+\forall x\in E
+\]
+
+и
+\[
+f_n(x)\to f(x)
+\quad
+\forall x\in E
+\]
+
+Тогда
+\[
+\int_E f_n d\mu
+\longrightarrow
+\int_E f d\mu
+\]
+\end{theorem}
+
+\begin{proofbox}{}
+
+1) a) f — измерима $\Longrightarrow \exists \int_E fd\mu$
+б) Так как $f_n$ возрастают, то $\int f_n$ тоже возрастают и по теореме Вейерштрасса $\exists \lim\int_E f_nd\mu = L$ и
+$\int f_nd\mu \leq \int fd\mu \Longrightarrow L \leq \int fd\mu$
+
+2) Докажем, что $L \geq \int fd\mu$
+
+Пусть $g$ — простая и $0 \leq g \leq f$, и
+
+\[
+g = \sum_{k=1}^m C_k \chi_{A_k}
+\]
+
+Пусть $\Theta \in (0, 1) $. Рассмотрим
+
+\[
+A_k \cap E_n = A_k \cap E(f_n\geq \Theta \cdot g)
+\]
+
+\[
+E_n \subset E_{n+1}, \bigcup_{n=1}^{\infty}E_n = E
+\]
+
+Тогда
+
+\[
+\int_E f_nd\mu \geq \int_{E_n} f_nd\mu\geq \int_{E_n} \Theta\cdot gd\mu = \sum_{k=1}^n \Theta C_k\mu(A_k \cap E_n) \longrightarrow \sum_{k=1}^n \Theta C_k\mu A_k
+\]
+
+Следовательно
+
+\[
+L \geq \sum_{k=1}^n \Theta C_k\mu A_k = \int \Theta\cdot gd\mu
+\]
+
+Отсюда $L \geq \int fd\mu$
+
+А так как $L \leq \int fd\mu$ и $L \geq \int fd\mu$, то $L = \int f_nd\mu = \int fd\mu$
+
+\end{proofbox}
+
+\begin{theorem}{о пренебрежимости множества меры ноль}
+Пусть $f$ измерима на $E$ и
+\[
+E_1\subset E
+\]
+причём
+\[
+\mu(E\setminus E_1)=0
+\]
+
+Тогда
+\[
+\int_E f d\mu
+=
+\int_{E_1}f d\mu
+\]
+\end{theorem}
+
+\begin{proofbox}{}
+1) Если $f$ — простая функция,
+\[
+f=\sum c_k\chi_{A_k}
+\]
+то
+\[
+E=\bigcup A_k,
+\qquad
+E_1=\bigcup(A_k\cap E_1)
+\]
+
+Имеем:
+\[
+\mu(A_k)
+=
+\mu(A_k\cap E_1)+
+\mu(A_k\cap(E\setminus E_1))
+\]
+
+Последний член равен нулю, поэтому
+\[
+\mu(A_k)=\mu(A_k\cap E_1)
+\]
+
+Следовательно,
+\[
+\int_E f d\mu
+=
+\int_{E_1}f d\mu
+\]
+
+2) Пусть
+\[
+f\geq0
+\]
+
+По теореме об аппроксимации существует последовательность простых функций $g_n$. По теореме Беппо Леви
+
+\[
+\int_Eg_n d\mu\to\int_Ef d\mu
+\]
+а также
+\[
+\int_{E_1}g_n d\mu\to\int_{E_1}f d\mu
+\]
+
+Так как для простых функций равенство уже доказано, получаем:
+\[
+\int_Ef d\mu
+=
+\int_{E_1}f d\mu
+\]
+
+3) Если f — знакопеременная, то рассматриваем $f_+$ и $f_-$ аналогично пункту 2
+
+\end{proofbox}
+
+\begin{definition}
+Функции $f$ и $g$ называются \textbf{равными почти всюду}, если
+\[
+\mu\{x\in X:f(x)\neq g(x)\}=0
+\]
+Обозначается:
+\[
+f\sim g
+\]
+\end{definition}
+
+\begin{theorem}{- Свойства интеграла}
+Пусть $f,g$ измеримы на $E$ и
+\[
+f,g:E\to\overline{\mathbb{R}}
+\]
+
+Тогда:
+
+1) $f \sim g \Longrightarrow \int_Efd\mu = \int_Egd\mu$
+
+
+
+2) Линейность:
+\[
+\int_E(\alpha f+\beta g) d\mu
+=
+\alpha\int_Ef d\mu
++
+\beta\int_Eg d\mu
+\]
+где
+\[
+\alpha,\beta\in\mathbb{R}
+\]
+
+
+
+3) Аддитивность:
+если
+\[
+E_1\cup E_2=E,
+\qquad
+E_1\cap E_2=\emptyset
+\]
+то
+\[
+\int_Ef d\mu
+=
+\int_{E_1}f d\mu
++
+\int_{E_2}f d\mu
+\]
+
+
+
+4) Если
+\[
+f>0,\qquad \mu(E)>0
+\]
+то
+\[
+\int_Ef d\mu>0
+\]
+
+
+
+5) Если
+\[
+\int_E|f| d\mu=0
+\]
+то
+\[
+f=0
+\]
+почти всюду на $E$.
+
+
+
+6)$f$ суммируема тогда и только тогда, когда $|f|$ суммируема, причём
+\[
+\left|
+\int_Ef d\mu
+\right|
+\leq
+\int_E|f| d\mu
+\]
+
+\end{theorem}
+
+\begin{proofbox}{свойства 1}
+Так как
+\[
+f\sim g
+\]
+то существует множество
+\[
+A=\{x\in E:f(x)\neq g(x)\}
+\]
+для которого
+\[
+\mu(A)=0
+\]
+
+Следовательно,
+\[
+f=g
+\]
+на множестве
+\[
+E\setminus A
+\]
+
+Разобьём интеграл:
+
+\[
+\int_E f d\mu
+=
+\int_{E\setminus A}f d\mu
++
+\int_A f d\mu
+\]
+
+Так как
+\[
+\mu(A)=0
+\]
+то
+
+\[
+\int_A f d\mu=0
+\]
+
+А на \(E\setminus A\):
+
+\[
+f=g
+\]
+
+поэтому:
+
+\[
+\int_{E\setminus A}f d\mu
+=
+\int_{E\setminus A}g d\mu
+\]
+
+Следовательно,
+
+\[
+\int_E f d\mu
+=
+\int_E g d\mu
+\]
+\end{proofbox}
+
+\begin{proofbox}{свойства 2}
+Пусть
+\[
+\int_E f d\mu,\qquad \int_E g d\mu
+\]
+существуют.
+
+Если $f$ и $g$ — простые функции, то
+\[
+\alpha f+\beta g
+\]
+также является простой функцией (по свойству конечных сумм).
+
+Пусть
+\[
+f,g\geq0
+\]
+
+Тогда по теореме об аппроксимации существуют последовательности простых функций:
+\[
+f_n\uparrow f,\qquad g_n\uparrow g
+\]
+
+Тогда
+\[
+\alpha f_n+\beta g_n\uparrow \alpha f+\beta g
+\]
+
+По теореме Леви:
+\[
+\int_E f_n d\mu\to\int_Ef d\mu
+\]
+\[
+\int_E g_n d\mu\to\int_Eg d\mu
+\]
+
+Имеем:
+\[
+\int_E(\alpha f_n+\beta g_n) d\mu
+=
+\alpha\int_Ef_n d\mu+
+\beta\int_Eg_n d\mu
+\]
+
+Переходя к пределу:
+\[
+\int_E(\alpha f+\beta g) d\mu
+=
+\alpha\int_Ef d\mu+
+\beta\int_Eg d\mu
+\]
+
+Для произвольных функций раскладываем их на положительную и отрицательную части:
+\[
+f=f_+-f_-,
+\qquad
+g=g_+-g_-
+\]
+\end{proofbox}
+
+\begin{proofbox}{свойства 3}
+Пусть
+\[
+E_1\cup E_2=E,
+\qquad
+E_1\cap E_2=\emptyset
+\]
+
+Тогда
+\[
+\chi_E=\chi_{E_1}+\chi_{E_2}
+\]
+
+Следовательно:
+\[
+\int_E f d\mu
+=
+\int_Xf\chi_E d\mu
+\]
+и
+\[
+\chi_E=\chi_{E_1}+\chi_{E_2}
+\]
+
+Получаем:
+\[
+\int_Ef d\mu
+=
+\int_Xf\chi_{E_1} d\mu+
+\int_Xf\chi_{E_2} d\mu
+\]
+то есть
+\[
+\int_Ef d\mu
+=
+\int_{E_1}f d\mu+
+\int_{E_2}f d\mu
+\]
+\end{proofbox}
+
+\begin{proofbox}{свойства 4}
+Пусть
+\[
+f>0,\qquad \mu(E)>0
+\]
+
+Рассмотрим множества:
+\[
+E_n=\left\{x\in E:f(x)>\frac1n\right\}
+\]
+
+Тогда
+\[
+E=\bigcup_{n=1}^{\infty}E_n
+\]
+
+Если бы
+\[
+\mu(E_n)=0
+\]
+для всех $n$, то из счётной аддитивности:
+\[
+\mu(E)=0
+\]
+что противоречит условию.
+
+Следовательно, существует $n$, для которого:
+\[
+\mu(E_n)>0
+\]
+
+Тогда:
+\[
+\int_Ef d\mu
+\geq
+\int_{E_n}f d\mu
+\geq
+\int_{E_n}\frac1n d\mu
+=
+\frac1n\mu(E_n)>0
+\]
+\end{proofbox}
+
+\begin{proofbox}{свойства 5}
+Пусть
+\[
+f\neq0
+\]
+на множестве
+\[
+A\subset E,
+\qquad
+\mu(A)>0
+\]
+
+Тогда:
+\[
+\int_E|f| d\mu
+\geq
+\int_A|f| d\mu>0
+\]
+по пункту 4.
+
+Получили противоречие с условием:
+\[
+\int_E|f| d\mu=0
+\]
+
+Следовательно:
+\[
+f=0
+\]
+почти всюду.
+\end{proofbox}
+
+\begin{proofbox}{свойства 6}
+Разложим функцию:
+
+\[
+f=f^+-f^-
+\]
+
+где
+
+\[
+|f|=f^++f^-
+\]
+
+Если
+
+\[
+\int_E |f| d\mu<\infty
+\]
+
+то
+
+\[
+\int_E f^+ d\mu
++
+\int_E f^- d\mu
+<\infty
+\]
+
+Следовательно,
+
+\[
+\int_E f^+ d\mu<\infty
+\]
+
+и
+
+\[
+\int_E f^- d\mu<\infty
+\]
+
+Поэтому существует:
+
+\[
+\int_E f d\mu
+=
+\int_E f^+ d\mu
+-
+\int_E f^- d\mu
+\]
+
+То есть $f$ суммируема.
+
+Обратно, если $f$ суммируема, то:
+
+\[
+\int_E f^+ d\mu<\infty
+\]
+
+\[
+\int_E f^- d\mu<\infty
+\]
+
+Следовательно:
+
+\[
+\int_E|f| d\mu
+=
+\int_E(f^++f^-) d\mu
+<\infty
+\]
+
+Значит, $|f|$ суммируема.
+
+Теперь докажем неравенство.
+
+Так как:
+
+\[
+-f^-\leq f\leq f^+
+\]
+
+то:
+
+\[
+-\int_E f^-d\mu
+\leq
+\int_E f d\mu
+\leq
+\int_E f^+d\mu
+\]
+
+Следовательно:
+
+\[
+\left|\int_E f d\mu\right|
+\leq
+\max
+\left(
+\int_Ef^+d\mu,
+\int_Ef^-d\mu
+\right)
+\]
+
+А значит:
+
+\[
+\left|\int_Ef d\mu\right|
+\leq
+\int_E(f^++f^-) d\mu
+\]
+
+То есть:
+
+\[
+\left|\int_Ef d\mu\right|
+\leq
+\int_E|f| d\mu
+\]
+\end{proofbox}
+
+\begin{theorem}{Неравенство Чебышёва}
+Пусть $f$ измерима на $E$, $t>0$.
+
+Тогда:
+\[
+\mu\{x\in E:|f(x)|\geq t\}
+\leq
+\frac1t\int_E|f| d\mu
+\]
+\end{theorem}
+
+\begin{proofbox}{}
+Обозначим:
+\[
+E_t=\{x\in E:|f(x)|\geq t\}
+\]
+
+Тогда:
+\[
+\int_E|f| d\mu
+\geq
+\int_{E_t}|f| d\mu
+\]
+
+Так как на $E_t$:
+\[
+|f|\geq t
+\]
+то:
+\[
+\int_{E_t}|f| d\mu
+\geq
+\int_{E_t}t d\mu
+=
+t\mu(E_t)
+\]
+
+Следовательно:
+\[
+t\mu(E_t)\leq\int_E|f| d\mu
+\]
+
+Делим на $t$:
+\[
+\mu(E_t)
+\leq
+\frac1t\int_E|f| d\mu
+\]
+\end{proofbox}
+
+\begin{corollary}
+Если $f$ суммируема, то $f$ конечно почти везде
+\end{corollary}
+
+\newpage
+
+\section{Сравнение интегралов Римана и Лебега}
+
+\begin{theorem}{Критерий Лебега интегрируемости по Риману}
+Пусть
+\[
+f:[a,b]\to\mathbb{R}
+\]
+ограничена.
+
+Тогда:
+\[
+f\in R[a,b]
+\Longleftrightarrow
+\lambda\{x\in[a,b]:f\text{ имеет разрыв в }x\}=0
+\]
+\end{theorem}
+
+\begin{theorem}{о связи интегралов Лебега и Римана}
+Если
+\[
+f\in R[a,b]
+\]
+то существует интеграл Лебега и:
+\[
+\int_{[a,b]}f d\lambda
+=
+\int_a^bf(x) dx
+\]
+\end{theorem}
+
+\begin{proofbox}{}
+Пусть
+\[
+\tau_n=\{x_i\}
+\]
+— разбиение отрезка на $2^n$ частей.
+
+Обозначим:
+\[
+m_i=\inf_{x\in[x_{i-1},x_i]}f(x)
+\]
+\[
+M_i=\sup_{x\in[x_{i-1},x_i]}f(x)
+\]
+
+Тогда нижняя и верхняя суммы:
+\[
+s_n=\sum_{i=1}^{n}m_i\Delta x_i
+\]
+\[
+S_n=\sum_{i=1}^{n}M_i\Delta x_i
+\]
+
+Определим простые функции:
+\[
+\underline f_n(x)=
+\sum_{i=1}^{n}
+m_i\chi_{[x_{i-1},x_i]}(x)
+\]
+
+\[
+\overline f_n(x)=
+\sum_{i=1}^{n}
+M_i\chi_{[x_{i-1},x_i]}(x)
+\]
+
+При измельчении разбиения:
+\[
+\underline f_n\uparrow f,
+\qquad
+\overline f_n\downarrow f
+\]
+и ограничены (сверху и снизу соответственно). Следовательно
+
+\[
+\exists \underline f(x) = \lim \underline f_n
+\text{и}
+\exists \overline{f(x)} = \lim \overline{f_n}
+\]
+
+Тогда по теореме Беппо Леви
+
+\[
+\int_{[a, b]}f_nd\lambda\longrightarrow\int\underline fd\lambda
+\]
+
+Для $\overline{f_n}: g_n = \overline{f_1} — \overline{f_n} \longrightarrow \overline{f_1} — \overline{f} \Longrightarrow \int \overline{f_n} \longrightarrow \int \overline{f}$
+
+Но
+\[
+\int \underline{f_n} = s_n, \int \overline{f_n} = S_n
+\]
+\[
+S_n - s_n \longrightarrow 0 \Longrightarrow \int(\overline{f_n} - \underline{f_n}) \longrightarrow \int(\overline{f} - \underline{f}) = 0 \Longrightarrow
+\]
+\[
+\Longrightarrow \overline{f} = \underline{f} \:\ \text{п.в.}
+= f  \:\ \text{п.в.} \Longrightarrow \int fd\lambda
+\]
+
+\end{proofbox}
+
+\newpage
+
+\section{Интеграл как функция множества}
+
+Пусть $f\colon X\to\overline{\mathbb{R}}$, $f$ --- фиксированная, $f$ --- измеримая функция.
+
+\[
+\varphi(A)=\int_A f\,d\mu,
+\qquad
+A\subset X,\quad A\text{ --- измеримое}
+\]
+
+\begin{theorem}{о счётной аддитивности интеграла}
+
+Пусть $f$ суммируема на $E$, то есть $f\in L(E)$,
+\[
+E=\bigsqcup_{k=1}^{\infty}E_k
+\]
+Тогда
+\[
+\int_E f\,d\mu
+=
+\sum_{k=1}^{\infty}\int_{E_k}f\,d\mu
+\]
+
+\end{theorem}
+
+\begin{proofbox}{}
+
+1) Пусть $f\geq 0$.
+
+\[
+\chi_E=\sum_{k=1}^{\infty}\chi_{E_k},
+\qquad
+f\chi_E=\sum_{k=1}^{\infty}f\chi_{E_k}
+\]
+
+Положим
+\[
+S_n(x)=\sum_{k=1}^{n}f(x)\chi_{E_k}(x)\geq 0
+\]
+Тогда
+\[
+S_n\uparrow,
+\qquad
+S_n\longrightarrow f\chi_E
+\]
+
+По теореме Леви
+\[
+\int_E S_n\,d\mu\longrightarrow\int_E f\,d\mu
+\]
+но
+\[
+\int_E S_n\,d\mu
+=
+\sum_{k=1}^{n}\int_{E_k}f\,d\mu
+\]
+
+2) Если $f$ произвольная, то
+\[
+f=f_+-f_-
+\]
+
+\end{proofbox}
+
+\begin{corollary}
+
+Если $f\colon X\to[0,+\infty]$, $f\in L(X)$, то
+\[
+\varphi(A)=\int_A f\,d\mu
+\]
+--- мера, а $f$ --- плотность меры.
+
+\end{corollary}
+
+\begin{corollary}
+
+\[
+\int_A f\,d\mu
+\]
+обладает свойством абсолютной непрерывности меры, а именно: непрерывностью сверху и снизу.
+
+\end{corollary}
+
+\begin{corollary}
+
+Если $f\in R_{\mathrm{loc}}[a,+\infty)$, $f\geq0$, то
+\[
+\int_a^{+\infty}f\,dx
+\]
+сходится. Тогда
+\[
+\int_{[a,+\infty)}f\,d\lambda
+=
+\int_a^{+\infty}f\,dx
+\]
+
+\end{corollary}
+
+\begin{proofbox}{}
+
+\[
+\int_a^{+\infty}f\,dx
+=
+\lim_{n\to+\infty}\int_a^n f\,dx
+=
+\lim_{n\to+\infty}\int_{[a,n]}f\,d\lambda
+=
+\int_{[a,+\infty)}f\,d\lambda
+\]
+
+\end{proofbox}
+
+\begin{corollary}
+
+Если
+\[
+\int_a^{+\infty}f\,dx
+\]
+сходится абсолютно, то
+\[
+\int_{[a,+\infty)}f\,d\lambda
+=
+\int_a^{+\infty}f\,dx
+\]
+
+Если несобственный интеграл сходится условно, то один из $\int f_{\pm}$ конечен, другой --- бесконечен.
+
+\end{corollary}
+
+\begin{theorem}{- Абсолютная непрерывность интеграла}
+
+Пусть $f$ --- суммируемая функция, то есть $f\in L(X)$. Тогда для любого $\varepsilon>0$ существует $\delta>0$ такое, что
+\[
+\mu(A)<\delta
+\quad\Longrightarrow\quad
+\int_A|f|\,d\mu<\varepsilon
+\]
+
+\end{theorem}
+
+\begin{proofbox}{}
+
+Так как
+\[
+\int_E|f|\,d\mu
+=
+\sup\left\{
+\int_E g\,d\mu:
+0\leq g\leq|f|,
+\quad g\text{ --- простая}
+\right\}
+\]
+то для любого $\varepsilon>0$ существует $g_\varepsilon$ такая, что
+\[
+\int_E g_\varepsilon\,d\mu
+>
+\int_E|f|\,d\mu-\frac{\varepsilon}{2}
+\]
+
+Пусть
+\[
+|g_\varepsilon|\leq C_\varepsilon
+\]
+Возьмём
+\[
+\delta=\frac{\varepsilon}{2C_\varepsilon}
+\]
+
+Если $\mu(A)<\delta$, то
+\[
+\begin{aligned}
+\int_A|f|\,d\mu
+&=
+\int_A\bigl(|f|-g_\varepsilon\bigr)\,d\mu
++
+\int_Ag_\varepsilon\,d\mu
+\\
+&\leq
+\frac{\varepsilon}{2}
++
+C_\varepsilon\frac{\varepsilon}{2C_\varepsilon}
+=
+\varepsilon.
+\end{aligned}
+\]
+
+\end{proofbox}
+
+\newpage
+
+\section{Функциональные последовательности и ряды}
+
+Пусть $X$ --- метрическое, нормированное или вообще произвольное пространство (в $\mathbb{R}^m\text{ или }\mathbb{R})$.
+
+Пусть
+\[
+f_n(x)\colon X\supset E\to\mathbb{R}
+\]
+--- \textbf{функциональная последовательность}:
+\[
+f_1(x),\,f_2(x),\,\ldots
+\]
+
+\begin{definition}{Множество сходимости функциональной последовательности}
+
+\[
+D=\left\{x\in E:\exists\lim_{n\to\infty}f_n(x)\in\mathbb{R}\right\}
+\]
+
+На $D$ определена функция
+\[
+f(x)=\lim_{n\to\infty}f_n(x)
+\]
+
+$f(x)$ --- предельная функция.
+
+\end{definition}
+
+\begin{example}
+
+Пусть
+\[
+f_n(x)=x^n:\quad 1,x,x^2,x^3,\ldots,
+\qquad E=\mathbb{R},\qquad D=(-1,1]
+\]
+и
+\[
+\lim_{n\to\infty}x^n=
+\begin{cases}
+0, & x\in(-1,1),\\
+1, & x=1.
+\end{cases}
+\]
+
+\end{example}
+
+\begin{definition}{Множество сходимости функционального ряда}
+
+Пусть функциональный ряд
+\[
+\sum_{k=1}^{\infty}f_k(x)
+\]
+где
+\[
+f_k(x)\colon X\supset E\to\mathbb{R}
+\]
+
+\[
+D=
+\left\{
+x\in E:
+\exists\lim_{n\to\infty}\sum_{k=1}^{n}f_k(x)\in\mathbb{R}
+\right\}
+\]
+
+\end{definition}
+
+\begin{example}
+
+1)
+\[
+\sum_{n=0}^{\infty}x^n
+\]
+сходится при $x\in(-1,1)$:
+\[
+\sum_{n=0}^{\infty}x^n=\frac{1}{1-x}
+\]
+
+2)
+\[
+\sum_{n=1}^{\infty}\frac{x^n}{n}
+\]
+
+При $|x|>1$ ряд расходится, так как
+\[
+\frac{x^n}{n}\not\to0
+\]
+
+При $x\in(-1,1)$:
+\[
+\left|\frac{x^n}{n}\right|\leq |x|^n
+\]
+поэтому ряд сходится.
+
+При $x=1$:
+\[
+\sum_{n=1}^{\infty}\frac{1}{n}
+\]
+расходится, а при $x=-1$:
+\[
+\sum_{n=1}^{\infty}\frac{(-1)^n}{n}
+\]
+сходится.
+
+Следовательно,
+\[
+D=[-1,1)
+\]
+
+\end{example}
+
+\newpage
+
+\section{Равномерная сходимость}
+
+\subsection{Определение}
+
+\begin{definition}{Равномерная сходимость}
+
+Пусть
+\[
+f_n(x)\colon E\to\mathbb{R}
+\]
+
+Последовательность $f_n(x)$ сходится равномерно на $D\subset E$ к $f(x)$,
+\[
+f_n(x)\overset{D}{\rightrightarrows}f(x) \Longleftrightarrow
+\]
+\[
+\Longleftrightarrow\forall\varepsilon>0\ \exists n_0\ 
+\forall n\geq n_0\ 
+\forall x\in D:
+\quad
+|f_n(x)-f(x)|<\varepsilon
+\]
+
+\end{definition}
+
+\begin{definition}
+Поточечная сходимость на $D$:
+\[
+\forall x\in D\ \forall\varepsilon>0\ \exists n_0(\varepsilon,x)\
+\forall n\geq n_0:
+\quad
+|f_n(x)-f(x)|<\varepsilon
+\]
+\end{definition}
+
+\begin{example}
+
+В равномерной сходимости все функции должны попасть внутрь трубки.
+
+Для поточечной сходимости для каждого $x$ разный номер $n_0$.
+
+\end{example}
+
+\begin{note}
+
+Если
+\[
+f_n\overset{D}{\rightrightarrows}f
+\]
+то
+\[
+f_n\overset{D}{\longrightarrow}f
+\]
+поточечно.
+
+\end{note}
+
+\begin{example}
+
+Пусть
+\[
+f_n(x)=x^n
+\longrightarrow
+\begin{cases}
+0, & x\in(-1,1),\\
+1, & x=1.
+\end{cases}
+\]
+
+1) На
+\[
+D_1=(-1,1]
+\]
+поточечная сходимость.
+
+2) Пусть
+\[
+D_2=[-a,a]\subset(-1,1)
+\]
+На $D_2$
+\[
+|x^n-0|\leq a^n<\varepsilon
+\]
+
+Можно взять
+\[
+n_0=\left[\log_a\varepsilon\right]+1
+\]
+то есть $n_0$ подходит для всех $x$. Следовательно,
+\[
+x^n\xrightarrow[n\to\infty]{D_2}0
+\]
+
+Покажем, что на
+\[
+D_3=(-1,1)
+\]
+сходимость к нулю неравномерная.
+
+Отрицание равномерной сходимости:
+\[
+\exists\varepsilon>0\ \forall n_0\ 
+\exists n\geq n_0\ 
+\exists x\in D:
+\quad
+|f_n(x)-f(x)|\geq\varepsilon
+\]
+
+Возьмём
+\[
+x_n=1-\frac1n
+\]
+Тогда
+\[
+f_n(x_n)=\left(1-\frac1n\right)^n
+\longrightarrow\frac1e>\frac{1}{2e}=\varepsilon
+\]
+
+Значит, последовательность $x^n$ сходится к нулю неравномерно на
+\[
+D=(-1,1)
+\]
+
+\end{example}
+
+Введём норму для $f\colon E\to\mathbb{R}$:
+\[
+\|f\|_E:=\sup_{x\in E}|f(x)|
+\]
+--- \textbf{суп-норма (равномерная, чебышёвская).}
+
+\begin{note}
+
+\[
+f_n\overset{D}{\rightrightarrows}f
+\quad\Longleftrightarrow\quad
+\|f_n-f\|_D\longrightarrow0,
+\qquad n\to\infty
+\]
+
+\end{note}
+
+\begin{example}
+
+Пусть
+\[
+f_n(x)=x^n,
+\qquad
+D_2=[-a,a]\subset(-1,1),
+\qquad
+D_3=(-1,1)
+\]
+
+Тогда
+\[
+\|x^n\|_{D_2}
+=
+\sup_{x\in[-a,a]}|x^n|
+=
+a^n\longrightarrow0
+\]
+а
+\[
+\|x^n\|_{D_3}
+=
+\sup_{x\in(-1,1)}|x^n|
+=
+1\longrightarrow1\neq0
+\]
+
+\end{example}
+
+\begin{definition}
+
+\textbf{Равномерная сходимость функционального ряда}
+
+Пусть
+\[
+f_n\colon E\to\mathbb{R}
+\]
+
+Ряд
+\[
+\sum_{n=1}^{\infty}f_n(x)
+\]
+сходится равномерно к $S(x)$, если
+\[
+S_n(x)=\sum_{k=1}^{n}f_k(x)\xrightarrow{D}S(x)
+\]
+
+\end{definition}
+
+\begin{note}
+
+\[
+\sum_{k=1}^{\infty}f_k(x)\overset{D}{\rightrightarrows}S(x)
+\quad\Longleftrightarrow\quad
+\|S_n-S\|_D\longrightarrow0
+\quad\Longleftrightarrow\quad
+\|R_n\|_D\longrightarrow0
+\quad\Longleftrightarrow\quad
+R_n(x)\overset{D}{\rightrightarrows}0
+\]
+
+\end{note}
+
+\begin{theorem}{Критерий Коши равномерной сходимости функциональной последовательности}
+
+\[
+f_n(x)\overset{D}{\rightrightarrows}f(x)
+\quad\Longleftrightarrow\quad
+\forall\varepsilon>0\ \exists n_0\
+\forall n\geq n_0\
+\forall p\in\mathbb{N}\
+\forall x\in D:
+\quad
+|f_{n+p}(x)-f_n(x)|<\varepsilon
+\]
+
+\end{theorem}
+
+\begin{proofbox}{}
+
+\textbf{Необходимость.}
+
+Пусть
+\[
+f_n(x)\overset{D}{\rightrightarrows}f(x)
+\]
+Тогда
+\[
+\forall\varepsilon>0\ \exists n_0\
+\forall n\geq n_0\
+\forall x\in D:
+\quad
+|f_n(x)-f(x)|<\frac{\varepsilon}{2}
+\]
+Следовательно,
+\[
+|f_{n+p}(x)-f_n(x)|
+\leq
+|f_{n+p}(x)-f(x)|
++
+|f(x)-f_n(x)|
+<\varepsilon
+\]
+
+\textbf{Достаточность.}
+
+Пусть
+\[
+\forall\varepsilon>0\ \exists n_0\
+\forall n\geq n_0\
+\forall p\in\mathbb{N}\
+\forall x\in D:
+\quad
+|f_{n+p}(x)-f_n(x)|<\varepsilon
+\]
+
+Тогда для каждого $x\in D$ последовательность $f_n(x)$ фундаментальна (выполнен критерий Коши для последовательности), следовательно, сходится:
+\[
+\exists f(x)=\lim_{n\to\infty}f_n(x)
+\]
+
+Из
+\[
+|f_{n+p}(x)-f_n(x)|<\varepsilon
+\]
+при $p\to\infty$ получаем
+\[
+|f(x)-f_n(x)|\leq\varepsilon
+\]
+а это определение равномерной сходимости. Следовательно,
+\[
+f_n\rightrightarrows f
+\]
+
+\end{proofbox}
+
+\begin{theorem}{Критерий Коши равномерной сходимости функционального ряда}
+
+Ряд
+\[
+\sum_{k=1}^{\infty}f_k(x)
+\]
+сходится равномерно на $D$ тогда и только тогда, когда
+\[
+\forall\varepsilon>0\ \exists n_0\
+\forall n\geq n_0\
+\forall p\in\mathbb{N}\
+\forall x\in D:
+\quad
+\left|
+\sum_{k=n+1}^{n+p}f_k(x)
+\right|<\varepsilon
+\]
+
+\end{theorem}
+
+\begin{proofbox}{}
+
+Очевидно, так как
+\[
+S_{n+p}(x)-S_n(x)
+=
+\sum_{k=n+1}^{n+p}f_k(x)
+\]
+
+\end{proofbox}
+
+\begin{corollary}
+
+\textbf{Необходимое условие равномерной сходимости ряда}
+
+Если
+\[
+\sum_{k=1}^{\infty}f_k(x)
+\]
+сходится равномерно на $D$, то
+\[
+f_k(x)\overset{D}{\rightrightarrows}0
+\]
+
+\end{corollary}
+
+\subsection{Простые свойства равномерно сходящихся функциональных последовательностей}
+
+Пусть
+\[
+f_n,g_n\colon D\to\mathbb{R}
+\]
+
+\begin{props}
+
+1) Если
+\[
+f_n\overset{D}{\rightrightarrows}f,
+\qquad
+g_n\overset{D}{\rightrightarrows}g
+\]
+то для любых $\alpha,\beta\in\mathbb{R}$
+\[
+\alpha f_n+\beta g_n\overset{D}{\rightrightarrows}\alpha f+\beta g
+\]
+
+2) Если $D_1\subset D$ и
+\[
+f_n\overset{D}{\rightrightarrows}f \text{, то}\ f_n\overset{D_1}{\rightrightarrows}f
+\]
+
+3) Если
+\[
+f_n\overset{D}{\rightrightarrows}f \text{ и } g \text{ ограничена на } D\text{, то } f_ng\overset{D}{\rightrightarrows}fg
+\]
+
+\end{props}
+
+\begin{proofbox}{свойства 1}
+
+Пусть
+\[
+f_n\overset{D}{\rightrightarrows}f,
+\qquad
+g_n\overset{D}{\rightrightarrows}g
+\]
+
+Для любых $\alpha,\beta\in\mathbb{R}$ имеем
+\[
+\begin{aligned}
+\left|
+(\alpha f_n(x)+\beta g_n(x))
+-
+(\alpha f(x)+\beta g(x))
+\right|
+&\leq
+|\alpha|\,|f_n(x)-f(x)|
++
+|\beta|\,|g_n(x)-g(x)|.
+\end{aligned}
+\]
+
+Так как $f_n\overset{D}{\rightrightarrows}f$ и $g_n\overset{D}{\rightrightarrows}g$, правая часть стремится к нулю равномерно по $x\in D$. Следовательно,
+\[
+\alpha f_n+\beta g_n
+\overset{D}{\rightrightarrows}
+\alpha f+\beta g
+\]
+
+\end{proofbox}
+
+\begin{proofbox}{свойства 2}
+
+Пусть $D_1\subset D$ и
+\[
+f_n\overset{D}{\rightrightarrows}f
+\]
+
+Тогда
+\[
+\forall\varepsilon>0\ \exists n_0\
+\forall n\geq n_0\
+\forall x\in D:
+\quad
+|f_n(x)-f(x)|<\varepsilon
+\]
+
+Так как $D_1\subset D$, то тем более
+\[
+\forall\varepsilon>0\ \exists n_0\
+\forall n\geq n_0\
+\forall x\in D_1:
+\quad
+|f_n(x)-f(x)|<\varepsilon
+\]
+
+Следовательно,
+\[
+f_n\overset{D_1}{\rightrightarrows}f
+\]
+
+\end{proofbox}
+
+\begin{proofbox}{свойства 3}
+
+Пусть
+\[
+f_n\overset{D}{\rightrightarrows}f
+\]
+и функция $g$ ограничена на $D$, то есть
+\[
+|g(x)|\leq C
+\qquad
+\forall x\in D
+\]
+
+Тогда
+\[
+|f_n(x)g(x)-f(x)g(x)|
+=
+|g(x)|\,|f_n(x)-f(x)|
+\leq
+C|f_n(x)-f(x)|
+\]
+
+Так как $f_n\overset{D}{\rightrightarrows}f$, для любого $\varepsilon>0$ начиная с некоторого номера $n_0$
+\[
+|f_n(x)-f(x)|<\frac{\varepsilon}{C}
+\qquad
+\forall x\in D
+\]
+
+Следовательно,
+\[
+|f_n(x)g(x)-f(x)g(x)|<\varepsilon
+\qquad
+\forall x\in D
+\]
+то есть
+\[
+f_ng\overset{D}{\rightrightarrows}fg
+\]
+
+\end{proofbox}
+
+\begin{note}
+
+Для рядов эти свойства тоже верны.
+
+\end{note}
+
+\begin{example}
+
+Рассмотрим
+\[
+\sum_{n=1}^{\infty}x^n,
+\qquad
+D=(-1,1)
+\]
+Так как
+\[
+f_n(x)=x^n\overset{D}{\rightrightarrows}0
+\]
+неравномерно, необходимое условие равномерной сходимости не выполнено.
+
+Следовательно,
+\[
+\sum_{n=1}^{\infty}x^n
+\]
+сходится неравномерно.
+
+\end{example}
+
+\newpage
+
+\section{Признаки равномерной сходимости ряда}
+
+\begin{theorem}{Признак Вейерштрасса}
+
+Пусть
+\[
+f_n(x)\colon X\to\mathbb{R},
+\qquad
+D\subset X
+\]
+и для всех $x\in D: |f_n(x)|\leq a_n \text{ и } \sum_{n=1}^{\infty}a_n$ сходится, то ряд
+\[
+\sum_{n=1}^{\infty}f_n(x)
+\]
+сходится равномерно на $D$ и абсолютно.
+
+$a_n$ --- \textbf{мажоранта}
+
+\end{theorem}
+
+\begin{proofbox}{}
+
+По критерию Коши
+\[
+\sum f_n(x)
+\]
+сходится равномерно тогда и только тогда, когда
+\[
+\forall\varepsilon>0\ \exists n_0\
+\forall n\geq n_0\
+\forall p\in\mathbb{N}\
+\forall x\in D:
+\quad
+\left|
+\sum_{k=n+1}^{n+p}f_k(x)
+\right|<\varepsilon
+\]
+
+Имеем
+\[
+\left|
+\sum_{k=n+1}^{n+p}f_k(x)
+\right|
+\leq
+\sum_{k=n+1}^{n+p}|f_k(x)|
+\leq
+\sum_{k=n+1}^{n+p}a_k
+<\varepsilon
+\]
+по критерию Коши для ряда $\sum a_k$.
+
+То есть выполнен критерий Коши равномерной сходимости ряда.
+
+\end{proofbox}
+
+\begin{example}
+
+Ряд
+\[
+\sum_{n=1}^{\infty}x^n
+\]
+сходится на $(-1,1)$.
+
+Пусть
+\[
+D=[-a,a]\subset(-1,1)
+\]
+Тогда
+\[
+|x^n|\leq a^n
+\]
+
+Следовательно, по признаку Вейерштрасса ряд сходится равномерно на $D$.
+
+\end{example}
+
+\begin{theorem}{Признаки Дирихле--Абеля равномерной сходимости ряда}
+
+Рассмотрим ряд
+\[
+\sum_{n=1}^{\infty}f_n(x)g_n(x),
+\qquad
+f_n,g_n\colon X\to\mathbb{R},
+\qquad
+D\subset X
+\]
+
+Для равномерной сходимости на $D$ ряда достаточно выполнения одного из следующих наборов условий.
+
+\textbf{Признак Дирихле:}
+
+1) Частичные суммы
+\[
+A_n(x)=\sum_{k=1}^{n}f_k(x)
+\]
+равномерно ограничены, то есть существует $C$ такое, что
+\[
+|A_n(x)|\leq C
+\qquad
+\forall n,\quad\forall x\in D
+\]
+
+2) $g_n(x)$ монотонна для каждого $x\in D$ и
+\[
+g_n(x)\xrightarrow[n\to\infty]{D}0
+\]
+
+\textbf{Признак Абеля:}
+
+1) Ряд
+\[
+\sum_{k=1}^{\infty}f_k(x)
+\]
+сходится равномерно на $D$.
+
+2) $g_n(x)$ монотонна для каждого $x\in D$ и равномерно ограничена:
+\[
+|g_n(x)|\leq C
+\]
+
+\end{theorem}
+
+\begin{proofbox}{}
+
+\textbf{Признак Дирихле.}
+
+Положим
+\[
+A_n=\sum_{k=1}^{n}a_k
+\]
+По преобразованию Абеля
+\[
+\sum_{k=1}^{n}a_kb_k
+=
+A_nb_n+
+\sum_{k=1}^{n-1}A_k(b_k-b_{k+1})
+\]
+
+Поэтому
+\[
+\begin{aligned}
+\left|
+\sum_{k=n+1}^{n+p}f_k g_k
+\right|
+&=
+\left|
+\sum_{k=1}^{n+p}f_k g_k
+-
+\sum_{k=1}^{n}f_k g_k
+\right|
+\\
+&=
+\left|
+A_{n+p}g_{n+p}
++
+\sum_{k=n}^{n+p-1}A_k(g_k-g_{k+1})
+-
+A_ng_n
+-
+\sum_{k=1}^{n-1}A_k(g_k-g_{k+1})
+\right|
+\\
+&\leq
+|A_{n+p}|\,|g_{n+p}|
++
+|A_n|\,|g_n|
++
+\sum_{k=n}^{n+p-1}|A_k|\,g_k-g_{k+1}|
+\\
+&\leq
+C\left(
+|g_{n+p}|+|g_n|
++
+\sum_{k=n}^{n+p-1}|g_k-g_{k+1}|
+\right).
+\end{aligned}
+\]
+
+Так как $g_n$ монотонна, то
+\[
+\sum_{k=n}^{n+p-1}|g_k-g_{k+1}|
+=
+|g_n-g_{n+p}|
+\]
+Следовательно,
+\[
+\left|
+\sum_{k=n+1}^{n+p}f_k g_k
+\right|
+\leq
+C\bigl(|g_{n+p}|+|g_n|+|g_n-g_{n+p}|\bigr)
+\leq
+2C\bigl(|g_{n+p}|+|g_n|\bigr)
+\]
+
+Так как
+\[
+g_n\overset{D}{\rightrightarrows}0
+\]
+то для всех достаточно больших $n$
+\[
+|g_n|<\frac{\varepsilon}{4C}
+\]
+равномерно по $x\in D$. Поэтому
+\[
+\left|
+\sum_{k=n+1}^{n+p}f_k(x)g_k(x)
+\right|<\varepsilon
+\]
+
+По критерию Коши ряд сходится равномерно на $D$.
+
+\bigskip
+
+\textbf{Признак Абеля.}
+
+Так как ряд
+\[
+\sum_{k=1}^{\infty}f_k(x)
+\]
+сходится равномерно, то его остаток
+\[
+R_n(x)=\sum_{k=1}^{\infty}f_k(x) - A_n(x) = S(x) - A_n(x)
+\]
+удовлетворяет
+\[
+R_n(x)\xrightarrow[n\to\infty]{D}0
+\]
+
+Положим
+\[
+A_n=S-R_n
+\]
+где $S$ --- сумма ряда. Применяя преобразование Абеля к хвосту ряда, получаем
+\[
+\begin{aligned}
+\left|
+\sum_{k=n+1}^{n+p}f_k g_k
+\right|
+&=
+|S - R_{n+p}|\,|g_{n+p}|
++
+|S - R_n|\,|g_n|
++
+\sum_{k=n}^{n+p-1}|S - R_k|\,|g_k-g_{k+1}|
+\\
+&=
+\left|
+S(g_{n+p}-g_n+\sum_{k=n}^{n+p-1}g_k-g_{k+1} + ...)
+\right|
+\\
+&\leq
+|R_{n+p}| \cdot |g_{n+p}| + |R_n| \cdot |g_n| + \sum_{k=n}^{n+p-1}R_k(g_k-g_{k+1})
+\\
+&\leq
+C\frac{\varepsilon}{4C}
++
+\frac{\varepsilon}{4C}C
++
+2C\frac{\varepsilon}{4C}
+=
+\varepsilon.
+\end{aligned}
+\]
+
+По критерию Коши ряд сходится равномерно на $D$.
+
+\end{proofbox}
+
+\begin{example}
+
+Рассмотрим ряд
+\[
+\sum_{n=1}^{\infty}\frac{\sin(nx)}{n}
+\]
+
+Положим
+\[
+A_n(x)=\sum_{k=1}^{n}\sin(kx)
+\]
+Тогда
+\[
+A_n(x)
+=
+\frac{\sin\frac{nx}{2}\,
+\sin\frac{(n+1)x}{2}}
+{\sin\frac{x}{2}}
+\]
+
+Если
+\[
+x\in(\delta,2\pi-\delta),
+\qquad
+\delta\in(0,\pi)
+\]
+то
+\[
+\left|\sin\frac{x}{2}\right|
+>
+\sin\frac{\delta}{2}
+\]
+Поэтому
+\[
+|A_n(x)|
+<
+\frac{1}{\sin\frac{\delta}{2}}
+\]
+
+Кроме того,
+\[
+g_n(x)=\frac1n\downarrow0
+\]
+причём сходимость к нулю равномерная на $D$.
+
+Следовательно, по признаку Дирихле ряд
+\[
+\sum_{n=1}^{\infty}\frac{\sin(nx)}{n}
+\]
+сходится равномерно на $[\delta,2\pi-\delta]$.
+
+\end{example}
+
+\begin{lemma}
+
+Пусть
+\[
+f_k(x)\in C[a,b],
+\qquad
+f_k(x)\xrightarrow[k\to\infty]{[a,b]}f(x)
+\]
+
+Тогда $f(x)$ сходится равномерно на $[a,b]$.
+
+\end{lemma}
+
+\begin{proofbox}{}
+
+По критерию Коши
+\[
+\forall\varepsilon>0\ \exists n_0\
+\forall n\geq n_0\
+\forall p\in\mathbb{N}\
+\forall x\in[a,b]:
+\quad
+|f_{n+p}(x)-f_n(x)|<\varepsilon
+\]
+
+Пусть $x\to a+0$. Так как функции $f_n$ непрерывны,
+\[
+f_{n+p}(x)\to f_{n+p}(a),
+\qquad
+f_n(x)\to f_n(a)
+\]
+Следовательно,
+\[
+|f_{n+p}(a)-f_n(a)|\leq\varepsilon
+\]
+
+Таким образом, предельная функция непрерывна на $[a,b]$.
+
+\end{proofbox}
+
+\newpage
+
+\section{Свойства равномерной сходимости}
+
+Пусть
+\[
+f_1(x),\, f_2(x),\,\ldots,\,f_n(x),\,\ldots
+\overset{D}{\rightrightarrows} f(x)
+\]
+и при $x\to x_0$
+\[
+f_1(x)\to a_1,\qquad
+f_2(x)\to a_2,\qquad
+\ldots,\qquad
+f_n(x)\to a_n,\qquad
+\ldots
+\]
+а $f(x)\to A$.
+
+\begin{theorem}{о перестановке пределов}
+Пусть
+\[
+f_n:X\to\mathbb{R},\qquad D\subset X,\qquad
+f_n(x)\overset{D}{\rightrightarrows}f(x)
+\]
+$x_0$ --- предельная точка множества $D$, и для любого $n\in\mathbb{N}$
+\[
+\lim_{x\to x_0}f_n(x)=a_n\in\mathbb{R}
+\]
+
+Тогда:
+
+1) существует $\displaystyle\lim_{n\to\infty}a_n\in\mathbb{R}$;
+
+2) $\lim_{x\to x_0}f(x) = \lim_{n\to\infty}a_n$
+\end{theorem}
+
+\begin{proofbox}{}
+1) По критерию Коши: для любого $\varepsilon>0$ существует $n_0$ такое, что для любых $n\geq n_0$, $p\in\mathbb{N}$ и $x\in D$
+\[
+|f_{n+p}(x)-f_n(x)|<\varepsilon
+\]
+
+Переходя к пределу при $x\to x_0$, получаем
+\[
+|a_{n+p}-a_n|\leq\varepsilon
+\]
+Следовательно, последовательность $\{a_n\}$ фундаментальна, а значит, сходится.
+
+Обозначим
+\[
+A=\lim_{n\to\infty}a_n
+\]
+
+2) Докажем, что
+\[
+A=\lim_{x\to x_0}f(x)
+\]
+
+Для любого $\varepsilon>0 \ \exists \delta > 0: x \in \overset{0}{U}_{\delta(x_0)} \Longrightarrow |f(x) - A| < \varepsilon$
+
+Рассмотрим
+
+\[
+|f(x) - A| \leq |f(x) - f_n(x)| + |f_n(x) - a_n| + |a_n - A|<\varepsilon
+\]
+
+Следовательно,
+\[
+\lim_{x\to x_0}f(x)=A
+\]
+\end{proofbox}
+
+\begin{corollary}
+Если ряд
+\[
+\sum_{n=1}^{\infty}f_n(x)
+\]
+сходится равномерно на $D$ и существуют пределы $\displaystyle\lim_{x\to x_0}f_n(x)$, то
+\[
+\lim_{x\to x_0}\sum_{n=1}^{\infty}f_n(x)
+=
+\sum_{n=1}^{\infty}\lim_{x\to x_0}f_n(x)
+\]
+\end{corollary}
+
+\begin{example}
+\[
+\lim_{x\to1-0}\lim_{n\to\infty}x^n
+=
+\lim_{x\to1-0}0
+=
+0
+\]
+но
+\[
+\lim_{n\to\infty}\lim_{x\to1-0}x^n
+=
+\lim_{n\to\infty}1
+=
+1
+\]
+
+Следовательно,
+\[
+x^n\not\rightrightarrows 0
+\qquad\text{на }(0,1)
+\]
+\end{example}
+
+\begin{theorem}{о непрерывности предельной функции}
+Пусть
+\[
+f_n:X\to\mathbb{R},\qquad D\subset X,\qquad
+f_n(x)\overset{D}{\rightrightarrows}f(x),
+\qquad x_0\in D
+\]
+и $f_n$ непрерывна в точке $x_0$ для любого $n$.
+
+Тогда $f$ непрерывна в точке $x_0$.
+\end{theorem}
+
+\begin{proofbox}{}
+1) Если $x_0$ не является предельной точкой множества $D$, то $x_0$ изолирована, следовательно, $f$ непрерывна в $x_0$.
+
+2) Пусть $x_0$ --- предельная точка множества $D$. Тогда по теореме о перестановке пределов
+\[
+\lim_{x\to x_0}f(x)
+=
+\lim_{n\to\infty}\lim_{x\to x_0}f_n(x)
+=
+\lim_{n\to\infty}f_n(x_0)
+=
+f(x_0)
+\]
+Следовательно, $f$ непрерывна в точке $x_0$.
+\end{proofbox}
+
+\begin{corollary}
+Если $f_n$ непрерывна в точке $x_0$ для любого $n$ и ряд $\sum_{n=1}^{\infty}f_n(x)$ сходится равномерно, то его сумма
+\[
+S(x)=\sum_{n=1}^{\infty}f_n(x)
+\]
+непрерывна в точке $x_0$.
+\end{corollary}
+
+\begin{theorem}{об интегрировании предельной функции}
+Пусть
+\[
+f_n:X\to\mathbb{R},\qquad [a,b]\subset X,\qquad
+f_n\in\mathcal{R}[a,b]\quad\forall n
+\]
+и
+\[
+f_n\overset{[a,b]}{\rightrightarrows}f
+\]
+
+Тогда:
+
+1) $f\in\mathcal{R}[a,b]$;
+
+2)
+\[
+\int_a^x f_n(t)\,dt
+\overset{[a,b]}{\rightrightarrows}
+\int_a^x f(t)\,dt
+\]
+\end{theorem}
+
+\begin{proofbox}{}
+1) Критерий интегрируемости:
+\[
+f\in\mathcal{R}[a,b]
+\Longleftrightarrow
+\forall\varepsilon>0\ \exists\delta>0\ \forall\tau:
+\lambda(\tau)<\delta
+\quad\Longrightarrow\quad
+S_\tau-s_\tau<\varepsilon
+\]
+где
+\[
+S_\tau-s_\tau=\sum \omega_i\Delta x_i
+\]
+
+\[
+|f(x)-f(y)|
+\leq
+|f(x)-f_n(x)|
++
+|f_n(x)-f_n(y)|
++
+|f_n(y)-f(y)|
+\]
+
+Следовательно,
+\[
+\omega_i(f)\leq 2\varepsilon+\omega_i(f_n)
+\]
+и
+\[
+\Omega_f
+\leq
+2\varepsilon(b-a)+\Omega_{f_n}
+<
+\varepsilon\bigl(2(b-a)+1\bigr)
+\quad\Longrightarrow\quad
+f\in\mathcal{R}[a,b]
+\]
+
+2)
+\[
+\left|
+\int_a^x f_n-\int_a^x f
+\right|
+\leq
+\int_a^x|f_n-f|\,dt
+<
+\frac{\varepsilon}{b-a}(x-a)
+\leq\varepsilon
+\]
+\end{proofbox}
+
+\begin{corollary}
+Если $f_n\in\mathcal{R}[a,b]$ и ряд
+\[
+\sum_{n=1}^{\infty}f_n(x)
+\]
+сходится равномерно на $[a,b]$, то
+\[
+\int_a^x\sum_{n=1}^{\infty}f_n(t)\,dt
+=
+\sum_{n=1}^{\infty}\int_a^x f_n(t)\,dt
+\]
+\end{corollary}
+
+\begin{theorem}{о дифференцировании предельной функции}
+Пусть
+\[
+f_n\in C^1[a,b],\qquad x_0\in[a,b]
+\]
+последовательность $\{f_n(x_0)\}$ сходится и
+\[
+f_n'(x)\overset{[a,b]}{\rightrightarrows}g(x)
+\]
+
+Тогда:
+
+1)
+\[
+f_n(x)\overset{[a,b]}{\rightrightarrows}f(x)
+\]
+
+2)
+\[
+f\in C^1[a,b],
+\qquad
+f'(x)=g(x)
+\]
+\end{theorem}
+
+\begin{proofbox}{}
+1) Так как
+\[
+f_n' \overset{[x_0,x]}{\rightrightarrows} g
+\]
+то
+\[
+\int_{x_0}^{x} f_n' \overset{[x_0,x]}{\rightrightarrows} \int_{x_0}^{x} g
+\]
+
+\[
+\lim_{n\to\infty}\bigl(f_n(x)-f_n(x_0)\bigr)
+=
+\int_{x_0}^{x} g\,dt
+\quad\Longrightarrow\quad
+f_n(x)\longrightarrow C+\int_{x_0}^{x}g(t)\,dt=f(x)
+\]
+где
+\[
+\lim_{n\to\infty}f_n(x_0)=C
+\]
+
+2) $f$ дифференцируема, и
+\[
+f'(x)
+=
+\left(C+\int_{x_0}^{x}g(t)\,dt\right)'
+=
+g(x)
+\]
+(по теореме Барроу), $g(x)$ непрерывна, так как $f_n'$ непрерывны.
+
+Следовательно,
+\[
+f\in C^1
+\]
+\end{proofbox}
+
+\begin{example}
+
+\textbf{Применение}
+
+Найти
+\[
+S(x)=\sum_{n=1}^{\infty}nx^n=x+2x^2+3x^3+\ldots
+\]
+
+Ряд сходится на $(-1,1)$ неравномерно и сходится равномерно на $[-a,a]\subset(-1,1)$.
+
+\[
+(x^n)'=nx^{n-1}
+\]
+
+I способ:
+\[
+S(x)
+=
+x\sum_{n=1}^{\infty}nx^{n-1}
+=
+x\sum_{n=1}^{\infty}(x^n)'
+=
+x\left(\sum_{n=1}^{\infty}x^n\right)'
+=
+x\left(\frac{x}{1-x}\right)'
+=
+\frac{x}{(1-x)^2}
+\]
+
+II способ:
+
+$S(x)$ сходится равномерно на $[-a,a]$.
+
+\[
+S(x)
+=
+\sum_{n=1}^{\infty}nx^n
+=
+x\sum_{n=1}^{\infty}nx^{n-1}
+=
+S_1(x)
+\]
+
+\[
+\int_0^x S_1(t)\,dt
+=
+\int_0^x\left(\sum_{n=1}^{\infty}nt^{n-1}\right)dt
+=
+\sum_{n=1}^{\infty}\int_0^x nt^{n-1}\,dt
+=
+\sum_{n=1}^{\infty}x^n
+=
+\frac{x}{1-x}
+\]
+
+Следовательно,
+\[
+S_1(x)
+=
+\left(\frac{x}{1-x}\right)'
+\]
+
+\end{example}
+
+\newpage
+
+\section{Степенные ряды}
+
+\begin{definition}
+$\sum_{n=0}^\infty a_n(x-x_0)^n = a_0 + a_1(x-x_0) + a_2(x-x_0)^2 + ...$ - \textbf{степенной ряд}
+
+При $x = x_0$ - сходится
+
+Замена $t = x - x_0: \qquad \sum_{n=0}^\infty a_nt^n$
+\end{definition}
+
+\begin{theorem}{ - Первая теорема Абеля}
+
+1) Если ряд $\sum^\infty$ сходится при $x=x_1$, то он сходится $\forall x: |x|<|x_1|$
+
+2)  Если при $x=x_2$ ряд расходится, то он расходится $\forall x: |x|>|x_2|$
+
+\end{theorem}
+
+\begin{proofbox}{}
+Пусть ряд $\sum_{n=0}^\infty a_n x_1^n$ сходится и $|x|<|x_1|$
+
+Оценим: 
+\[
+|a_n x_n| = |a_n x_1^n| \cdot \left| \frac{x^n}{x_1^n} \right|
+\]
+
+Так как $|a_n x_1^n| \longrightarrow 0$, то оно ограничено. Тогда 
+
+\[
+|a_n x_1^n| \cdot \left| \frac{x^n}{x_1^n} \right|
+\leq c \ \cdot \left| \frac{x^n}{x_1^n} \right|
+\]
+
+Но 
+
+\[
+\left| \frac{x}{x_1} \right| < 1
+\]
+
+Следовательно, ряд сходится абсолютно.
+
+2) Пусть при $x: |x|>|x_2|$ ряд сходится. Тогда по п.1 в точке $x_2$ ряд сходится. Противоречие
+\end{proofbox}
+
+\begin{corollary}
+$\exists! R \in [0, +\infty]: $
+
+на $(-R, R)$ ряд сходится,
+
+а на $(-\infty, -R)\cup(R, +\infty)$ ряд расходится
+
+В таком случае:
+
+R - радиус сходимости
+
+$(-R, R)$ - интервал сходимости
+
+\end{corollary}
+
+\begin{example}
+\[
+\text{1) } \sum_{n=0}^\infty x^n \ D = (-1, 1), \ R = 1
+\]
+
+\[
+\text{2) }\sum_{n=0}^\infty \frac{x_n}{n^2} \ \ D = [-1, 1], \ R = 1
+\]
+
+\[
+\text{3) }\sum_{n=0}^\infty \frac{x_n}{n} \ \ D = [-1, 1), \ R = 1
+\]
+
+\[
+\text{4) }\sum_{n=0}^\infty n! \cdot x^n \ \ D = \{0\}, \ R = 0
+\]
+
+\[
+\text{5) }\sum_{n=0}^\infty \frac{x_n}{n!} \ \ D = \mathbb{R}, \ R = +\infty
+\]
+
+\end{example}
+
+\begin{theorem}{- Формула Коши-Адамара}
+
+Для ряда $\sum_{n=0}^\infty a_nx^n$ верно, что:
+
+\[
+R = \frac{1}{\overline{\lim_{n\to\infty}}\sqrt[n]{|a_n|}}
+\]
+
+\end{theorem}
+
+\begin{proofbox}{}
+
+Применим радикальный признак Коши:
+
+\[
+l = \overline{\lim_{n\to\infty}}\sqrt[n]{|a_n x^n|}
+\]
+
+Если $l < 1 \Longrightarrow$ ряд $\sum|a_nx^n|$ сходится
+
+Если $l > 1 \Longrightarrow$ ряд $\sum|a_nx^n|$ расходится, так как не стремится к 0, а значит $\sum a_nx^n$ расходится.
+
+\[
+l = |x|\overline{\lim_{n\to\infty}}\sqrt[n]{|a_n|} < 1 \Longleftrightarrow |x| < \frac{1}{\overline{\lim_{n\to\infty}}\sqrt[n]{|a_n|}}
+\]
+
+\end{proofbox}
+
+\begin{note}
+Форула Коши-Адамара верна в $\overline{\mathbb{R}}$, то есть
+
+\[
+\overline{\lim} = 0 \Longrightarrow R = + \infty
+\]
+и 
+\[
+\overline{\lim} = +\infty \Longrightarrow R = 0
+\]
+
+\end{note}
+
+\begin{theorem}{о равномерной сходимости степенного ряда}
+
+Ряд $\sum_{n=0}^\infty a_nx^n$ сходится равномерно $\forall [a, b] \subset (-R, R)$ (на любом отрезке внутри интервала сходимости)
+
+\end{theorem}
+
+\begin{proofbox}{}
+\[
+|a_n x^n| \leq |a_n| \cdot c^n
+\]
+
+Где $c = max\{|a|, |b|\}$
+
+А такой ряд сходится. Следовательно исходный ряд сходится равномерно по признаку Вейерштрасса
+
+\end{proofbox}
+
+\begin{corollary}
+
+1) Сумма степенного ряда непрерывна на $(-R, R)$
+
+2) На $[a, b] \subset (-R, R)$ можно интегрировать
+
+3) 
+
+\end{corollary}
+
+\begin{lemma}{о радиусах сходимости}
+
+Ряды
+\[
+\sum^\infty a_n x^n, \qquad \sum^\infty a_n n x^{n-1}, \qquad \sum^\infty \frac{a_n}{n+1} x^{n+1}
+\]
+
+Имеют равный радиус сходимости
+
+\end{lemma}
+
+\begin{proofbox}{}
+
+По формуле Коши-Адамара для $\sum^\infty a_n x^n$
+
+\[
+R_1 = \frac{1}{\overline{\lim\sqrt[n]{|a_n|}}}
+\]
+
+Для $\sum^\infty a_n n x^{n-1} \text{ и } \sum^\infty \frac{a_n}{n+1} x^{n+1}:$
+
+\[
+R_2 = \frac{1}{\overline{\lim\sqrt[n]{|a_n \cdot n|}}} \longrightarrow R_1
+\\
+R_3 = \frac{1}{\overline{\lim\sqrt[n]{|\frac{a_n}{n+1}|}}} \longrightarrow R_1
+\]
+
+Так как $\sqrt[n]{n} \text{ и } \sqrt[n]{n+1} \to 1$
+
+\end{proofbox}
+
+\begin{corollary}
+
+\[
+S(x) =
+\left(
+\sum_{n=0}^\infty a_n x^n
+\right)' =
+\sum_{n=1}^\infty a_n n x^{n-1}
+\\
+S^{(m)}(x) = \sum_{n=m}^\infty a_n \frac{n!}{(n-m)!} x^{n-m}
+\]
+
+\end{corollary}
+
+\begin{theorem}{- Вторая теорема Абеля}
+
+Пусть ряд $\sum_{n=0}^\infty a_n x^n$ имеет радиус сходимости $R \in (0, +\infty)$ и при $x = R \ (x = -R)$ ряд сходится. Тогда он сходится равномерно на $[0, R] ([-R, 0])$
+
+\end{theorem}
+
+\begin{proofbox}{}
+
+Представим
+
+\[
+a_n x^n = a_n R^n \cdot \left(\frac{x}{R}\right)^n
+\\
+\sum^\infty a_nR^n \ \text{сходятся равномерно}
+\\
+\left(\frac{x}{R}\right)^n \downarrow \forall x \in [0, R] \text{ и } \left|\left(\frac{x}{R}\right)^n\right| \leq 1
+\]
+
+Следовательно по признаку Абеля-Дирихле ряд сходится равномерно
+
+\end{proofbox}
+
+\begin{theorem}{о единственности степенного ряда}
+
+Пусть $\forall x \in (x_0 - R, x_0 + R)$:
+
+\[
+f(x) = \sum_{n=0}^\infty a_n (x - x_0)^n
+\]
+
+Тогда
+
+\[
+a_n = \frac{f^{(n)}(x_0)}{n!}
+\]
+
+То есть это ряд Тейлора
+
+\end{theorem}
+
+\begin{proofbox}{}
+
+\[
+f^{(m)}(x) = \sum_{n=m}^\infty a_n \frac{n!}{(n-m)!} (x - x_0)^{n-m}
+\]
+
+При $x = x_0:$
+
+\[
+f^{(m)}(x) = a_m \cdot m!
+\]
+
+\end{proofbox}
+
+\newpage
+
+\section{Ряд Тейлора}
+
+\subsection{Определение}
+
+\begin{definition}
+
+Пусть $f \in C^\infty(x_0)$. Тогда ряд
+
+\[
+\sum_{n=0}^\infty a_n(x - x_0)^n \text{, где } 
+a_n = \frac{f^{(n)}(x_0)}{n!}
+\]
+
+Называется \textbf{рядом Тейлора} функции f с центром $x_0$
+
+\end{definition}
+
+\begin{example}
+
+\begin{flalign*}
+f(x) &=
+\begin{cases}
+e^\frac{-1}{x^2}, & x \not=0,\\
+0, & x=0
+\end{cases}
+&
+\end{flalign*}
+
+\[
+f'(0) = \lim_{\Delta x \to 0}\frac{f(0+\Delta x) - f(0)}{\Delta x} = \lim_{\Delta x \to 0}\frac{1}{\Delta x} e^{\frac{-1}{x^2}} = 0
+\]
+$x\not= 0:$
+\[
+f'(x) = (e^\frac{-1}{x^2})' = \frac{2}{x^3}e^\frac{-1}{x^2}
+\]
+
+\[
+f''(0) = \lim_{\Delta x \to 0}\frac{2}{\Delta x^4} e^{\frac{-1}{x^2}} = 0
+\]
+$x\not= 0:$
+\[
+f'(x) = (e^\frac{-1}{x^2})'' = (\frac{2}{x^3}e^\frac{-1}{x^2})' = (-\frac{6}{x^4} + \frac{4}{x^6})\cdot e^\frac{-1}{x^2}
+\]
+
+И так далее. Получается:
+
+\[
+f^{(m)}(0) = 0 \qquad f(x) \sim \sum^\infty_{n=0} 0
+\]
+
+Получается, что функцию f нельзя приблизить степенной функцией
+
+\end{example}
+
+\begin{definition}
+
+Пусть
+
+\[
+f(x) \sim \sum^\infty_{n=0}a_n(x - x_0)^n \ - \text{ряд Тейлора}
+\]
+
+Тогда пусть $P_n(x) = \sum^\infty_{k=0}a_k(x - x_0)^k \ - $ \textbf{частичная сумма}
+
+$R_n = f(x) - P_n(x) \ -$ \textbf{остаток}
+
+$f(x) = P_n(x) + R_n(x)$
+
+\end{definition}
+
+\begin{lemma}
+
+\[
+\sum^\infty_{n=0}a_n(x - x_0)^n = f(x) \Longleftrightarrow
+R_n(x) \longrightarrow 0
+\]
+
+\end{lemma}
+
+\begin{theorem}{о достаточном условии сходимости ряда Тейлора к f(x)}
+
+Если на $[x, x_0]$ или $[x_0, x] \ |f^{(m)}(x)| \leq c$, то ряд Тейлора сходится к f(x)
+
+\end{theorem}
+
+\begin{proofbox}{}
+
+$f(x) = P_n(x) + R_n(x)$, где
+
+\[
+R_n(x) = \frac{f^{(n+1)}(\xi)}{(n+1)!}(x - x_0)^{(n+1)}, \qquad \xi\in [x, x_0]
+\\ \Longrightarrow \left|R_n(x)\right| \leq \frac{c |x - x_0|^{n+1}}{(n+1)!} \longrightarrow 0
+\]
+
+Так как
+
+\[
+\frac{|x - x_0|^{n+1}}{(n+1)!} \longrightarrow 0
+\]
+
+\end{proofbox}
+
+\subsection{Ряды Маклорена элементарных функций}
+
+\begin{example}
+
+1) $f(x) = e^x$
+
+\[
+f^{(n)}(x) = e^x (= 1 \text{ при } x = 0)
+\\
+e^x \sim 1 + \frac{x}{1!} + \frac{x^2}{2!} + \frac{x^3}{3!} + ... = \sum^\infty_{n=0} \frac{x^n}{n!}
+\]
+
+Пусть $x \in [-r, r]$. Тогда $|f^{(n)}(x)| = e^x \leq e^r = c$. Следовательно
+
+\[
+e^x = \sum_{n=0}^\infty \frac{x^n}{n!} \ \forall x \in \mathbb{R}
+\]
+
+2) $f(x) = \sin(x)$
+
+\[
+\sin x = x - \frac{x^3}{3!} + \frac{x^5}{5!} - ... = \sum^\infty_{n=0} \frac{(-1)^n \cdot x^{2n+1}}{(2n+1)!}
+\]
+Так как $|(\sin x)^{(n)}| \leq 1$
+
+3) $f(x) = \cos(x)$
+
+\[
+\cos x = 1 - \frac{x^2}{2!} + \frac{x^4}{4!} - ... = \sum^\infty_{n=0} \frac{(-1)^n \cdot x^{2n}}{(2n)!}
+\]
+
+Аналогично синусу
+
+4) $f(x) = (1+x)^\alpha$
+
+\[
+(1+x)^\alpha \sim 1 + \alpha x + \frac{\alpha(\alpha - 1)}{2!} \cdot x^2 + ... = \sum_{n=0}^\infty \frac{\alpha!}{(\alpha - n + 2)! \cdot n!} \cdot x^n
+\]
+
+Докажем равенство. Пусть
+
+\[
+S(x) = \sum_{n=0}^\infty \frac{\alpha!}{(\alpha - n + 2)! \cdot n!} \cdot x^n
+\]
+
+\[
+S'(x) = \sum_{n=1}^\infty \frac{\alpha!}{(\alpha - n + 2)! \cdot (n-1)!} \cdot x^{n-1}
+\\
+= \sum_{n=0}^\infty \frac{\alpha!}{(\alpha - n + 1)! \cdot n!} \cdot x^n
+\]
+
+Рассмотрим
+
+\[
+xS' + S'
+=
+\sum_{k=1}^{\infty}
+\frac{\alpha\cdots(\alpha-k+1)\,k}{k!}x^k
++
+\sum_{k=0}^{\infty}
+\frac{\alpha\cdots(\alpha-k+1)(\alpha-k)}{k!}x^k
+\]
+
+\[
+=
+\alpha
++
+\underbrace{
+\sum_{k=1}^{\infty}
+\frac{\alpha\cdots(\alpha-k+1)}{k!}x^k
+}_{S-1}
+\bigl(k+\alpha-k\bigr)
+=
+\alpha+\alpha(S-1)
+\]
+Получается
+\[
+(x+1)S'=\alpha S
+\]
+
+То есть
+
+\[
+(1+x)^\alpha \sim
+\underbrace{
+\sum_{k=0}^{\infty}
+\frac{\alpha(\alpha-1)(\alpha-2)\cdots(\alpha-k+1)}{k!}\,x^k
+}_{S(x)}
+\]
+
+\[
+x\in(-1,1),\qquad \forall\alpha.
+\]
+
+\[
+S'\cdot x+S'=\alpha\cdot S,
+\qquad
+S'=\frac{dS}{dx}.
+\]
+
+\[
+(1+x)\cdot dS=\alpha\cdot S\cdot dx.
+\]
+
+\[
+\int\frac{dS}{S}
+=
+\int\frac{\alpha\cdot dx}{1+x}.
+\]
+
+\[
+d\ln|S|=d\bigl(\alpha\ln|1+x|\bigr).
+\]
+
+\[
+\ln|S|=\alpha\cdot\ln|1+x|+C.
+\]
+
+Знаем $S(0)=1\Rightarrow C=0$.
+
+\[
+\Rightarrow\quad \ln|S|=\alpha\cdot\ln|1+x|.
+\]
+
+\[
+|S|=|1+x|^\alpha,
+\qquad 1+x>0.
+\]
+
+\[
+S=(1+x)^\alpha.
+\]
+
+Например: 
+\[
+\frac{1}{1-x}
+=
+\sum_{k=0}^{\infty}
+\frac{(-1)^k\cdot k!\cdot(-x)^k}{k!}
+=
+\sum_{k=0}^{\infty}x^k,
+\qquad x\in(-1,1).
+\]
+
+\[
+\frac{1}{1+x}
+=
+\sum_{k=0}^{\infty}(-1)^k x^k,
+\qquad x\in(-1,1).
+\]
+
+\
+
+5) $f(x) = \ln(1 + x)$
+
+Так как
+
+\[
+\frac{1}{1 + x} = \sum_{k=0}^\infty (-1)^k x^k \text{ сходится равномерно на } [0, x], то
+\\
+\ln(1+x) = \int_0^x \frac{dt}{1+t} = \sum_{k=0}^\infty (-1)^k t^k dt =
+\\
+\sum_{k=0}^\infty \frac{(-1)^k \cdot t^{k+1}}{k+1} = \sum_{k=1}^\infty \frac{(-1)^{k-1} \cdot t^k}{k}
+\]
+
+Сходится на $(-1, 1] \Longrightarrow$ по 2-ой теореме Абеля сходится равномерно на $[0, 1]$
+
+\end{example}
+
+\newpage
+
+\section{Сходимость почти всюду и по мере}
+
+Пусть $(X, \mathcal{A}, \mu)$ - измеримое пространство
+
+\begin{definition}
+
+Утверждение P(x) истинно на $A \in \mathcal{A}$ почти всюду, если
+\[
+\exists C \in \mathcal{A}, C \subset A \text{ и}
+\\
+P(x) \text{ истинно } \forall x \in C \text{ и } \mu(A\backslash C) = 0
+\]
+
+\end{definition}
+
+\begin{example}
+1) \textbf{Функция Дирихле} - $D(x) = 0$ почти всюду по мере Лебега на $\mathbb{R}$
+
+2) $x^n \longrightarrow 0$ почти всюду по мере Лебега на $[-1, 1]$
+
+\end{example}
+
+\begin{note}
+
+\textbf{О единственности предела почти наверное}
+
+Если 
+
+\[
+f_n \xrightarrow{п.в. на E} f(x) \text{ и}
+\\
+f_n \xrightarrow{п.в. на E} g(x), \text{ то}
+\]
+
+$f = g$ почти всюду на E $(f \sim g)$
+
+\end{note}
+
+\begin{definition}
+
+Пусть $f_n, f -$ измеримы и почти всюду конечны на E
+
+\[
+f_n \xrightarrow{\mu} f \text{ на } E
+\\
+\Longleftrightarrow \forall \varepsilon > 0 \qquad \mu E(|f_n - f| \geq \varepsilon) \longrightarrow 0
+\]
+
+\end{definition}
+
+\begin{example}
+
+1) $x^n \xrightarrow{\lambda} 0$ почти всюду по мере Лебега на $[-1, 1]$
+
+\[
+|x^n| \geq \varepsilon \qquad |x| \geq \sqrt[n]\varepsilon\,\ n \to \infty \Longrightarrow \mu E \to 0
+\]
+
+2) $f_n(x) = \chi_{[n , n + 1]}(x) \to 0$ на $\mathbb{R}$
+
+\[
+|f_n(x)| \geq \varepsilon \qquad x \in [n, n + 1]
+\\
+\lambda[n, n + 1] = 1 \not\to 0 \Longrightarrow f_n \not \xrightarrow{\lambda} 0
+\]
+
+3) \textbf{Пример Рисса}
+
+Пусть 
+\[
+\begin{aligned}
+f_0&=\chi_{[0,1]},\\
+f_1&=\chi_{\left[0,\frac12\right]},\\
+f_2&=\chi_{\left[\frac12,1\right]},\\
+f_3&=\chi_{\left[0,\frac14\right]},\\
+&\vdots
+\end{aligned}
+\]
+
+Тогда
+
+\[
+f_k\xrightarrow{\lambda}0.
+\]
+\[
+f_k\not\to0
+\qquad \forall x\in[0,1].
+\]
+
+\end{example}
+
+\end{document}

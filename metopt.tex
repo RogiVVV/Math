@@ -1,0 +1,1421 @@
+% !TeX program = xelatex
+\documentclass[12pt,a4paper]{article}
+
+% =========================================================
+% ЯЗЫК И ШРИФТЫ
+% =========================================================
+
+\usepackage{fontspec}
+\usepackage{polyglossia}
+\usepackage{dsfont}
+
+\setdefaultlanguage{russian}
+\setotherlanguage{english}
+
+\setmainfont{CMU Serif}[ItalicFont=cmunti.otf]
+\setsansfont{CMU Sans Serif}
+\setmonofont{CMU Typewriter Text}
+
+
+% =========================================================
+% МАТЕМАТИКА
+% =========================================================
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage{bm}
+\usepackage{mathrsfs}
+
+% =========================================================
+% СТРАНИЦА
+% =========================================================
+\usepackage[a4paper, margin=2cm]{geometry}
+
+% =========================================================
+% ЦВЕТА И РАМКИ
+% =========================================================
+\usepackage{xcolor}
+\usepackage[most]{tcolorbox}
+
+% =========================================================
+% ГРАФИКА
+% =========================================================
+\usepackage{graphicx}
+
+% =========================================================
+% СПИСКИ
+% =========================================================
+\usepackage{enumitem}
+
+% =========================================================
+% ЗАГОЛОВКИ
+% =========================================================
+\usepackage{titlesec}
+
+% =========================================================
+% КОЛОНТИТУЛЫ
+% =========================================================
+\usepackage{fancyhdr}
+
+% =========================================================
+% ТАБЛИЦЫ
+% =========================================================
+\usepackage{booktabs}
+\usepackage{array}
+
+% =========================================================
+% ССЫЛКИ
+% =========================================================
+\usepackage{hyperref}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    urlcolor=blue,
+    citecolor=blue
+}
+
+% =========================================================
+% НАСТРОЙКИ
+% =========================================================
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+
+% -------------------------
+% Определение
+% -------------------------
+\newtcolorbox{definition}[1][]{
+    breakable,
+    colback=red!5,
+    colframe=red!75!black,
+    fonttitle=\bfseries,
+    title=Определение,
+    #1
+}
+
+% -------------------------
+% Теорема
+% -------------------------
+\newtcolorbox{theorem}[2][]{
+    breakable,
+    colback=green!5,
+    colframe=green!50!black,
+    fonttitle=\bfseries,
+    title=Теорема #2,
+    #1
+}
+
+% -------------------------
+% Лемма
+% -------------------------
+\newtcolorbox{lemma}[2][]{
+    breakable,
+    colback=orange!5,
+    colframe=orange!70!black,
+    fonttitle=\bfseries,
+    title=Лемма #2,
+    #1
+}
+
+% -------------------------
+% Следствие
+% -------------------------
+\newtcolorbox{corollary}[1][]{
+    breakable,
+    colback=green!5,
+    colframe=green!35!black,
+    fonttitle=\bfseries,
+    title=Следствие,
+    #1
+}
+
+% -------------------------
+% Доказательство
+% -------------------------
+\newtcolorbox{proofbox}[2][]{
+    breakable,
+    colback=blue!5,
+    colframe=blue!50,
+    fonttitle=\bfseries,
+    title=Доказательство #2,
+    #1
+}
+
+% -------------------------
+% Замечание
+% -------------------------
+\newtcolorbox{note}[1][]{
+    breakable,
+    colback=purple!5,
+    colframe=purple!80!black,
+    fonttitle=\bfseries,
+    title=Замечание,
+    #1
+}
+
+% -------------------------
+% Свойства
+% -------------------------
+\newtcolorbox{props}[2][]{
+    breakable,
+    colback=green!5,
+    colframe=green!70!black,
+    fonttitle=\bfseries,
+    title=Свойства #2,
+    #1
+}
+
+% -------------------------
+% Примеры
+% -------------------------
+\newtcolorbox{example}[1][]{
+    breakable,
+    colback=brown!5,
+    colframe=brown!40!black,
+    fonttitle=\bfseries,
+    title=Примеры,
+    #1
+}
+
+% =========================================================
+% ДОКУМЕНТ
+% =========================================================
+\begin{document}
+
+\tableofcontents
+
+\newpage
+
+\section{Линейное программирование}
+
+\subsection{Классификация}
+
+\textbf{По переменным:}
+
+ограниченная --- многомерная
+
+непрерывная --- дискретная --- смешанная
+
+\textbf{По ограничениям:}
+
+безусловная --- условная
+
+\textbf{По структуре:}
+
+глобальная --- локальная
+
+централизованная --- распределённая --- децентрализованная
+
+онлайн --- офлайн
+
+статическая --- динамическая
+
+одноуровневая --- двухуровневая --- многоуровневая, например $\min f_i(w(n), n),\ i=\overline{1,n}$,
+
+малоразмерная --- крупномасштабная
+
+\textbf{По целевой функции:}
+
+стохастическая --- детерминированная
+
+выпуклая --- невыпуклая
+
+гладкая --- негладкая
+
+линейная --- нелинейная
+
+одноцелевая --- многоцелевая
+
+\subsection{Выпуклая оптимизация}
+
+\[
+\begin{cases}
+f_0(x)=x_1^2+x_2^2\to\min,\\
+f_1(x)=\dfrac{x_1}{1+x_2^2}\leq 0,\\
+h_1(x)=(x_1+x_2)^2=0
+\end{cases}
+\quad\Longrightarrow\quad
+\begin{cases}
+f_0(x)=x_1^2+x_2^2\to\min,\\
+f_1(x)=x_1\leq 0,\\
+h_1(x)=x_1+x_2=0.
+\end{cases}
+\]
+
+\subsection{Задача линейного программирования}
+
+\[
+c^Tx=c_1x_1+\ldots+c_nx_n\to\max,
+\]
+
+\[
+\begin{cases}
+Ax\leq b,\\
+x\geq 0.
+\end{cases}
+\]
+
+Неравенство $\longrightarrow$ равенство.
+
+\subsection{Каноническая форма}
+
+\[
+\begin{cases}
+c^Tx\to\max,\\
+Ax=b,\\
+x\geq 0.
+\end{cases}
+\]
+
+\[
+\left[
+\begin{array}{cccc|cccc}
+a_{11}&a_{12}&\cdots&a_{1n}&1&0&\cdots&0\\
+a_{21}&a_{22}&\cdots&a_{2n}&0&1&\cdots&0\\
+\vdots&\vdots&\ddots&\vdots&\vdots&\vdots&\ddots&\vdots\\
+a_{m1}&a_{m2}&\cdots&a_{mn}&0&0&\cdots&1
+\end{array}
+\right]
+\begin{pmatrix}
+x_1\\
+\vdots\\
+x_n\\
+x_{n+1}\\
+\vdots\\
+x_{n+m}
+\end{pmatrix}
+=
+\begin{pmatrix}
+b_1\\
+b_2\\
+\vdots\\
+b_m
+\end{pmatrix}.
+\]
+
+\newpage
+
+\section{Теория двойственности}
+
+\begin{definition}
+\textbf{Двойственная задача} - это задача оптимизации, которая строится по исходной (прямой) задаче так, что ограничения прямой задачи соответствуют переменным двойственной, а её целевая функция даёт оценку целевой функции прямой задачи.
+
+Например, для прямой задачи
+\[
+\max c^T x,\qquad Ax\le b,\qquad x\ge0
+\]
+двойственная имеет вид
+\[
+\min b^T y,\qquad A^T y\ge c,\qquad y\ge0.
+\]
+\end{definition}
+
+\begin{theorem}{1}
+
+Задача двойственная к двойственной является прямой ЛП.
+
+\end{theorem}
+
+\begin{proofbox}{}
+Если $x$ и $y$ --- допустимые решения прямой и двойственной задач ЛП, то
+\[
+c^Tx\leq b^Ty.
+\]
+
+Если
+\[
+c^Tx=b^Ty,
+\]
+то это решения оптимальные для своих задач.
+
+\[
+\begin{array}{c@{\qquad\Longleftrightarrow\qquad}c}
+\begin{cases}
+\min b^Ty,\\
+A^Ty\geq c,\\
+y\geq 0
+\end{cases}
+&
+\begin{cases}
+\max (-b)^Ty,\\
+-A^Ty\leq -c,\\
+y\geq 0
+\end{cases}
+\end{array}
+\]
+
+получаем
+\[
+\begin{cases}
+\min -c^Tx,\\
+-(A^T)^Tx\geq (-b^T)^T,\\
+x\geq 0
+\end{cases}
+\quad\Longrightarrow\quad
+\begin{cases}
+\max c^Tx,\\
+Ax\leq b,\\
+x\geq 0.
+\end{cases}
+\]
+\end{proofbox}
+
+\begin{theorem}{2}
+
+Пусть существуют допустимые $x,y$. Тогда $c^Tx\leq b^Ty$
+
+И если $c^Tx = b^Ty$, то эти решения оптимальны для своих задач.
+
+\end{theorem}
+
+\begin{proofbox}{}
+
+\[
+Ax\leq b
+\quad\Longrightarrow\quad
+y^TAx\leq y^Tb,
+\]
+так как $y\geq 0$.
+
+\[
+A^Ty\geq c
+\quad\Longrightarrow\quad
+x^TA^Ty\geq x^Tc,
+\]
+так как $x\geq 0$.
+
+Следовательно,
+\[
+c^Tx\leq y^TAx\leq b^Ty.
+\]
+
+\end{proofbox}
+
+\begin{theorem}{3}
+
+Существует $x$ --- оптимальное решение тогда и только тогда, когда существует $y$ --- оптимальное решение двойственной задачи, и
+\[
+\max c^Tx=\min b^Ty.
+\]
+
+\end{theorem}
+
+\begin{lemma}{Фаркаша}
+
+$Ax\leq b$  имеет решение $x\geq 0$ либо $A^Ty\geq 0, \ b^Ty<0$ имеет единственное решение $y\geq 0$.
+
+\end{lemma}
+
+\begin{proofbox}{}
+
+\[
+\begin{array}{c@{\qquad}c}
+\text{прямая:} 
+\begin{cases}
+\max c^Tx,\\
+Ax\leq b,\\
+x\geq 0
+\end{cases}
+\text{двойственная:}
+\begin{cases}
+\min b^Ty,\\
+A^Ty\geq c,\\
+y\geq 0
+\end{cases}
+\end{array}
+\]
+
+\[
+\begin{cases}
+Ax\leq b,\\
+-A^Tv\leq -c,\\
+-c^Tx+b^Ty=0
+\end{cases}
+\Longrightarrow
+\left[
+\begin{array}{cc}
+A&0\\
+0&-A^T\\
+-c^T&b^T
+\end{array}
+\right]
+\begin{pmatrix}
+x\\
+y\\
+\lambda
+\end{pmatrix}
+\leq
+\begin{pmatrix}
+b\\
+-c\\
+0
+\end{pmatrix}.
+\]
+
+\[
+\left[
+\begin{array}{ccc}
+A^T&0&-c\\
+0&-A&b
+\end{array}
+\right]
+\begin{pmatrix}
+u\\
+v\\
+\lambda
+\end{pmatrix}
+\geq 0,
+\]
+\[
+\begin{bmatrix}
+b^T&-c^T&0
+\end{bmatrix}
+\begin{pmatrix}
+u\\
+v\\
+\lambda
+\end{pmatrix}
+<0,
+\qquad
+u,v,\lambda\geq0.
+\]
+
+То есть
+\[
+A^Tu-c\lambda\geq0,
+\]
+\[
+-Av+b\lambda\geq0,
+\]
+\[
+b^Tu-c^Tv<0.
+\]
+
+1) Пусть $\lambda>0$:
+\[
+A^T\left(\frac{u}{\lambda}\right)\geq c,
+\qquad
+A\left(\frac{v}{\lambda}\right)\leq b,
+\]
+\[
+b^T\left(\frac{u}{\lambda}\right)
+-c^T\left(\frac{v}{\lambda}\right)<0,
+\]
+что противоречит теореме 2.
+
+\medskip
+
+2) Пусть $\lambda=0$:
+\[
+A^Tu\geq0,
+\qquad
+-Av\geq0,
+\qquad
+b^Tu<c^Tv.
+\]
+
+Предположим
+\[
+b^Tu<0. \tag{*}
+\]
+
+Так как
+\[
+Ax\leq b,
+\]
+то
+\[
+u^TAx\leq u^Tb.
+\]
+Отсюда
+\[
+x^TA^Tu\leq b^Tu<0,
+\]
+противоречие, так как
+\[
+x\geq0,\qquad A^Tu\geq0.
+\]
+
+Предположим
+\[
+c^Tv>0. \tag{**}
+\]
+
+Аналогично получаем противоречие.
+\end{proofbox}
+
+\newpage
+
+\section{Симплекс-метод}
+
+$P=\{x\in\mathbb{R}^n:Ax\leq b\}$ --- \textbf{полиэдр}.
+
+\begin{definition}
+
+\textbf{Выпуклость}
+
+\[
+\forall x^{(1)},x^{(2)}\in P
+\qquad
+x=\lambda x^{(1)}+(1-\lambda)x^{(2)},\quad \lambda\in[0,1] \ \Longrightarrow x\in P.
+\]
+\end{definition}
+
+Пусть $P=\langle v_1,\ldots,v_k\rangle$ --- вершины
+
+\[
+x=\sum_{i=1}^k\lambda_i v_i,
+\qquad
+\sum_{i=1}^k\lambda_i=1.
+\]
+
+Пусть $x^*$ --- оптимальное решение задачи $\max c^Tx$
+
+Тогда
+\[
+x^*=\sum_i\lambda_i v_i
+\]
+\[
+c^Tx^*=\sum_i\lambda_i c^Tv_i
+\]
+
+Следовательно, существует $i$ такое, что $c^Tx^*\leq \max_i c^Tv_i$
+
+Но $x^*$ --- оптимальное, поэтому $c^Tx^*=\max_i c^Tv_i$
+
+Пусть
+\[
+P=\{x\in\mathbb{R}^n:Ax=b,\ x\geq0\},
+\qquad
+A\in\mathbb{R}^{m\times n},
+\qquad
+\operatorname{rank}A=m.
+\]
+
+\[
+A=(B\ \overline{B}),
+\qquad
+x=
+\begin{pmatrix}
+x_B\\
+x_{\overline B}
+\end{pmatrix}.
+\]
+
+1) $Bx_B+\overline Bx_{\overline B}=b$.
+
+2) $x_{\overline B}=0\Rightarrow Bx_B=b$.
+
+$B$ --- невырождена, поэтому существует $B^{-1}$, $x_B=B^{-1}b$ --- базисное решение.
+
+Если $x_B\geq0$, то это допустимое базисное решение.
+
+Пусть $x_0$ --- не вершина:
+\[
+x=\lambda v_1+(1-\lambda)v_2,
+\qquad
+x_{\overline B}=0.
+\]
+
+Тогда
+\[
+x_B=\lambda v_{1B}+(1-\lambda)v_{2B}.
+\]
+
+\[
+Bv_{1B}=b,
+\qquad
+Bv_{2B}=b.
+\]
+
+Следовательно,
+\[
+v_{1B}=\lambda B^{-1}b+(1-\lambda)B^{-1}b=B^{-1}b,
+\]
+откуда
+\[
+v_1=v_2.
+\]
+
+Возьмём $x_j\in x_{\overline B}$, $x_j>0$.
+
+\[
+Bx_B+\overline Bx_{\overline B}=b.
+\]
+\[
+Bx_B=b-A_jx_j,
+\]
+\[
+x_B=B^{-1}b-B^{-1}A_jx_j.
+\]
+
+Обозначим
+\[
+\beta=B^{-1}b,
+\qquad
+d=B^{-1}A_j.
+\]
+
+Тогда
+\[
+x_B=\beta-dx_j.
+\]
+
+\[
+x_j\leq\frac{\beta}{d}.
+\]
+
+\[
+\theta=\min_i\frac{\beta_i}{d_i},
+\qquad d_i>0.
+\]
+
+\[
+x=
+\begin{pmatrix}
+x_j\\
+x_B
+\end{pmatrix},
+\qquad
+c=
+\begin{pmatrix}
+c_j\\
+c_B
+\end{pmatrix}.
+\]
+
+\[
+f=c_B^Tx_B+c_j^Tx_j.
+\]
+
+Так как
+\[
+Bx_B+\overline Bx_{\overline B}=b,
+\]
+то
+\[
+x_B=B^{-1}b-B^{-1}\overline Bx_{\overline B}.
+\]
+
+Следовательно,
+\[
+f
+=
+c_B^T
+\left(
+B^{-1}b-B^{-1}\overline Bx_{\overline B}
+\right)
++c_{\overline B}^Tx_{\overline B},
+\]
+то есть
+\[
+f
+=
+c_B^TB^{-1}b+
+\left(
+c_{\overline B}^T-c_B^TB^{-1}\overline B
+\right)x_{\overline B}.
+\]
+
+\[
+f\to\max.
+\]
+
+\[
+\Delta_j>0\Rightarrow x_j\uparrow,
+\]
+\[
+\Delta_j<0\Rightarrow x_j\downarrow,
+\]
+\[
+\Delta_j=0\Rightarrow x_j=\mathrm{const}.
+\]
+
+\newpage
+
+\section{Решение}
+
+\[
+c^Tx\to\min,
+\]
+\[
+Ax=b,
+\]
+\[
+x\geq0.
+\]
+
+\[
+A=[M\ N],
+\]
+где $M$ соответствует базисным переменным, $N$ --- небазисным.
+
+\begin{theorem}{1}
+
+Существует $x_0=x_0(M)$ --- допустимое базисное решение.
+
+\[
+x_0=(?, ?, ?, 0,0,0).
+\]
+
+Пусть $N_+(x_0)$ --- положительные компоненты.
+
+\[
+N_+(x_0)\subset N_B\subset N.
+\]
+
+\[
+|N_B|=|M|
+\quad\Longrightarrow\quad
+\exists B.
+\]
+
+\end{theorem}
+
+\begin{proofbox}{}
+
+Пусть $B$ --- базис.
+
+\[
+A[M\,N_B]
+\qquad
+A[M\,N \backslash N_B]
+\]
+
+Из $A^Ty=c$ получаем $y_0[M]=c[M_B]B^{-1}$
+
+\[
+\Delta[N\backslash N_B]
+=
+c[M\,N_B]
+-c[N_B]B^{-1}A[M\,N \backslash N_B]
+\]
+
+\[
+D_B(N_B,N\backslash N_B)
+=
+B^{-1}A[M\,N\backslash N_B]
+\]
+
+Следовательно, $D_B(MN_B, MN_B)=E$
+
+\[
+c[N]D_B[N N \backslash N_B]
+=
+c[N_B]D_B(N_B,N \backslash N_B).
+\]
+
+\[
+=
+c[N_B]B^{-1}A[N N \backslash N_B]-c[N\backslash N_B].
+\]
+
+\[
+c[N]\cdot D_B=-\Delta_0.
+\]
+
+\end{proofbox}
+
+\begin{theorem}{2}
+
+Допустимые решения ЗЛП имеют вид
+\[
+x[N]
+=
+x_0[N]-D_B^B x[N \backslash N_B]
+\]
+
+\end{theorem}
+
+\begin{proofbox}{}
+
+Пусть
+\[
+x=
+\begin{pmatrix}
+x_B\\
+x_{\overline B}
+\end{pmatrix}.
+\]
+
+1) Небазисные $N \backslash N_B$:
+\[
+x[N \backslash N_B]
+=
+x_0[N \backslash N_B]
+-
+D_B[N \backslash N_B,N \backslash N_B]x[N \backslash N_B]
+=
+x[N \backslash N_B]
+\]
+
+2) Базисные:
+\[
+x[N_B]
+=
+x_0[N_B]
+-
+D_B[N_B,N \backslash N_B]x[N \backslash N_B]
+\]
+
+Так как
+\[
+D_B[N_B,N \backslash N_B]
+=
+B^{-1}A[M,N \backslash N_B],
+\]
+то
+\[
+Ax
+=
+A[M,N_B]x[N_B]
++
+A[M,N \backslash N_B]x[N \backslash N_B].
+\]
+
+\[
+=
+x_0[N_B]
+-
+B^{-1}
+\left(
+Ax-A[M,N_B]x[N_B]
+\right)
+\]
+\[
+=
+x_0[N_B]-B^{-1}b+B^{-1}Bx[N_B]
+=
+x[N_B]
+\]
+
+3)
+\[
+f=cx
+=
+c[N]x_0[N]
++
+D_0[N\backslash N_B]x[N \backslash N_B]
+\]
+
+\[
+x\geq0
+\Rightarrow
+x_B\geq0,\quad x_{\overline B}\geq0.
+\]
+
+\medskip
+
+Если $\Delta_0\geq0$, то $
+c[M]x[M]\geq c[M]x_0[M]
+\Rightarrow
+x_0$ --- оптимальное
+
+\medskip
+
+Если $\Delta_0>0$, то
+$x[N \backslash N_B]>0
+\Rightarrow
+cx>cx_0
+\Rightarrow
+\exists!\ x_0$ --- оптимальное
+
+\end{proofbox}
+
+\newpage
+
+\section{Нелинейная оптимизация}
+
+\[
+\min f(x), \ x\in\mathbb{R}^n \ - \text{выпуклое} 
+\]
+
+\[
+g_i(x)\leq 0, \
+h_j(x)=0.
+\]
+
+\[
+\Omega=\left\{x\in\mathbb{R}^n\mid g_i(x)\leq 0,\ h_j(x)=0\right\}
+\]
+--- множество решений.
+
+В точке $x$ ограничения регулярны, если векторы
+\[
+\nabla g_i(x)\quad\text{и}\quad \nabla h_j(x)
+\]
+линейно независимы.
+
+\subsection{Функция Лагранжа}
+
+\[
+L(x,\lambda,\nu)
+=
+f(x)
++
+\sum_{i=1}^{m}\lambda_i g_i(x)
++
+\sum_{j=1}^{p}\nu_j h_j(x).
+\]
+
+\[
+\lambda_i\geq 0,\qquad \nu_j\in\mathbb{R}
+\]
+--- множители Лагранжа.
+
+\subsection{Условия Лагранжа}
+
+\[
+\nabla_x L(x^*,\lambda^*,\nu^*)=0,
+\]
+\[
+g_i(x^*)\leq 0,
+\]
+\[
+h_j(x^*)=0,
+\]
+\[
+\lambda_i^*\geq 0,
+\]
+\[
+\lambda_i^*g_i(x^*)=0.
+\]
+
+$x^*$ --- оптимальное решение.
+
+\subsection{Теорема Каруша--Куна--Таккера}
+
+\textbf{Необходимые условия:}
+
+Пусть существует $x^*$ --- локальный минимум и выполняются условия регулярности.
+
+Тогда выполняются условия ККТ.
+
+\textbf{Достаточные условия:}
+
+Пусть $f(x)$ и $g_i(x)$ выпуклые, $h_j(x)$ аффинные.
+
+Тогда
+\[
+\forall x^*:\ \exists \lambda^*,\nu^*
+\]
+удовлетворяющие условиям ККТ
+\[
+\Longrightarrow
+\]
+$x^*$ --- глобальный минимум.
+
+\textbf{Условие Слейтера:}
+
+Существует $x$:
+\[
+g_i(x)<0,\qquad h_j(x)=0.
+\]
+
+\textbf{Следствие:}
+
+$x^*$ --- глобальный минимум
+\[
+\Longleftrightarrow
+\exists \lambda^*,\nu^*.
+\]
+
+\subsection{Метод опорных векторов}
+
+\[
+\min \frac{1}{2}\|w\|^2,
+\]
+\[
+y_i(w^Tx_i+b)\geq 1,\qquad i=\overline{1,N}.
+\]
+
+\[
+D=\{(x_i,y_i)\}_{i=1}^N,
+\qquad
+y_i\in\{-1,1\}.
+\]
+
+Где x - признаки объекта, y - метка класса
+
+\[
+f(x)=w^Tx+b,
+\qquad
+w\in\mathbb{R}^n,\quad b\in\mathbb{R}
+\]
+
+\[
+\hat y(x)=\operatorname{sign}(w^Tx+b)
+\]
+
+$w$ --- весовой вектор
+
+\[
+d_i(x,H)=\frac{|w^Tx_i+b|}{\|w\|}.
+\]
+
+Нормируем:
+\[
+w^Tx_1+b=1
+\]
+\[
+w^Tx_2+b=-1
+\]
+
+\[
+d=\frac{2}{\|w\|}\to\max
+\]
+или
+\[
+\frac12\|w\|^2\to\min
+\]
+
+Так как $y_i(w^Tx_i+b)=1$, то $y_i(w^Tx_i+b)\geq1$
+
+\subsection{Решение метода опорных векторов}
+
+\[
+\min \frac{1}{2}\|w\|^2
+\]
+
+\[
+1-y_i(w^Tx_i+b)\leq 0
+\]
+
+\[
+\lambda_i\geq 0,\qquad \lambda_i\in\mathbb{R}
+\]
+
+\[
+L(w,b,\lambda)
+=
+\frac{1}{2}\|w\|^2
++
+\sum_{i=1}^{N}\lambda_i\left(1-y_i(w^Tx_i+b)\right)
+\]
+
+\[
+=
+\frac{1}{2}\|w\|^2
++
+\sum_{i=1}^{N}\lambda_i
+-
+\sum_{i=1}^{N}\lambda_i y_i w^Tx_i
+-
+b\sum_{i=1}^{N}\lambda_i y_i.
+\]
+
+1.1) Стационарность по $w$
+
+\[
+\nabla_wL
+=
+w-\sum_{i=1}^{N}\lambda_i x_i y_i
+=
+0
+\]
+
+\[
+w=\sum_{i=1}^{N}\lambda_i y_i x_i
+\]
+
+1.2) Стационарность по $b$
+
+\[
+\nabla_bL
+=
+\sum_{i=1}^{N}\lambda_i y_i
+=
+0.
+\]
+
+\medskip
+
+2) $y_i(w^Tx_i+b)\geq 1$
+
+\medskip
+
+3) $\lambda_i\geq 0$
+
+\medskip
+
+4) $\lambda_i\left(1-y_i(w^Tx_i+b)\right)=0$
+
+Пусть
+\[
+g=L(w,b,\lambda)\leq f(w,b)
+\]
+
+\[
+L
+=
+\frac{1}{2}
+\left(
+\sum_{i=1}^{N}\lambda_i y_i x_i
+\right)^2
+-
+\left(
+\sum_{i=1}^{N}\lambda_i x_i y_i
+\right)
+\left(
+\sum_{j=1}^{N}\lambda_j x_j y_j
+\right)
++
+\sum_{i=1}^{N}\lambda_i
+\]
+
+\[
+=
+\sum_{i=1}^{N}\lambda_i
+-
+\frac{1}{2}
+\left(
+\sum_{i=1}^{N}\lambda_i y_i x_i
+\right)
+\left(
+\sum_{j=1}^{N}\lambda_j x_j y_j
+\right).
+\]
+
+\[
+\begin{cases}
+\sum_{i=1}^{N}\lambda_i
+-
+\frac{1}{2}
+\sum_{i=1}^{N}
+\sum_{j=1}^{N}
+\lambda_i\lambda_j x_i^Tx_jy_iy_j
+\to\max\\[2mm]
+\lambda_i\geq 0\\[2mm]
+\displaystyle\sum_{i=1}^{N}\lambda_i y_i=0
+\end{cases}
+\]
+
+\newpage
+
+\section{Основная лемма НЛП (нелинейного программирования)}
+
+Рассмотрим систему уравнений
+\[
+a_i(x)=0,
+\ \
+i\in I,
+\ \ 
+I=\{i\mid g_i(x)=0,\ i\in\{1,\ldots,p\}\}.
+\]
+
+Тогда для $g_0\in\mathbb{R}^n$, если:
+
+1) регулярность $\nabla a_i(x)$;
+
+2) ортогональность $g_0$:
+\[
+\langle\nabla a_i(x_0),g_0\rangle=0,
+\qquad i\in I,
+\]
+
+можно построить параметризацию кривой $x(t)$, которая проходит в окрестности точки $t=0$, такую что
+\[
+x(0)=x_0
+\]
+\[
+x'(0)=g_0
+\]
+\[
+a_i(x(t))=0,
+\ \
+\forall i\in I,\quad
+t\in(-\delta,\delta),\quad \delta>0
+\]
+
+Пусть
+\[
+a=x_1+x_2+x_3-1
+\]
+\[
+a=x_1^2+x_2^2+x_3^2-1
+\]
+
+Пусть $x=x(t)$ --- параметризация в окрестности точки t
+
+\[
+\frac{d}{dt}a_i(x(t))
+=
+\left\langle
+a_i'(x(t)),x'(t)
+\right\rangle
+\]
+
+По теореме среднем Лагранжа:
+пусть
+\[
+\varphi:[a,b]\to\mathbb{R},
+\]
+непрерывна на $[a,b]$, дифференцируема на $(a,b)$.
+
+Тогда существует $\xi\in(a,b)$:
+\[
+\varphi(a)-\varphi(b)
+=
+\varphi'(\xi)(b-a).
+\]
+
+Для $t\neq0$:
+\[
+a_i(x(t))-a_i(x(0))
+=
+\left\langle
+a_i'(x(\xi)),x'(\xi)
+\right\rangle
+\]
+
+При $t\to0$
+\[
+\left\langle
+a_i'(x(t)),x'(t)
+\right\rangle=0.
+\]
+
+Так как $x(0)=x_0$, то $x'(0)=g_0, A(x)x'=0$
+
+Условие регулярности $\Longrightarrow$ линейная независимость
+
+Пусть
+\[
+J\subset N,
+\qquad
+|J|=|I|.
+\]
+
+Условие ортогональности:
+\[
+A'(x_0)g_0=0.
+\]
+
+Разобьём координаты:
+\[
+A'(x_0)[I,J]\,g_0[J]
++
+A'(x_0)[I,N\setminus J]\,g_0[N\setminus J]
+=
+0.
+\]
+
+Отсюда
+\[
+g_0[J]
+=
+-
+\left(
+A'(x_0)[I,J]
+\right)^{-1}
+A'(x_0)[I,N\setminus J]
+g_0[N\setminus J].
+\]
+
+Аналогично
+\[
+x'[J]
+=
+-
+\left(
+A'(x)[I,J]
+\right)^{-1}
+A'(x)[I,N\setminus J]
+x'[N\setminus J].
+\]
+
+С другой стороны,
+\[
+x'(t)[N\setminus J]
+=
+g_0[N\setminus J].
+\]
+
+\[
+x'[J]
+=
+-
+\left(
+A'(x)[I,J]
+\right)^{-1}
+A'(x)[I,N\setminus J]
+g_0[N\setminus J],
+\]
+\[
+x(0)=x_0.
+\]
+
+\begin{theorem}{}
+Пусть существует система дифференциальных уравнений в нормальной форме
+\[
+x'(t)=F(x(t)),
+\qquad
+F:\mathbb{R}^n\to\mathbb{R},
+\]
+\[
+x(0)=x_0.
+\]
+
+Тогда существует хотя бы одно решение $x(t)$ в окрестности $t=0$.
+
+Матрица $A'(x)$ непрерывна по условию
+
+\[
+A^{-1}
+=
+\frac{C^T}{\det A},
+\qquad
+\det A\neq0,
+\]
+где
+\[
+C_{ij}=(-1)^{i+j}M_{ij}.
+\]
+
+Следовательно, $A^{-1}$ непрерывна
+\end{theorem}
+
+\begin{corollary}
+Cуществует $x(t)$.
+
+При $t=0$:
+\[
+x'(0)[N\setminus J]=g_0[N\setminus J],
+\]
+\[
+x'(0)[J]
+=
+-
+\left(
+A'(x_0)[I,J]
+\right)^{-1}
+A'(x_0)[I,N\setminus J]
+g_0[N\setminus J].
+\]
+
+Но
+\[
+g_0[J]
+=
+-
+\left(
+A'(x_0)[I,J]
+\right)^{-1}
+A'(x_0)[I,N\setminus J]
+g_0[N\setminus J].
+\]
+
+Следовательно,
+\[
+g_0[J]=x'(0)[J],
+\]
+то есть
+\[
+x'(0)=g_0.
+\]
+
+\end{corollary}
+
+\end{document}

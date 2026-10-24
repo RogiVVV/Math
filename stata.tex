@@ -1,0 +1,6428 @@
+% !TeX program = xelatex
+\documentclass[12pt,a4paper]{article}
+
+% =========================================================
+% ЯЗЫК И ШРИФТЫ
+% =========================================================
+
+\usepackage{fontspec}
+\usepackage{polyglossia}
+\usepackage{dsfont}
+
+\setdefaultlanguage{russian}
+\setotherlanguage{english}
+
+\setmainfont{CMU Serif}[ItalicFont=cmunti.otf]
+\setsansfont{CMU Sans Serif}
+\setmonofont{CMU Typewriter Text}
+
+
+% =========================================================
+% МАТЕМАТИКА
+% =========================================================
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage{bm}
+\usepackage{mathrsfs}
+
+% =========================================================
+% СТРАНИЦА
+% =========================================================
+\usepackage[a4paper, margin=2cm]{geometry}
+
+% =========================================================
+% ЦВЕТА И РАМКИ
+% =========================================================
+\usepackage{xcolor}
+\usepackage[most]{tcolorbox}
+
+% =========================================================
+% ГРАФИКА
+% =========================================================
+\usepackage{graphicx}
+
+% =========================================================
+% СПИСКИ
+% =========================================================
+\usepackage{enumitem}
+
+% =========================================================
+% ЗАГОЛОВКИ
+% =========================================================
+\usepackage{titlesec}
+
+% =========================================================
+% КОЛОНТИТУЛЫ
+% =========================================================
+\usepackage{fancyhdr}
+
+% =========================================================
+% ТАБЛИЦЫ
+% =========================================================
+\usepackage{booktabs}
+\usepackage{array}
+
+% =========================================================
+% ССЫЛКИ
+% =========================================================
+\usepackage{hyperref}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    urlcolor=blue,
+    citecolor=blue
+}
+
+% =========================================================
+% НАСТРОЙКИ
+% =========================================================
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+
+% -------------------------
+% Определение
+% -------------------------
+\newtcolorbox{definition}[1][]{
+    breakable,
+    colback=red!5,
+    colframe=red!75!black,
+    fonttitle=\bfseries,
+    title=Определение,
+    #1
+}
+
+% -------------------------
+% Теорема
+% -------------------------
+\newtcolorbox{theorem}[2][]{
+    breakable,
+    colback=green!5,
+    colframe=green!50!black,
+    fonttitle=\bfseries,
+    title=Теорема #2,
+    #1
+}
+
+% -------------------------
+% Лемма
+% -------------------------
+\newtcolorbox{lemma}[2][]{
+    breakable,
+    colback=orange!5,
+    colframe=orange!70!black,
+    fonttitle=\bfseries,
+    title=Лемма #2,
+    #1
+}
+
+% -------------------------
+% Следствие
+% -------------------------
+\newtcolorbox{corollary}[1][]{
+    breakable,
+    colback=green!5,
+    colframe=green!35!black,
+    fonttitle=\bfseries,
+    title=Следствие,
+    #1
+}
+
+% -------------------------
+% Доказательство
+% -------------------------
+\newtcolorbox{proofbox}[2][]{
+    breakable,
+    colback=blue!5,
+    colframe=blue!50,
+    fonttitle=\bfseries,
+    title=Доказательство #2,
+    #1
+}
+
+% -------------------------
+% Замечание
+% -------------------------
+\newtcolorbox{note}[1][]{
+    breakable,
+    colback=purple!5,
+    colframe=purple!80!black,
+    fonttitle=\bfseries,
+    title=Замечание,
+    #1
+}
+
+% -------------------------
+% Свойства
+% -------------------------
+\newtcolorbox{props}[2][]{
+    breakable,
+    colback=green!5,
+    colframe=green!70!black,
+    fonttitle=\bfseries,
+    title=Свойства #2,
+    #1
+}
+
+% -------------------------
+% Примеры
+% -------------------------
+\newtcolorbox{example}[1][]{
+    breakable,
+    colback=brown!5,
+    colframe=brown!40!black,
+    fonttitle=\bfseries,
+    title=Примеры,
+    #1
+}
+
+% =========================================================
+% ДОКУМЕНТ
+% =========================================================
+\begin{document}
+
+\tableofcontents
+
+\newpage
+
+\section{Вероятностное пространство}
+
+\subsection{\texorpdfstring{$\sigma$-алгебра}{sigma-алгебра}}
+
+\begin{definition}
+\textbf{$\sigma$-алгебра} $\mathcal{A}$ на множестве $\Omega$ — непустое семейство подмножеств $\Omega$, такое что:
+
+\[
+A\in\mathcal{A}
+\Longrightarrow
+\overline{A}\in\mathcal{A},
+\]
+
+и для любой последовательности множеств $(A_k)_{k=1}^{\infty}$ из $\mathcal{A}$
+
+\[
+\bigcup_{k=1}^{\infty}A_k\in\mathcal{A}
+\]
+
+\end{definition}
+
+\begin{props}{$\sigma$-алгебры}
+
+1) \textit{Замкнутость относительно пересечения.}
+
+Для любой последовательности $(A_k)_{k=1}^{\infty}$ из $\mathcal{A}$
+
+\[
+\bigcap_{k=1}^{\infty}A_k
+=
+\overline{
+\bigcup_{k=1}^{\infty}\overline{A_k}
+}
+\in\mathcal{A}
+\]
+
+\medskip
+
+2) Если $A,B\in\mathcal{A}$, то
+
+\[
+A\setminus B
+=
+A\cap\overline{B}
+\in\mathcal{A}
+\]
+
+\medskip
+
+3) Для любого $A\in\mathcal{A}$
+
+\[
+\Omega=A\cup\overline{A}\in\mathcal{A}
+\]
+
+\medskip
+
+4)
+
+\[
+\emptyset=\overline{\Omega}\in\mathcal{A}
+\]
+
+\end{props}
+
+
+\begin{example}
+
+1) Полная $\sigma$-алгебра:
+
+\[
+2^\Omega
+\]
+
+\medskip
+
+2) Тривиальная $\sigma$-алгебра:
+
+\[
+\{\emptyset,\Omega\}
+\]
+
+\end{example}
+
+
+\subsection{Вероятность}
+
+\begin{definition}
+
+Пусть $\Omega$ — множество элементарных исходов, а $\mathcal{A}$ — $\sigma$-алгебра.
+
+Отображение
+
+\[
+P:\mathcal{A}\to\mathbb{R}
+\]
+
+называется \textbf{вероятностью}, если:
+
+\[
+P(A)\geq0;
+\]
+
+\[
+P(\Omega)=1;
+\]
+
+и для попарно несовместных событий $A_k\in\mathcal{A}$
+
+\[
+P\left(
+\bigsqcup_{k=1}^{\infty}A_k
+\right)
+=
+\sum_{k=1}^{\infty}P(A_k)
+\]
+
+Тройка
+
+\[
+(\Omega,\mathcal{A},P)
+\]
+
+называется \textbf{вероятностным пространством}.
+
+\end{definition}
+
+
+\begin{example}
+
+1) Общая дискретная модель:
+
+\[
+\Omega=\{\omega_k\}_{k=1}^{N},
+\qquad N\leq\infty,
+\]
+
+\[
+\mathcal{A}=2^\Omega,
+\]
+
+\[
+P(\{\omega_k\})
+=
+P(\omega_k)
+=
+p_k\in[0,1],
+\]
+
+\[
+\sum_{k=1}^{N}p_k=1
+\]
+
+Если
+
+\[
+A=\{\omega_{i_j}\}_{j=1}^{m},
+\]
+
+то
+
+\[
+P(A)
+=
+\sum_{j=1}^{m}P(\omega_{i_j})
+=
+\sum_{j=1}^{m}p_{i_j}
+\]
+
+
+\medskip
+
+2) Классическая вероятностная модель:
+
+\[
+\Omega=\{\omega_1,\ldots,\omega_N\},
+\]
+
+\[
+P(\omega_k)=\frac1N
+\]
+
+Тогда
+
+\[
+P(A)=\frac{|A|}{N}
+\]
+
+
+\medskip
+
+3) Последовательность независимых испытаний с двумя исходами:
+
+\[
+\Omega=\{0,1\}^{\mathbb{N}}
+\]
+
+Если вероятность появления $1$ равна $p$, а вероятность появления $0$ равна
+
+\[
+q=1-p,
+\]
+
+то для последовательности, содержащей $k$ единиц и $n-k$ нулей:
+
+\[
+P(0^{\,n-k}1^k)
+=
+q^{\,n-k}p^k
+\]
+
+
+\medskip
+
+4) Геометрическая вероятность:
+
+\[
+\Omega\subset\mathbb{R}^n,
+\qquad
+0<\operatorname{Vol}\Omega<\infty
+\]
+
+Система событий:
+
+\[
+\mathcal{A}
+=
+\left\{
+A\subset\Omega
+\mid
+\operatorname{Vol}A\in
+[0,\operatorname{Vol}\Omega]
+\right\}
+\]
+
+Тогда
+
+\[
+P(A)
+=
+\frac{\operatorname{Vol}A}
+{\operatorname{Vol}\Omega}
+\]
+
+
+\begin{note}
+$\mathcal{A}$ не всегда равно $2^\Omega$, так как существуют множества, которые нельзя измерить.
+\end{note}
+
+\end{example}
+
+\subsection{Алгебра событий}
+
+\begin{definition}
+
+\textbf{Алгебра событий} $\mathbf{A}$ — непустое семейство подмножеств $\Omega$, такое что:
+
+\[
+A\in\mathbf{A}
+\Longrightarrow
+\overline{A}\in\mathbf{A},
+\]
+
+и
+
+\[
+A,B\in\mathbf{A}
+\Longrightarrow
+A\cup B\in\mathbf{A}
+\]
+
+\end{definition}
+
+
+\begin{note}
+
+1)
+
+\[
+\mathbf{A}\subset2^\Omega
+\]
+
+То есть существует $\sigma$-алгебра, покрывающая $\mathbf{A}$.
+
+
+\medskip
+
+2)
+
+\[
+\sigma(\mathbf{A})
+=
+\bigcap\mathcal{A}
+\]
+
+— минимальная $\sigma$-алгебра.
+
+\end{note}
+
+
+\begin{definition}
+
+\textbf{Борелевская $\sigma$-алгебра} $\mathcal{B}$ — $\sigma$-алгебра, содержащая интервалы всех видов.
+
+В частности, при
+
+\[
+-\infty<a<b<+\infty
+\]
+
+она содержит множества вида
+
+\[
+[a,b]
+=
+\overline{
+(-\infty,a)\cup(b,+\infty)
+}
+\]
+
+Также
+
+\[
+[a,b)
+=
+\overline{
+(-\infty,a)\cup[b,c]\cup(c,+\infty)
+}
+\]
+
+Кроме того,
+
+\[
+\{a\}
+=
+\bigcap_{n=1}^{\infty}
+\left[a,a+\frac1n\right]
+\]
+
+\end{definition}
+
+
+\begin{theorem}{о продолжении меры}
+
+Пусть $\Omega$ — множество, $\mathcal{A}$ — алгебра событий и
+
+\[
+P:\mathcal{A}\to\mathbb{R}
+\]
+
+удовлетворяет условиям:
+
+\[
+P(A)\geq0,
+\]
+
+\[
+P(\Omega)=1,
+\]
+
+и для любой последовательности попарно несовместных множеств $A_k\in\mathcal{A}$, такой что
+
+\[
+\bigsqcup_{k=1}^{\infty}A_k\in\mathcal{A},
+\]
+
+выполнено:
+
+\[
+P\left(
+\bigsqcup_{k=1}^{\infty}A_k
+\right)
+=
+\sum_{k=1}^{\infty}P(A_k)
+\]
+
+Тогда существует единственная вероятность
+
+\[
+Q:\sigma(\mathcal{A})\to\mathbb{R},
+\]
+
+продолжающая $P$:
+
+\[
+Q|_{\mathcal{A}}=P
+\]
+
+\end{theorem}
+
+
+\begin{props}{вероятности}
+
+1) Если $A\subset B$, то
+
+\[
+P(A)\leq P(B)
+\]
+
+
+2) Для любого события $A$
+
+\[
+P(A)\leq1
+\]
+
+
+3) Для любого события $A$
+
+\[
+P(A)=1-P(\overline{A})
+\]
+
+
+4) Для любых событий $A$ и $B$
+
+\[
+P(A\cup B)
+=
+P(A)+P(B)-P(A\cap B)
+\]
+
+
+5) $P(\emptyset)=0$
+
+
+
+6) Для любой последовательности событий $(A_k)_{k=1}^{\infty}$
+
+\[
+P\left(
+\bigcup_{k=1}^{\infty}A_k
+\right)
+\leq
+\sum_{k=1}^{\infty}P(A_k)
+\]
+
+\end{props}
+
+\begin{proofbox}{свойства 1}
+
+Имеем дизъюнктное разбиение
+
+\[
+B=A\sqcup(B\setminus A)
+\]
+
+Следовательно,
+
+\[
+P(B)
+=
+P(A)+P(B\setminus A)
+\]
+
+Так как
+
+\[
+P(B\setminus A)\geq0,
+\]
+
+то
+
+\[
+P(B)\geq P(A)
+\]
+
+\end{proofbox}
+
+\begin{proofbox}{свойства 2}
+
+Так как
+
+\[
+A\subset\Omega,
+\]
+
+по первому свойству получаем
+
+\[
+P(A)\leq P(\Omega)
+\]
+
+Но
+
+\[
+P(\Omega)=1,
+\]
+
+следовательно,
+
+\[
+P(A)\leq1
+\]
+
+\end{proofbox}
+
+\begin{proofbox}{свойства 3}
+
+Так как
+
+\[
+\Omega=A\sqcup\overline{A},
+\]
+
+то по свойству аддитивности вероятности
+
+\[
+P(\Omega)
+=
+P(A)+P(\overline{A})
+\]
+
+Так как
+
+\[
+P(\Omega)=1,
+\]
+
+получаем
+
+\[
+1=P(A)+P(\overline{A}),
+\]
+
+откуда
+
+\[
+P(A)=1-P(\overline{A})
+\]
+
+\end{proofbox}
+
+\begin{proofbox}{свойства 4}
+
+Разложим $B$ в дизъюнктное объединение:
+
+\[
+B=(B\setminus(A\cap B))\sqcup(A\cap B)
+\]
+
+Тогда
+
+\[
+P(B)
+=
+P(B\setminus(A\cap B))
++
+P(A\cap B)
+\]
+
+Также
+
+\[
+A\cup B
+=
+A\sqcup(B\setminus(A\cap B)),
+\]
+
+поэтому
+
+\[
+P(A\cup B)
+=
+P(A)+P(B\setminus(A\cap B))
+\]
+
+Следовательно,
+
+\[
+P(B\setminus(A\cap B))
+=
+P(B)-P(A\cap B)
+\]
+
+Подставляя, получаем
+
+\[
+P(A\cup B)
+=
+P(A)+P(B)-P(A\cap B)
+\]
+
+\end{proofbox}
+
+\begin{proofbox}{свойства 5}
+
+Так как
+
+\[
+\emptyset=\Omega\setminus\Omega,
+\]
+
+то
+
+\[
+\Omega=\Omega\sqcup\emptyset
+\]
+
+Следовательно,
+
+\[
+P(\Omega)
+=
+P(\Omega)+P(\emptyset)
+\]
+
+Так как
+
+\[
+P(\Omega)=1,
+\]
+
+получаем
+
+\[
+P(\emptyset)=0
+\]
+
+\end{proofbox}
+
+\begin{proofbox}{свойства 6}
+
+Положим
+
+\[
+B_1=A_1,
+\]
+
+а для $k\geq2$
+
+\[
+B_k
+=
+A_k\setminus
+\bigcup_{i=1}^{k-1}A_i
+\]
+
+Тогда множества $B_k$ попарно несовместны и
+
+\[
+\bigcup_{k=1}^{\infty}A_k
+=
+\bigsqcup_{k=1}^{\infty}B_k
+\]
+
+Кроме того,
+
+\[
+B_k\subset A_k
+\]
+
+Поэтому
+
+\[
+P\left(
+\bigcup_{k=1}^{\infty}A_k
+\right)
+=
+\sum_{k=1}^{\infty}P(B_k)
+\]
+
+Так как
+
+\[
+P(B_k)\leq P(A_k),
+\]
+
+то
+
+\[
+P\left(
+\bigcup_{k=1}^{\infty}A_k
+\right)
+\leq
+\sum_{k=1}^{\infty}P(A_k)
+\]
+
+\end{proofbox}
+
+\begin{theorem}{- Формула включений и исключений}
+Пусть $A_1,\dots,A_n$ --- события. Тогда
+\[
+\begin{aligned}
+P(A_1\cup\dots\cup A_n)
+={}&\sum_{k=1}^{n}P(A_k)
+-\sum_{k<l}P(A_k\cap A_l)\\
+&+\sum_{k<l<m}P(A_k\cap A_l\cap A_m)
++\dots\\
+&+(-1)^{n-1}P(A_1\cap\dots\cap A_n)
+\end{aligned}
+\]
+\end{theorem}
+
+\begin{theorem}{- Свойства условной вероятности}
+Следующие условия равносильны:
+
+\begin{enumerate}
+    \item $P$ конечно-аддитивно.
+    \item $P$ конечно аддитивно и для
+    \[
+    B_1\supseteq B_2\supseteq\dots\supseteq B_n,\qquad
+    B=\bigcap B_k
+    \]
+    выполняется
+    \[
+    P(B_k)\to P(B)
+    \]
+    (непрерывность сверху).
+
+    \item $P$ конечно аддитивно и для
+    \[
+    A_1\subseteq A_2\subseteq\dots,\qquad
+    A=\bigcup A_k
+    \]
+    выполняется
+    \[
+    P(A_k)\to P(A)
+    \]
+    (непрерывность снизу).
+\end{enumerate}
+\end{theorem}
+
+\begin{proofbox}{непрерывности снизу из непрерывности сверху}
+\textbf{Непрерывность сверху $\Rightarrow$ непрерывность снизу.}
+
+Пусть
+\[
+A_k\subseteq A_{k+1},\qquad A=\bigcup A_k
+\]
+Рассмотрим дополнения:
+\[
+B_k=\overline{A_k},\qquad B=\overline{A}
+\]
+Тогда
+\[
+B_k\supseteq B_{k+1},\qquad B=\bigcap B_k
+\]
+
+По непрерывности сверху:
+\[
+P(B_k)\to P(B)
+\]
+
+Так как
+\[
+P(B_k)=1-P(A_k),\qquad P(B)=1-P(A),
+\]
+получаем
+\[
+P(A_k)\to P(A)
+\]
+\end{proofbox}
+
+\begin{proofbox}{непрерывности сверху из непрерывности снизу}
+\textbf{Непрерывность снизу $\Rightarrow$ непрерывность сверху.}
+
+Пусть
+\[
+B_k\supseteq B_{k+1},\qquad B=\bigcap B_k
+\]
+
+Рассмотрим множества
+\[
+C_k=B_1\setminus B_k
+\]
+Тогда
+\[
+C_1\subseteq C_2\subseteq\dots,
+\qquad
+C=\bigcup C_k=B_1\setminus B
+\]
+
+По непрерывности снизу:
+\[
+P(C_k)\to P(C)
+\]
+
+Так как
+\[
+P(C_k)=P(B_1)-P(B_k),
+\]
+то
+\[
+P(B_k)\to P(B)
+\]
+\end{proofbox}
+
+
+\begin{proofbox}{счётной аддитивности из непрерывности сверху}
+\textbf{Непрерывность сверху $\Rightarrow$ счётная аддитивность.}
+
+Пусть
+\[
+B_k:B_i\cap B_j=\varnothing,\quad i\neq j
+\]
+
+Обозначим
+\[
+C_1=B_1\setminus B_2,\qquad
+C_2=B_2\setminus B_3,\qquad
+\dots
+\]
+Тогда
+\[
+B_j=\bigcup_{k\leq j}C_k\cup B
+\]
+
+Переходя к пределу:
+\[
+P(B_j)\to P(B)+\sum_{k=1}^{\infty}P(C_k)
+\]
+
+Так как остаток стремится к нулю, получаем счётную аддитивность.
+\end{proofbox}
+
+
+\begin{proofbox}{непрерывности сверху из счётной аддитивности}
+\textbf{Счётная аддитивность $\Rightarrow$ непрерывность сверху.}
+
+Пусть
+\[
+D_k\downarrow\varnothing
+\]
+Тогда
+\[
+\bigcup_{k=1}^{\infty}D_k
+=
+D_1\cup\bigcup_{k=1}^{\infty}(D_k\setminus D_{k+1})
+\]
+
+По счётной аддитивности:
+\[
+P(D_1)=P\left(\bigcap_{k=1}^{\infty}D_k\right)
++
+\sum_{k=1}^{\infty}P(D_k\setminus D_{k+1})
+\]
+
+Следовательно,
+\[
+P(D_k)\to P\left(\bigcap_{k=1}^{\infty}D_k\right)
+\]
+\end{proofbox}
+
+
+\subsection{Пример неизмеримого множества}
+
+\begin{example}
+Рассмотрим множество
+\[
+\Omega=\{-1,1\}
+\]
+
+Определим отношение эквивалентности:
+\[
+a\sim b\Longleftrightarrow a-b\in\mathbb{Q}
+\]
+
+Выберем по одному представителю из каждого класса эквивалентности.
+
+Обозначим полученное множество через $E_0$.
+
+Не существует такой меры, которая каждому ограниченному множеству присваивает неограниченную меру.
+
+\[
+A\subset B\Rightarrow \mu(A)\leq\mu(B)
+\]
+
+Для $c\in[0,1]$:
+\[
+\mu(-A+c)=\mu(A)
+\]
+
+\[
+\mu(A+c)=\mu(A),\qquad x\in A
+\]
+
+
+\begin{note}
+Мера на $[0,1]$: $\Delta\geq0$.
+\end{note}
+
+\[
+E_k=E_0+r_k,
+\]
+где $r_k$ --- рациональное число из $[-1,1]$.
+
+\[
+[0,1]\subset \bigcup E_k\subset[-2,2]
+\]
+
+Множества $E_k$ попарно не пересекаются.
+
+\[
+1\leq \sum_{k=1}^{\infty}\Delta
+\leq \mu([-2,2])
+\]
+
+Получаем противоречие.
+
+\end{example}
+
+\newpage
+
+\section{Случайные величины и распределения}
+
+\begin{definition}
+
+Пусть $(\Omega,\mathcal{A},P)$ --- вероятностное пространство.
+
+\textbf{Случайной величиной} называется отображение
+\[
+X:\Omega\to\mathbb{R},
+\]
+такое, что
+\[
+\forall B\in\mathcal{B}(\mathbb{R})
+\qquad
+X^{-1}(B)\in\mathcal{A}
+\]
+
+То есть $X$ является измеримым отображением.
+
+\end{definition}
+
+Пусть $X$ --- случайная величина на $(\Omega,\mathcal{A},P)$.
+
+\begin{definition}
+
+\textbf{Распределением случайной величины $X$} называется отображение
+\[
+P_X:\mathcal{B}(\mathbb{R})\to\mathbb{R},
+\]
+задаваемое равенством
+\[
+P_X(B)=P\bigl(X^{-1}(B)\bigr)
+=P\bigl(\{\omega:X(\omega)\in B\}\bigr)
+=P(X\in B)
+\]
+
+\end{definition}
+
+\begin{note}
+
+1) $P_X$ является вероятностной мерой. Таким образом,
+\[
+(\Omega,\mathcal{A},P)
+\xrightarrow{\,X\,}
+(\mathbb{R},\mathcal{B}(\mathbb{R}),P_X)
+\]
+
+2) Для случайных величин будем использовать обозначения
+\[
+X,Y,U,W,\ldots
+\]
+Также используются обозначения:
+\[
+\xi,\eta,\zeta,\ldots
+\]
+
+\end{note}
+
+\begin{example}
+
+Пусть
+\[
+\Omega=\{\text{орёл},\text{решка},\text{ребро}\},
+\]
+причём
+\[
+P(\text{орёл})=P(\text{решка})=\frac12,
+\qquad
+P(\text{ребро})=0
+\]
+
+Определим случайные величины $X$ и $Y$:
+\[
+X(\text{орёл})=0,\qquad
+X(\text{решка})=1,\qquad
+X(\text{ребро})=9982026,
+\]
+\[
+Y(\text{решка})=0,\qquad
+Y(\text{орёл})=1,\qquad
+Y(\text{ребро})=9982026
+\]
+
+Тогда
+\[
+P(X=0)=\frac12=P(Y=1),
+\]
+\[
+P(X=1)=\frac12=P(Y=0)
+\]
+
+Следовательно,
+\[
+P_X=P_Y,
+\]
+то есть
+\[
+X\overset{d}{=}Y
+\]
+
+При этом
+\[
+P(X=Y)=0,
+\qquad
+P(X\neq Y)=1,
+\]
+то есть $X$ и $Y$ почти наверное не равны.
+
+\medskip
+
+Рассмотрим модель геометрической вероятности
+\[
+([0,1],\mathcal{A},P),
+\]
+где
+\[
+\mathcal{A}
+=
+\left\{
+A\subset[0,1]:
+\operatorname{length}(A)\ \text{существует}
+\right\},
+\qquad
+P(A)=\operatorname{length}(A)
+\]
+
+Пусть
+\[
+X(\omega)=1-\omega
+\]
+
+Тогда для $0\leq a\leq b\leq1$
+\[
+\begin{aligned}
+P(a\leq X\leq b)
+&=P(a\leq1-\omega\leq b)\\
+&=P(1-b\leq\omega\leq1-a)\\
+&=(1-a)-(1-b)\\
+&=b-a
+\end{aligned}
+\]
+
+\end{example}
+
+\begin{definition}
+
+Пусть $X$ --- случайная величина на $(\Omega,\mathcal{A},P)$, а $P_X$ --- её распределение.
+
+\textbf{Функцией распределения} случайной величины $X$ называется функция
+\[
+F_X:\mathbb{R}\to\mathbb{R},
+\]
+задаваемая равенством
+\[
+F_X(t)
+=
+P_X((-\infty,t])
+=
+P(X\leq t)
+\]
+
+\end{definition}
+
+\begin{theorem}{ - Свойства функции распределения}
+
+Функция распределения $F$ обладает следующими свойствами:
+
+\begin{enumerate}
+    \item $F$ неубывает;
+    \item $F$ непрерывна справа;
+    \item
+    $F(-\infty)=0,
+    \qquad
+    F(+\infty)=1$
+    \item Для $a<b$
+    \[
+    P(a<X\leq b)=F_X(b)-F_X(a)
+    \]
+
+    \item Левый предел функции распределения удовлетворяет равенству
+    \[
+    F(t-0)=\lim_{s\uparrow t}F(s),
+    \]
+    причём
+    \[
+    P(X=t)=F(t)-F(t-0)
+    \]
+
+    \item Зная функцию распределения $F$, можно восстановить вероятности промежутков:
+    \[
+    P(a<X\leq b)=F(b)-F(a)
+    \]
+\end{enumerate}
+
+\end{theorem}
+
+\begin{proofbox}{монотонности}
+
+Пусть $t_1<t_2$. Тогда
+\[
+(-\infty,t_1]\subset(-\infty,t_2]
+\]
+
+Следовательно,
+\[
+P_X((-\infty,t_1])
+\leq
+P_X((-\infty,t_2]),
+\]
+то есть
+\[
+F(t_1)\leq F(t_2)
+\]
+
+Таким образом, $F$ неубывает.
+
+\end{proofbox}
+
+\begin{proofbox}{предельных значений}
+
+Докажем сначала, что
+\[
+F(+\infty)=1,
+\qquad\text{то есть}\qquad
+\lim_{t\to+\infty}F(t)=1
+\]
+
+Возьмём последовательность $\{a_n\}$ такую, что
+\[
+a_n\leq a_{n+1},
+\qquad
+a_n\to+\infty
+\]
+
+Положим
+\[
+A_n=(-\infty,a_n]
+\]
+
+Тогда
+\[
+A_n\subset A_{n+1},
+\qquad
+\bigcup_{n=1}^{\infty}A_n=\mathbb{R}
+\]
+
+По непрерывности вероятностной меры снизу
+\[
+F(a_n)=P_X(A_n)\longrightarrow P_X(\mathbb{R})=1
+\]
+
+Аналогично докажем, что
+\[
+F(-\infty)=0,
+\qquad\text{то есть}\qquad
+\lim_{t\to-\infty}F(t)=0
+\]
+
+Возьмём последовательность $\{b_n\}$ такую, что
+\[
+b_{n+1}\leq b_n,
+\qquad
+b_n\to-\infty
+\]
+
+Положим
+\[
+B_n=(-\infty,b_n]
+\]
+
+Тогда
+\[
+B_{n+1}\subset B_n,
+\qquad
+\bigcap_{n=1}^{\infty}B_n=\emptyset
+\]
+
+По непрерывности вероятностной меры сверху
+\[
+F(b_n)=P_X(B_n)\longrightarrow P_X(\emptyset)=0
+\]
+
+\end{proofbox}
+
+\begin{proofbox}{непрерывности справа}
+
+Необходимо показать, что
+\[
+F(t+0)=F(t)
+\]
+
+Пусть
+\[
+t_{n+1}\leq t_n,
+\qquad
+t_n\to0,
+\qquad
+t_n>0
+\]
+
+Тогда
+\[
+\begin{aligned}
+F(t+t_n)-F(t)
+&=P(X\leq t+t_n)-P(X\leq t)\\
+&=P(t<X\leq t+t_n)
+\end{aligned}
+\]
+
+Обозначим
+\[
+B_n=(t,t+t_n]
+\]
+
+Тогда
+\[
+B_{n+1}\subset B_n,
+\qquad
+\bigcap_{n=1}^{\infty}B_n=\emptyset
+\]
+
+По непрерывности вероятностной меры сверху
+\[
+P_X(B_n)\longrightarrow P_X(\emptyset)=0
+\]
+
+Следовательно,
+\[
+F(t+t_n)-F(t)\longrightarrow0,
+\]
+а значит,
+\[
+F(t+t_n)\longrightarrow F(t)
+\]
+
+Таким образом, $F$ непрерывна справа.
+
+\end{proofbox}
+
+\begin{proofbox}{свойства 4}
+
+Так как
+\[
+\{X\leq b\}
+=
+\{X\leq a\}\sqcup\{a<X\leq b\},
+\]
+то
+\[
+F_X(b)
+=
+F_X(a)+P(a<X\leq b)
+\]
+
+Следовательно,
+\[
+P(a<X\leq b)=F_X(b)-F_X(a)
+\]
+
+\end{proofbox}
+
+\begin{proofbox}{свойства 5}
+
+Пусть $t_n>0$ и $t_n\to0$. Тогда
+\[
+F(t)-F(t-t_n)
+=
+P(t-t_n<X\leq t)
+\]
+
+При этом
+\[
+\bigcap_{n=1}^{\infty}(t-t_n,t]=\{t\}
+\]
+
+По непрерывности вероятностной меры сверху
+\[
+F(t)-F(t-0)=P(X=t)
+\]
+
+В частности,
+\[
+F(t-0)=F(t)
+\quad\Longleftrightarrow\quad
+P(X=t)=0
+\]
+
+\end{proofbox}
+
+\begin{proofbox}{свойства 6}
+
+Свойство непосредственно следует из первого:
+\[
+P(a<X\leq b)=F(b)-F(a)
+\]
+
+Следовательно, функция распределения определяет вероятности промежутков данного вида.
+
+\end{proofbox}
+
+\begin{theorem}{о достаточности функции распределения для описания вероятностного закона}
+
+Пусть
+\[
+F:\mathbb{R}\to\mathbb{R}
+\]
+--- неубывающая функция, непрерывная справа и такая, что
+\[
+F(+\infty)=1,
+\qquad
+F(-\infty)=0
+\]
+
+Тогда существует вероятностное пространство $(\Omega,\mathcal{A},P)$ и случайная величина $X$ на $(\Omega,\mathcal{A},P)$ такие, что
+\[
+F_X=F
+\]
+
+\end{theorem}
+
+\begin{proofbox}{существования случайной величины с заданной функцией распределения}
+
+Рассмотрим алгебру множеств
+\[
+\mathcal{A}_0
+=
+\left\{
+\bigsqcup_{k=1}^{m}(a_k,b_k]:
+m<\infty
+\right\}
+\]
+
+Определим на ней функцию
+\[
+\widetilde{P}
+\left(
+\bigsqcup_{k=1}^{m}(a_k,b_k]
+\right)
+=
+\sum_{k=1}^{m}
+\bigl(F(b_k)-F(a_k)\bigr)
+\]
+
+В частности,
+\[
+P(\ldots)\geq0,
+\]
+а также
+\[
+(-\infty,+\infty)\in\mathcal{A}_0
+\]
+и
+\[
+P((-\infty,+\infty))
+=
+F(+\infty)-F(-\infty)
+=
+1
+\]
+
+Далее необходимо доказать непрерывность построенной вероятностной меры для счётной аддитивности.
+
+После этого применяем теорему о продолжении вероятностной меры и получаем вероятностную меру $\widetilde{P}$ на $\mathcal{B}(\mathbb{R})$, совпадающую с $P$ на $\mathcal{A}_0$.
+
+Рассмотрим вероятностное пространство
+\[
+(\mathbb{R},\mathcal{B}(\mathbb{R}),P)
+\]
+и случайную величину
+\[
+X(\omega)=\omega
+\]
+
+Тогда по построению
+\[
+P(X\leq t)=P((-\infty,t])=F(t),
+\]
+то есть
+\[
+F_X=F
+\]
+
+\end{proofbox}
+
+\newpage
+
+\section{Типы случайных величин и распределений}
+
+Пусть $(\Omega,\mathcal{A},P)$ --- вероятностное пространство, $X$ --- случайная величина, $P_X$ --- её распределение.
+
+\begin{definition}
+
+Случайная величина $X$ называется \textbf{дискретной}, если существует не более чем счётное множество $E\subset\mathbb{R}$ такое, что
+\[
+P(X\in E)=1
+\]
+
+\end{definition}
+
+Пусть возможные значения $X$ равны $x_1,x_2,x_3,\ldots$, причём
+\[
+P(X=x_k)=p_k,
+\qquad
+\sum_k p_k=1
+\]
+
+Закон распределения можно записать в виде таблицы:
+\[
+\begin{array}{c|cccccc}
+X & x_1 & x_2 & x_3 & \ldots & x_n & \ldots\\
+\hline
+P_X & p_1 & p_2 & p_3 & \ldots & p_n & \ldots
+\end{array}
+\]
+
+При этом
+\[
+p(x)=
+\begin{cases}
+p_k, & x=x_k,\\
+0, & \text{иначе}
+\end{cases}
+\]
+
+Функция распределения дискретной случайной величины имеет вид
+\[
+F(t)=\sum_k p_k\,\mathds{1}(x_k\leq t)
+\]
+
+\begin{example}
+
+\textbf{1. Биномиальное распределение}
+
+Пусть
+\[
+X\sim \operatorname{Bin}(n,p),
+\qquad
+p\in(0,1),
+\qquad
+q=1-p,
+\]
+где $n$ --- количество испытаний, а $X$ --- количество успехов.
+
+Тогда
+\[
+P(X=k)=C_n^k p^k q^{\,n-k},
+\qquad
+k=0,1,\ldots,n
+\]
+
+\medskip
+
+\textbf{2. Распределение Бернулли}
+
+Распределение Бернулли является частным случаем биномиального распределения:
+\[
+\operatorname{Bern}(p)=\operatorname{Bin}(1,p)
+\]
+
+\medskip
+
+\textbf{3. Вырожденное распределение}
+
+Пусть
+\[
+X\sim I(c)=I_c
+\]
+
+Тогда
+\[
+X\overset{\text{п.н.}}{=}c
+\qquad\Longleftrightarrow\qquad
+P(X=c)=1
+\]
+
+\medskip
+
+\textbf{4. Геометрическое распределение}
+
+Пусть $X$ --- количество неудач до первого успеха. Тогда
+\[
+P(X=k)=q^k p,
+\qquad
+k=0,1,2,\ldots
+\]
+
+Если же $X$ --- номер первого успеха, то
+\[
+P(X=k)=q^{k-1}p,
+\qquad
+k=1,2,\ldots
+\]
+
+\medskip
+
+\textbf{5. Распределение Пуассона}
+
+Пусть
+\[
+X\sim \operatorname{Pois}(\lambda),
+\qquad
+\lambda>0
+\]
+
+Тогда
+\[
+P(X=k)=e^{-\lambda}\frac{\lambda^k}{k!},
+\qquad
+k=0,1,2,\ldots
+\]
+
+\begin{theorem}{Пуассона}
+
+Пусть
+\[
+X_n\sim\operatorname{Bin}(n,p_n),
+\qquad
+p_n=\frac{\lambda}{n}+o\left(\frac1n\right)
+\]
+
+Тогда для любого фиксированного $k$
+\[
+P(X_n=k)
+=
+C_n^k p_n^k(1-p_n)^{n-k}
+\longrightarrow
+e^{-\lambda}\frac{\lambda^k}{k!}
+\]
+
+\end{theorem}
+
+\begin{proofbox}{предельного перехода к распределению Пуассона}
+
+Имеем
+\[
+P(X_n=k)
+=
+C_n^k p_n^k(1-p_n)^{n-k}
+\]
+
+Так как
+\[
+p_n=\frac{\lambda}{n}+o\left(\frac1n\right),
+\]
+то при фиксированном $k$
+\[
+C_n^k p_n^k
+=
+\frac{n(n-1)\cdots(n-k+1)}{k!}\,p_n^k
+\longrightarrow
+\frac{\lambda^k}{k!}
+\]
+
+Кроме того,
+\[
+(1-p_n)^{n-k}
+=
+\frac{(1-p_n)^n}{(1-p_n)^k}
+\longrightarrow e^{-\lambda}
+\]
+
+Следовательно,
+\[
+P(X_n=k)
+\longrightarrow
+e^{-\lambda}\frac{\lambda^k}{k!}
+\]
+
+\end{proofbox}
+
+\textbf{6. Гипергеометрическое распределение}
+
+Пусть
+\[
+X\sim HG(m,n,k),
+\]
+где $m$ --- общее количество деталей в корзине, $n$ --- количество ``хороших'' деталей, $k$ --- количество выбираемых без возвращения деталей.
+
+Тогда
+\[
+P(X=j)
+=
+\frac{C_n^j C_{m-n}^{k-j}}{C_m^k}
+\]
+
+Если
+\[
+m\to\infty,
+\qquad
+n\to\infty,
+\qquad
+\frac{n}{m}\to p,
+\]
+то
+\[
+\frac{C_n^j C_{m-n}^{k-j}}{C_m^k}
+\longrightarrow
+C_k^j p^j q^{\,k-j},
+\qquad
+q=1-p,
+\]
+то есть в пределе получаем биномиальное распределение.
+
+\medskip
+
+\textbf{7. Отрицательное биномиальное распределение}
+
+Пусть
+\[
+X\sim NB(r,p),
+\]
+где $X$ --- количество неудач до $r$-го успеха.
+
+Тогда
+\[
+P(X=j)
+=
+C_{k+r-1}^{j}p^r q^j
+\]
+
+\medskip
+
+\textbf{8. Дискретное равномерное распределение}
+
+Пусть
+\[
+X\sim DU(x_1,\ldots,x_n)
+\]
+
+Тогда
+\[
+P(X=x_k)=\frac1n,
+\qquad
+k=1,\ldots,n
+\]
+
+\end{example}
+
+\newpage
+
+\section{Абсолютно непрерывные случайные величины и распределения}
+
+\begin{definition}
+
+Случайная величина $X$ и её распределение $P_X$ называются \textbf{абсолютно непрерывными}, если существует функция
+\[
+p:\mathbb{R}\to\mathbb{R},
+\qquad
+p(x)\geq0,
+\]
+такая, что для любого $B\in\mathcal{B}(\mathbb{R})$
+\[
+P(X\in B)=\int_B p(x)\,dx
+\]
+
+Функция $p(x)$ называется \textbf{плотностью распределения}, или PDF (от англ. \textit{probability density function}).
+
+\end{definition}
+
+\begin{props}{абсолютно непрерывного распределения}
+
+1) Функция распределения имеет вид
+\[
+F(t)=P(X\leq t)
+=
+\int_{-\infty}^{t}p(x)\,dx
+\]
+
+В частности,
+\[
+F\in C(\mathbb{R}),
+\]
+и
+\[
+F'(t)=p(t)
+\]
+почти всюду.
+
+2) Нормировка плотности:
+\[
+\int_{\mathbb{R}}p(x)\,dx=1
+\]
+
+3) Для любого $B\in\mathcal{B}(\mathbb{R})$
+\[
+P(X\in B)=\int_Bp(x)\,dx
+\]
+
+4) Для любого $c\in\mathbb{R}$
+\[
+P(X=c)
+=
+\int_{\{c\}}p(x)\,dx
+=
+0
+\]
+
+5) При $h\to0$
+\[
+F(x_0+h)-F(x_0)
+=
+p(x_0)h+o(h),
+\]
+если $p$ непрерывна в точке $x_0$. Поэтому
+\[
+P(x_0\leq X\leq x_0+h)
+\approx
+p(x_0)h
+\]
+
+\end{props}
+
+Основные аналогии:
+
+\[
+\begin{array}{c|c|c}
+ & \text{Дискретное} & \text{Абсолютно непрерывное}\\
+\hline
+\text{Описание}
+&
+P(X=x_i)
+&
+\text{Плотность }p(x)
+\\[2mm]
+\text{Нормировка}
+&
+\displaystyle\sum_k p(x_k)=1
+&
+\displaystyle\int_{\mathbb{R}}p(x)\,dx=1
+\\[4mm]
+P(a<X<b)
+&
+\displaystyle\sum_{a<x_k<b}p(x_k)
+&
+\displaystyle\int_a^b p(x)\,dx
+\end{array}
+\]
+
+\subsection{Равномерное распределение}
+
+\begin{definition}
+
+Случайная величина $X$ имеет \textbf{равномерное распределение} на $[a,b]$,
+\[
+X\sim U[a,b],
+\]
+если её плотность равна
+\[
+p_X(t)
+=
+\frac{1}{b-a}\mathds{1}(a\leq t\leq b)
+\]
+
+\end{definition}
+
+Функция распределения имеет вид
+\[
+F_X(t)
+=
+\begin{cases}
+0, & t<a,\\[1mm]
+\dfrac{t-a}{b-a}, & a\leq t\leq b,\\[2mm]
+1, & t>b
+\end{cases}
+\]
+
+Пусть
+\[
+Y=cX+d,
+\qquad
+c>0
+\]
+
+Тогда
+\[
+Y\sim U[ca+d,cb+d]
+\]
+
+Действительно,
+\[
+F_Y(t)
+=
+P(cX+d\leq t)
+=
+P\left(X\leq\frac{t-d}{c}\right)
+=
+F_X\left(\frac{t-d}{c}\right)
+\]
+
+Следовательно,
+\[
+F_Y(t)
+=
+\begin{cases}
+0, & \dfrac{t-d}{c}<a,\\[2mm]
+\dfrac{\frac{t-d}{c}-a}{b-a},
+& a\leq\dfrac{t-d}{c}\leq b,\\[3mm]
+1, & \dfrac{t-d}{c}>b
+\end{cases}
+\]
+
+Эквивалентно,
+\[
+F_Y(t)
+=
+\begin{cases}
+0, & t<ca+d,\\[1mm]
+\dfrac{t-(ca+d)}{c(b-a)},
+& ca+d\leq t\leq cb+d,\\[3mm]
+1, & t>cb+d
+\end{cases}
+\]
+
+\subsection{Нормальное распределение}
+
+\begin{definition}
+
+Случайная величина $X$ имеет \textbf{нормальное распределение} с параметрами $\mu\in\mathbb{R}$ и $\sigma>0$,
+\[
+X\sim\mathcal{N}(\mu,\sigma^2),
+\]
+если её плотность имеет вид
+\[
+p(x)
+=
+\frac{1}{\sqrt{2\pi\sigma^2}}
+\exp\left(
+-\frac{(x-\mu)^2}{2\sigma^2}
+\right)
+\]
+
+Параметр $\mu$ определяет положение распределения, а $\sigma^2$ --- его масштаб.
+
+\end{definition}
+
+Распределение
+\[
+\mathcal{N}(0,1)
+\]
+называется \textbf{стандартным нормальным распределением}.
+
+\begin{note}
+
+Для нормального распределения $\mu$
+является математическим ожиданием, а $\sigma^2$ --- дисперсией.
+
+\end{note}
+
+Пусть
+\[
+X\sim\mathcal{N}(\mu,\sigma^2),
+\qquad
+Y=aX+b,
+\qquad
+a\neq0
+\]
+
+Тогда
+\[
+Y\sim\mathcal{N}(a\mu+b,a^2\sigma^2)
+\]
+
+Действительно,
+\[
+F_Y(t)
+=
+P(aX+b\leq t)
+\]
+
+При $a>0$
+\[
+F_Y(t)
+=
+P\left(X\leq\frac{t-b}{a}\right)
+=
+F_X\left(\frac{t-b}{a}\right),
+\]
+поэтому
+\[
+\begin{aligned}
+p_Y(t)
+&=
+\frac1a
+p_X\left(\frac{t-b}{a}\right)\\
+&=
+\frac{1}{\sqrt{2\pi\sigma^2a^2}}
+\exp\left(
+-\frac{(t-b-a\mu)^2}{2a^2\sigma^2}
+\right)
+\end{aligned}
+\]
+
+Следовательно,
+\[
+Y\sim\mathcal{N}(a\mu+b,a^2\sigma^2)
+\]
+
+\begin{note}
+
+Стандартизация нормальной случайной величины:
+\[
+\frac{X-\mu}{\sigma}\sim\mathcal{N}(0,1)
+\]
+
+Если
+\[
+Y\sim\mathcal{N}(0,1),
+\]
+то
+\[
+\sigma Y+\mu\sim\mathcal{N}(\mu,\sigma^2)
+\]
+
+\end{note}
+
+\subsection{Принцип трёх сигм}
+
+Пусть
+\[
+X\sim\mathcal{N}(\mu,\sigma^2)
+\]
+
+Тогда
+\[
+\begin{aligned}
+P(\mu-c\sigma\leq X\leq\mu+c\sigma)
+&=
+P\left(
+-c\leq\frac{X-\mu}{\sigma}\leq c
+\right)\\
+&=
+\Phi(c)-\Phi(-c)\\
+&=
+2\Phi(c)-1,
+\end{aligned}
+\]
+где $\Phi$ --- функция распределения стандартного нормального закона.
+
+Используется симметрия
+\[
+\Phi(-x)=1-\Phi(x),
+\]
+где
+\[
+\Phi(x)
+=
+\frac{1}{\sqrt{2\pi}}
+\int_{-\infty}^{x}e^{-t^2/2}\,dt
+\]
+
+\begin{note}
+
+Значения функции $\Phi$ обычно берутся из таблицы числового закона.
+
+\end{note}
+
+Обозначим
+\[
+\Phi_0(t)
+=
+\frac{1}{\sqrt{2\pi}}
+\int_0^t e^{-x^2/2}\,dx
+\]
+
+Это \textbf{функция Лапласа}. Для неё
+\[
+\Phi_0(-t)=-\Phi_0(t),
+\]
+а функция распределения стандартного нормального закона выражается как
+\[
+\Phi(t)=\frac12+\Phi_0(t)
+\]
+
+\textbf{Функция ошибок} определяется равенством
+\[
+\operatorname{erf}(x)
+=
+\frac{2}{\sqrt{\pi}}
+\int_0^x e^{-t^2}\,dt
+\]
+
+После замены
+\[
+t=\frac{u}{\sqrt2},
+\qquad
+dt=\frac{du}{\sqrt2},
+\]
+получаем
+\[
+\operatorname{erf}(x)
+=
+2\Phi_0(\sqrt2\,x)
+\]
+
+Также нормальную случайную величину можно записать в виде
+\[
+Y=\mu+\xi,
+\qquad
+\xi\sim\mathcal{N}(0,\sigma^2)
+\]
+
+\subsection{Экспоненциальное распределение}
+
+\begin{definition}
+
+Случайная величина $X$ имеет \textbf{экспоненциальное распределение} с параметром $\lambda>0$,
+\[
+X\sim\operatorname{Exp}(\lambda),
+\]
+если её плотность равна
+\[
+p(x)
+=
+\lambda e^{-\lambda x}\mathds{1}(x\geq0)
+\]
+
+Функция распределения:
+\[
+F(x)
+=
+(1-e^{-\lambda x})\mathds{1}(x\geq0)
+\]
+
+\end{definition}
+
+\begin{note}
+
+В другой параметризации экспоненциального распределения записывают
+\[
+p(x)
+=
+\frac1\lambda e^{-x/\lambda}\mathds{1}(x\geq0),
+\]
+и тогда
+\[
+F(x)
+=
+(1-e^{-x/\lambda})\mathds{1}(x\geq0)
+\]
+
+\end{note}
+
+\begin{example}
+
+Пусть моменты прихода запросов обозначены через
+\[
+\tau_1,\tau_2,\tau_3,\ldots
+\]
+
+Тогда интервалы между последовательными моментами прихода изображаются как
+\[
+[0,\tau_1],\quad
+[\tau_1,\tau_2],\quad
+[\tau_2,\tau_3],\ldots
+\]
+
+Если $T_k$ --- время между последовательными запросами, то в рассматриваемой модели
+\[
+T_k\sim\operatorname{Exp}(\lambda)
+\]
+
+\end{example}
+
+\subsection{Гамма-распределение}
+
+\begin{definition}
+
+Случайная величина $X$ имеет \textbf{гамма-распределение} с параметрами $\alpha,\lambda>0$,
+\[
+X\sim\Gamma(\alpha,\lambda),
+\]
+если её плотность равна
+\[
+p(x)
+=
+\frac{\lambda^\alpha x^{\alpha-1}e^{-\lambda x}}
+{\Gamma(\alpha)}
+\mathds{1}(x\geq0)
+\]
+
+При $\alpha=1$
+\[
+\Gamma(1,\lambda)=\operatorname{Exp}(\lambda)
+\]
+
+\end{definition}
+
+\subsection{Распределение Коши}
+
+\begin{definition}
+
+Случайная величина $X$ имеет \textbf{распределение Коши} с параметрами $\mu$ и $\gamma>0$, если её плотность имеет вид
+\[
+p(x)
+=
+\frac{1}{\pi\gamma}
+\frac{1}{
+1+\left(\dfrac{x-\mu}{\gamma}\right)^2
+}
+\]
+
+\end{definition}
+
+Функция распределения:
+
+\[
+F_X(t)
+=
+P(X\leq t)
+=
+\int_{-\infty}^{t}p(x)\,dx
+\]
+
+Сделаем замену
+\[
+u=\frac{x-\mu}{\gamma},
+\qquad
+dx=\gamma\,du
+\]
+
+Получаем
+\[
+\begin{aligned}
+F_X(t)
+&=
+\int_{-\infty}^{t}
+\frac{1}{\pi\gamma}
+\frac{1}{
+1+\left(\dfrac{x-\mu}{\gamma}\right)^2
+}\,dx\\
+&=
+\frac{1}{\pi}
+\int_{-\infty}^{\frac{t-\mu}{\gamma}}
+\frac{du}{1+u^2}\\
+&=
+\frac{1}{\pi}
+\left.
+\arctan u
+\right|_{-\infty}^{\frac{t-\mu}{\gamma}}\\
+&=
+\frac{1}{\pi}
+\left(
+\arctan\frac{t-\mu}{\gamma}
++\frac{\pi}{2}
+\right)
+\end{aligned}
+\]
+
+Следовательно,
+\[
+\boxed{
+F_X(t)
+=
+\frac12+
+\frac{1}{\pi}
+\arctan\left(\frac{t-\mu}{\gamma}\right)
+}
+\]
+
+\subsection{Плотность преобразованной случайной величины}
+
+\begin{theorem}{о плотности преобразования}
+
+Пусть $X$ --- абсолютно непрерывная случайная величина с плотностью $p_X$, и
+\[
+Y=g(X),
+\]
+где $g$ --- гладкая биекция.
+
+Если $g$ строго монотонна, то
+\[
+p_Y(t)
+=
+p_X\bigl(g^{-1}(t)\bigr)
+\left|
+\left(g^{-1}\right)'(t)
+\right|
+\]
+
+В частности,
+\[
+p_Y(t)
+=
+p_X\bigl(g^{-1}(t)\bigr)
+\frac{1}{\left|g'(t)\right|}
+\]
+
+\end{theorem}
+
+\begin{proofbox}{плотности преобразованной случайной величины}
+
+Пусть сначала $g$ строго возрастает. Тогда
+\[
+\begin{aligned}
+F_Y(t)
+&=
+P(g(X)\leq t)\\
+&=
+P(X\leq g^{-1}(t))\\
+&=
+F_X(g^{-1}(t))
+\end{aligned}
+\]
+
+Дифференцируя, получаем
+\[
+p_Y(t)
+=
+p_X(g^{-1}(t))
+\left(g^{-1}\right)'(t)
+\]
+
+Для строго убывающей функции аналогично возникает модуль производной, поэтому в общем случае
+\[
+p_Y(t)
+=
+p_X(g^{-1}(t))
+\left|
+\left(g^{-1}\right)'(t)
+\right|
+\]
+
+\end{proofbox}
+
+Если
+\[
+g: \bigsqcup_x([a_x, b_x])\longrightarrow \mathbb{R}
+\]
+и на каждом интервале монотонности g гладкая биекция, то
+\[
+p_Y(t)
+=
+\sum_{k=1}^{n(t)}
+p_X\bigl(g_k^{-1}(t)\bigr)
+\left|
+\left(g_k^{-1}\right)'(t)
+\right|,
+\]
+где
+\[
+n(t)=\#\{x:g(x)=t\}
+\]
+
+\newpage
+
+\section{Случайные векторы. Совместные распределения}
+
+\begin{definition}
+
+\textbf{Носителем распределения} случайной величины $X$ называется замкнутое множество $E$ такое, что
+\[
+P(X\in E)=1
+\]
+и для любого собственного замкнутого подмножества $E'\subsetneq E$
+\[
+P(X\in E')<1
+\]
+
+\end{definition}
+
+Для дискретного распределения
+\[
+E=\{x:p_X(x)>0\}
+\]
+
+Для абсолютно непрерывного распределения
+\[
+E=\operatorname{cl}\{x:p_X(x)>0\}
+\]
+
+\begin{definition}
+
+Пусть
+\[
+X=(X_1,\ldots,X_n)
+\]
+где $X_1,\ldots,X_n$ --- случайные величины. Тогда $X$ называется \textbf{случайным вектором}
+
+\end{definition}
+
+В дискретном двумерном случае совместное распределение задаётся вероятностями
+\[
+p_{ij}=P(X=x_i,Y=y_j)
+\]
+
+Маргинальные распределения имеют вид
+\[
+P(X=x_i)=\sum_j p_{ij},
+\qquad
+P(Y=y_j)=\sum_i p_{ij}
+\]
+
+Если
+\[
+U=g(X,Y)
+\]
+то
+\[
+P(U=u_k)
+=
+\sum_{\substack{i,j\\g(x_i,y_j)=u_k}}p_{ij}
+\]
+
+\subsection{Абсолютно непрерывный случайный вектор}
+
+\begin{definition}
+
+Случайный вектор
+\[
+X=(X_1,\ldots,X_n)
+\]
+называется \textbf{абсолютно непрерывным}, если существует функция
+\[
+p:\mathbb{R}^n\to\mathbb{R}
+\]
+такая, что для любого $B\in\mathcal{B}(\mathbb{R}^n)$
+\[
+P(X\in B)
+=
+\int_B p(x_1,\ldots,x_n)\,dx_1\cdots dx_n
+\]
+
+Функция $p$ называется \textbf{совместной плотностью} случайного вектора
+
+\end{definition}
+
+Для двумерного случайного вектора $(X,Y)$ маргинальные плотности равны
+\[
+p_X(x)=\int_{\mathbb{R}}p(x,y)\,dy
+\]
+и
+\[
+p_Y(y)=\int_{\mathbb{R}}p(x,y)\,dx
+\]
+
+Если
+\[
+U=g(X,Y)
+\]
+то для любого $B\in\mathcal{B}(\mathbb{R})$
+\[
+P(U\in B)
+=
+\iint_{\{(x,y):g(x,y)\in B\}}p(x,y)\,dx\,dy
+\]
+
+\begin{example}
+
+Пусть совместная плотность имеет вид
+\[
+p(x,y)
+=
+c e^{-x}e^{-2y}
+\mathds{1}\left(x\geq0,\ y\geq0,\ y\leq\frac1x\right)
+\]
+
+Найдём нормировочную константу $c$. Из условия
+\[
+\iint_{\mathbb{R}^2}p(x,y)\,dx\,dy=1
+\]
+получаем
+\[
+\begin{aligned}
+1
+&=
+c\int_0^{+\infty}e^{-x}
+\int_0^{1/x}e^{-2y}\,dy\,dx\\
+&=
+c\int_0^{+\infty}
+e^{-x}\frac{1-e^{-2/x}}{2}\,dx
+\end{aligned}
+\]
+
+Следовательно,
+\[
+c^{-1}
+=
+\frac12\int_0^{+\infty}
+e^{-x}\left(1-e^{-2/x}\right)\,dx
+\]
+и численно
+\[
+c\approx 2.14
+\]
+
+Маргинальная плотность $X$:
+\[
+\begin{aligned}
+p_X(x)
+&=
+\int_{\mathbb{R}}
+c e^{-x}e^{-2y}
+\mathds{1}\left(y\geq0,\ x\geq0,\ y\leq\frac1x\right)\,dy\\
+&=
+\frac c2 e^{-x}\left(1-e^{-2/x}\right)\mathds{1}(x>0)
+\end{aligned}
+\]
+
+Маргинальная плотность $Y$:
+\[
+\begin{aligned}
+p_Y(y)
+&=
+\int_{\mathbb{R}}
+c e^{-x}e^{-2y}
+\mathds{1}\left(y\geq0,\ x\geq0,\ y\leq\frac1x\right)\,dx\\
+&=
+c e^{-2y}\int_0^{1/y}e^{-x}\,dx\,
+\mathds{1}(y>0)\\
+&=
+c e^{-2y}\left(1-e^{-1/y}\right)\mathds{1}(y>0)
+\end{aligned}
+\]
+
+\medskip
+
+\textbf{Равномерное распределение.}
+
+Пусть $D\subset\mathbb{R}^n$. Равномерное распределение на $D$ имеет плотность
+\[
+p(x)
+=
+\frac{1}{\operatorname{Vol}(D)}
+\mathds{1}(x\in D)
+\]
+
+\medskip
+
+\textbf{Многомерное нормальное распределение.}
+
+Стандартный гауссовский случайный вектор
+\[
+X=(X_1,\ldots,X_n)
+\]
+имеет совместную плотность
+\[
+p(x_1,\ldots,x_n)
+=
+\frac{1}{(2\pi)^{n/2}}
+\exp\left(
+-\frac12\sum_{i=1}^n x_i^2
+\right)
+\]
+
+То есть его компоненты являются стандартными нормальными случайными величинами
+
+Пусть
+\[
+X\sim\mathcal{N}(0,I_n),
+\qquad
+Y=AX+b
+\]
+где
+\[
+A\in M_{m\times n},
+\qquad
+b\in\mathbb{R}^m
+\]
+
+Тогда
+\[
+Y\sim\mathcal{N}(b,AA^T)
+\]
+
+В общем случае многомерное нормальное распределение задаётся параметрами
+\[
+\mu\in\mathbb{R}^n,
+\qquad
+\Sigma\in M_{n\times n},
+\qquad
+\Sigma=\Sigma^T,
+\qquad
+\Sigma\geq0
+\]
+
+Если
+\[
+\Sigma=U\Lambda U^T,
+\qquad
+\Lambda=\operatorname{diag}(\lambda_1,\ldots,\lambda_n),
+\qquad
+\lambda_i\geq0
+\]
+то можно положить
+\[
+\sqrt{\Sigma}
+=
+U\sqrt{\Lambda}\,U^T
+\]
+где
+\[
+\sqrt{\Lambda}
+=
+\operatorname{diag}(\sqrt{\lambda_1},\ldots,\sqrt{\lambda_n})
+\]
+
+При
+\[
+A=\sqrt{\Sigma},
+\qquad
+b=\mu
+\]
+получаем случайный вектор с распределением
+\[
+Y\sim\mathcal{N}(\mu,\Sigma)
+\]
+
+\end{example}
+
+\begin{note}
+
+Если $\Sigma>0$, то многомерное нормальное распределение имеет плотность
+\[
+p(x_1,\ldots,x_n)
+=
+\frac{1}{(2\pi)^{n/2}\sqrt{\det\Sigma}}
+\exp\left(
+-\frac12(x-\mu)^T\Sigma^{-1}(x-\mu)
+\right)
+\]
+
+\end{note}
+
+\subsection{Функция распределения случайного вектора}
+
+\begin{definition}
+
+\textbf{Функцией распределения} случайного вектора
+\[
+X=(X_1,\ldots,X_n)
+\]
+называется функция
+\[
+F(t_1,\ldots,t_n)
+=
+P(X_1\leq t_1,\ldots,X_n\leq t_n)
+\]
+
+\end{definition}
+
+\begin{props}{функции распределения случайного вектора}
+
+\begin{enumerate}
+    \item
+    \[
+    \lim_{\substack{t_1\to-\infty\\\text{или хотя бы одного }t_i\to-\infty}}
+    F(t_1,\ldots,t_n)=0
+    \]
+    и
+    \[
+    \lim_{\substack{t_1\to+\infty\\\cdots\\t_n\to+\infty}}
+    F(t_1,\ldots,t_n)=1
+    \]
+
+    \item $F$ непрерывна справа по каждой переменной
+
+    \item Для любого прямоугольника
+    \[
+    (a_1,b_1]\times\cdots\times(a_n,b_n]
+    \]
+    соответствующее конечное приращение функции распределения неотрицательно
+    \[
+    \Delta_{a_1,b_1}\cdots\Delta_{a_n,b_n}F\geq0
+    \]
+\end{enumerate}
+
+\end{props}
+
+Если случайный вектор абсолютно непрерывен, то
+\[
+F(t_1,\ldots,t_n)
+=
+\int_{-\infty}^{t_1}\cdots
+\int_{-\infty}^{t_n}
+p(x_1,\ldots,x_n)\,dx_n\cdots dx_1
+\]
+и
+\[
+p(x_1,\ldots,x_n)
+=
+\frac{\partial^n F(x_1,\ldots,x_n)}
+{\partial x_1\cdots\partial x_n}
+\]
+
+\newpage
+
+\section{Независимые случайные величины}
+
+\begin{definition}
+
+Случайные величины $X_1,\ldots,X_n$ называются \textbf{независимыми}, если для любых
+\[
+B_1,\ldots,B_n\in\mathcal{B}(\mathbb{R})
+\]
+выполняется
+\[
+P(X_1\in B_1,\ldots,X_n\in B_n)
+=
+\prod_{j=1}^n P(X_j\in B_j)
+\]
+
+Последовательность $(X_k)_{k=1}^{\infty}$ называется независимой, если для любого $n$ случайные величины
+\[
+X_1,\ldots,X_n
+\]
+независимы
+
+\end{definition}
+
+\begin{theorem}{Критерий независимости через функции распределения}
+
+Случайные величины $X_1,\ldots,X_n$ независимы тогда и только тогда, когда
+\[
+F(t_1,\ldots,t_n)
+=
+\prod_{j=1}^n F_j(t_j)
+\]
+
+\end{theorem}
+
+\begin{proofbox}{критерия независимости через функции распределения}
+
+Если $X_1,\ldots,X_n$ независимы, то, взяв
+\[
+B_j=(-\infty,t_j]
+\]
+получаем
+\[
+\begin{aligned}
+F(t_1,\ldots,t_n)
+&=
+P(X_1\leq t_1,\ldots,X_n\leq t_n)\\
+&=
+\prod_{j=1}^nP(X_j\leq t_j)\\
+&=
+\prod_{j=1}^nF_j(t_j)
+\end{aligned}
+\]
+
+Обратное утверждение следует из того, что множества вида $(-\infty,t]$ порождают борелевскую $\sigma$-алгебру
+
+\end{proofbox}
+
+\begin{note}
+
+Идея критерия для двумерного случая состоит в рассмотрении малых прямоугольников. Например,
+\[
+P(a_1<X_1\leq a_1+\sigma_1,\,
+  a_2<X_2\leq a_2+\sigma_2)
+\]
+можно записать как
+\[
+\Delta_{a_1,a_1+\sigma_1}
+\Delta_{a_2,a_2+\sigma_2}
+F(a_1,a_2)
+\]
+
+Если
+\[
+F(t_1,t_2)=F_{X_1}(t_1)F_{X_2}(t_2)
+\]
+то
+\[
+\begin{aligned}
+&P(a_1<X_1\leq a_1+\sigma_1,\,
+a_2<X_2\leq a_2+\sigma_2)\\
+&=
+\left[
+F_{X_1}(a_1+\sigma_1)-F_{X_1}(a_1)
+\right]
+\left[
+F_{X_2}(a_2+\sigma_2)-F_{X_2}(a_2)
+\right]
+\end{aligned}
+\]
+
+\end{note}
+
+\begin{theorem}{Критерий независимости дискретных случайных величин}
+
+Пусть $X_1,\ldots,X_n$ --- дискретные случайные величины. Тогда они независимы тогда и только тогда, когда для любых возможных значений $x_{1,j_1},\ldots,x_{n,j_n}$
+\[
+P(X_1=x_{1,j_1},\ldots,X_n=x_{n,j_n})
+=
+\prod_{i=1}^nP(X_i=x_{i,j_i})
+\]
+
+\end{theorem}
+
+\begin{proofbox}{критерия независимости дискретных случайных величин}
+
+Необходимость непосредственно следует из определения независимости при выборе одноточечных борелевских множеств
+\[
+B_i=\{x_{i,j_i}\}
+\]
+
+Обратно, любое событие вида $\{X_i\in B_i\}$ для дискретной случайной величины является объединением соответствующих событий $\{X_i=x_{i,j}\}$. Суммируя равенство из условия по всем возможным значениям, принадлежащим $B_1,\ldots,B_n$, получаем
+\[
+P(X_1\in B_1,\ldots,X_n\in B_n)
+=
+\prod_{i=1}^nP(X_i\in B_i)
+\]
+
+Следовательно, $X_1,\ldots,X_n$ независимы
+
+\end{proofbox}
+
+\subsection{Совместное распределение независимых случайных величин}
+
+Если $X_1,\ldots,X_n$ независимы и имеют плотности $p_{X_1},\ldots,p_{X_n}$, то их совместная плотность равна
+\[
+p(x_1,\ldots,x_n)
+=
+\prod_{j=1}^n p_{X_j}(x_j)
+\]
+
+В частности, стандартный гауссовский вектор имеет плотность
+\[
+\begin{aligned}
+p(x_1,\ldots,x_n)
+&=
+\frac{1}{(2\pi)^{n/2}}
+\exp\left(-\frac12x^Tx\right)\\
+&=
+\prod_{j=1}^n
+\frac{1}{\sqrt{2\pi}}
+\exp\left(-\frac{x_j^2}{2}\right)
+\end{aligned}
+\]
+поэтому его компоненты независимы и имеют распределение $\mathcal{N}(0,1)$
+
+Если
+\[
+X\sim\mathcal{N}
+\left(
+\mu,
+\operatorname{diag}(\sigma_1^2,\ldots,\sigma_n^2)
+\right)
+\]
+то
+\[
+p(x_1,\ldots,x_n)
+=
+\frac{1}{\sqrt{(2\pi)^n\sigma_1^2\cdots\sigma_n^2}}
+\exp\left(
+-\frac12
+(x-\mu)^T
+\begin{pmatrix}
+\sigma_1^{-2} & & 0\\
+& \ddots &\\
+0 & & \sigma_n^{-2}
+\end{pmatrix}
+(x-\mu)
+\right)
+\]
+
+\subsection{Распределение суммы независимых случайных величин}
+
+Пусть $X$ и $Y$ независимы.
+
+В дискретном случае
+\[
+P(X+Y=i)
+=
+\sum_jP(X=i-j)P(Y=j)
+\]
+
+Для абсолютно непрерывных случайных величин
+\[
+\begin{aligned}
+F_{X+Y}(t)
+&=
+P(X+Y\leq t)\\
+&=
+\iint_{x+y\leq t}
+p_X(x)p_Y(y)\,dx\,dy\\
+&=
+\int_{-\infty}^{+\infty}
+p_Y(y)
+\left(
+\int_{-\infty}^{t-y}p_X(x)\,dx
+\right)dy\\
+&=
+\int_{-\infty}^{+\infty}
+p_Y(y)F_X(t-y)\,dy
+\end{aligned}
+\]
+
+Дифференцируя по $t$, получаем
+\[
+p_{X+Y}(t)
+=
+\int_{-\infty}^{+\infty}
+p_Y(y)p_X(t-y)\,dy
+\]
+
+То есть плотность суммы независимых случайных величин является свёрткой их плотностей
+\[
+p_{X+Y}=p_X*p_Y
+\]
+
+\newpage
+
+\section{Числовые характеристики случайных величин}
+
+\subsection{Одномерные}
+
+\begin{definition}
+
+Математическое ожидание дискретной случайной величины $X$ задаётся формулой
+\[
+EX
+=
+\sum_k x_k P(X=x_k)
+\]
+
+Если $X$ имеет плотность $p_X$, то
+\[
+EX
+=
+\int_{\mathbb{R}}x p_X(x)\,dx
+\]
+
+\end{definition}
+
+\begin{props}{математического ожидания}
+
+1) Линейность:
+\[
+E(aX+bY)
+=
+aEX+bEY
+\]
+
+\medskip
+
+2) Если $X$ и $Y$ независимы, то
+\[
+E(XY)
+=
+EX\,EY
+\]
+
+\medskip
+
+3) Для неотрицательной случайной величины $X$ и $c>0$ выполняется неравенство Маркова:
+\[
+P(X\geq c)
+\leq
+\frac{EX}{c}
+\]
+
+\medskip
+
+4) Для неотрицательной случайной величины $X$:
+\[
+EX
+=
+\int_0^{+\infty}P(X\geq r)\,dr
+\]
+
+\end{props}
+
+\begin{proofbox}{свойства 1}
+
+Для дискретных случайных величин
+\[
+\begin{aligned}
+E(aX+bY)
+&=
+\sum_{x,y}(ax+by)P(X=x,Y=y)\\
+&=
+a\sum_{x,y}xP(X=x,Y=y)
++
+b\sum_{x,y}yP(X=x,Y=y)\\
+&=
+aEX+bEY
+\end{aligned}
+\]
+
+Для абсолютно непрерывных случайных величин доказательство аналогично следует из линейности интеграла:
+\[
+\begin{aligned}
+E(aX+bY)
+&=
+\iint_{\mathbb{R}^2}
+(ax+by)p_{X,Y}(x,y)\,dx\,dy\\
+&=
+aEX+bEY
+\end{aligned}
+\]
+
+\end{proofbox}
+
+\begin{proofbox}{свойства 2}
+
+Пусть $X$ и $Y$ независимы. Тогда их совместное распределение является произведением маргинальных распределений
+
+В абсолютно непрерывном случае
+\[
+p_{X,Y}(x,y)=p_X(x)p_Y(y)
+\]
+
+Поэтому
+\[
+\begin{aligned}
+E(XY)
+&=
+\iint_{\mathbb{R}^2}xy\,p_X(x)p_Y(y)\,dx\,dy\\
+&=
+\left(\int_{\mathbb{R}}x p_X(x)\,dx\right)
+\left(\int_{\mathbb{R}}y p_Y(y)\,dy\right)\\
+&=
+EX\,EY
+\end{aligned}
+\]
+
+В дискретном случае рассуждение аналогично:
+\[
+\begin{aligned}
+E(XY)
+&=
+\sum_{x,y}xyP(X=x)P(Y=y)\\
+&=
+EX\,EY
+\end{aligned}
+\]
+
+\end{proofbox}
+
+\begin{proofbox}{свойства 3}
+
+Так как $X\geq0$, то
+\[
+X\geq c\,\mathds{1}(X\geq c)
+\]
+
+Следовательно,
+\[
+EX
+\geq
+cE\mathds{1}(X\geq c)
+=
+cP(X\geq c)
+\]
+
+Отсюда
+\[
+P(X\geq c)
+\leq
+\frac{EX}{c}
+\]
+
+\end{proofbox}
+
+\begin{proofbox}{свойства 4}
+
+Для неотрицательной случайной величины
+\[
+X(\omega)
+=
+\int_0^{+\infty}
+\mathds{1}(X(\omega)\geq r)\,dr
+\]
+
+Интегрируя по $\omega$ и меняя порядок интегрирования, получаем
+\[
+\begin{aligned}
+EX
+&=
+E\left[
+\int_0^{+\infty}
+\mathds{1}(X\geq r)\,dr
+\right]\\
+&=
+\int_0^{+\infty}
+E\mathds{1}(X\geq r)\,dr\\
+&=
+\int_0^{+\infty}
+P(X\geq r)\,dr
+\end{aligned}
+\]
+
+\end{proofbox}
+
+\begin{definition}
+
+\textbf{Дисперсией} случайной величины $X$ называется
+\[
+\operatorname{Var}X
+=
+E(X-EX)^2
+=
+EX^2-(EX)^2
+\]
+
+Если $X$ имеет плотность $p_X$, то
+\[
+\operatorname{Var}X
+=
+\int_{\mathbb{R}}x^2p_X(x)\,dx
+-
+\left(
+\int_{\mathbb{R}}xp_X(x)\,dx
+\right)^2
+\]
+
+\end{definition}
+
+\begin{props}{дисперсии}
+
+1) Дисперсия равна нулю тогда и только тогда, когда случайная величина почти наверное постоянна:
+\[
+\operatorname{Var}X=0
+\quad\Longleftrightarrow\quad
+X=c\quad\text{почти наверное}
+\]
+
+\medskip
+
+2) Для $a,b\in\mathbb{R}$
+\[
+\operatorname{Var}(aX+b)
+=
+a^2\operatorname{Var}X
+\]
+
+\medskip
+
+3) Для случайных величин $X_1,\ldots,X_n$ и чисел $c_1,\ldots,c_n$
+\[
+\operatorname{Var}\left(\sum_{i=1}^n c_iX_i\right)
+=
+\sum_{i=1}^n c_i^2\operatorname{Var}X_i
++
+2\sum_{i<j}c_ic_j\operatorname{Cov}(X_i,X_j)
+\]
+
+\medskip
+
+4) Неравенство Чебышёва:
+\[
+P\left(|X-EX|\geq\varepsilon\right)
+\leq
+\frac{\operatorname{Var}X}{\varepsilon^2}
+\]
+
+\medskip
+
+5) Математическое ожидание минимизирует средний квадрат отклонения:
+\[
+EX
+=
+\operatorname*{arg\,min}_{c\in\mathbb{R}}
+E(X-c)^2
+\]
+
+\end{props}
+
+\begin{proofbox}{свойства 1}
+
+По определению
+\[
+\operatorname{Var}X
+=
+E(X-EX)^2
+\]
+
+Так как $(X-EX)^2\geq0$, то
+\[
+E(X-EX)^2=0
+\]
+тогда и только тогда, когда
+\[
+(X-EX)^2=0
+\quad\text{почти наверное}
+\]
+
+Следовательно,
+\[
+X=EX
+\quad\text{почти наверное}
+\]
+
+Обратно, если $X=c$ почти наверное, то
+\[
+EX=c
+\]
+и
+\[
+\operatorname{Var}X
+=
+E(X-c)^2
+=
+0
+\]
+
+\end{proofbox}
+
+\begin{proofbox}{свойства 2}
+
+Имеем
+\[
+E(aX+b)=aEX+b
+\]
+
+Поэтому
+\[
+\begin{aligned}
+\operatorname{Var}(aX+b)
+&=
+E\left(aX+b-aEX-b\right)^2\\
+&=
+E\left(a(X-EX)\right)^2\\
+&=
+a^2\operatorname{Var}X
+\end{aligned}
+\]
+
+\end{proofbox}
+
+\begin{proofbox}{свойства 3}
+
+Обозначим
+\[
+Z=\sum_{i=1}^n c_iX_i
+\]
+
+Тогда
+\[
+Z-EZ
+=
+\sum_{i=1}^n c_i(X_i-EX_i)
+\]
+
+Следовательно,
+\[
+\begin{aligned}
+\operatorname{Var}Z
+&=
+E\left(
+\sum_{i=1}^n c_i(X_i-EX_i)
+\right)^2\\
+&=
+\sum_{i=1}^n
+c_i^2E(X_i-EX_i)^2\\
+&\quad+
+2\sum_{i<j}
+c_ic_j
+E\left[(X_i-EX_i)(X_j-EX_j)\right]\\
+&=
+\sum_{i=1}^n c_i^2\operatorname{Var}X_i
++
+2\sum_{i<j}c_ic_j\operatorname{Cov}(X_i,X_j)
+\end{aligned}
+\]
+
+\end{proofbox}
+
+\begin{proofbox}{свойства 4}
+
+Применим неравенство Маркова к неотрицательной случайной величине
+\[
+Y=(X-EX)^2
+\]
+
+Тогда
+\[
+\begin{aligned}
+P(|X-EX|\geq\varepsilon)
+&=
+P\left((X-EX)^2\geq\varepsilon^2\right)\\
+&\leq
+\frac{E(X-EX)^2}{\varepsilon^2}\\
+&=
+\frac{\operatorname{Var}X}{\varepsilon^2}
+\end{aligned}
+\]
+
+\end{proofbox}
+
+\begin{proofbox}{свойства 5}
+
+Для любого $c\in\mathbb{R}$
+\[
+X-c
+=
+(X-EX)+(EX-c)
+\]
+
+Следовательно,
+\[
+\begin{aligned}
+E(X-c)^2
+&=
+E(X-EX)^2
++
+2(EX-c)E(X-EX)
++
+(EX-c)^2\\
+&=
+\operatorname{Var}X+(EX-c)^2
+\end{aligned}
+\]
+
+Так как
+\[
+(EX-c)^2\geq0
+\]
+минимум достигается при
+\[
+c=EX
+\]
+
+\end{proofbox}
+
+\begin{theorem}{о числовых характеристиках стандартных распределений}
+
+1) Если $X\sim U[a,b]$, то
+\[
+EX=\frac{a+b}{2},
+\qquad
+\operatorname{Var}X=\frac{(b-a)^2}{12}
+\]
+
+\medskip
+
+2) Если $X\sim\mathcal{N}(\mu,\sigma^2)$, то
+\[
+EX=\mu,
+\qquad
+\operatorname{Var}X=\sigma^2
+\]
+
+\medskip
+
+3) Если $X\sim\operatorname{Exp}(\lambda)$ и
+\[
+p_X(x)=\lambda e^{-\lambda x}\mathds{1}(x\geq0)
+\]
+то
+\[
+EX=\frac{1}{\lambda},
+\qquad
+\operatorname{Var}X=\frac{1}{\lambda^2}
+\]
+
+\medskip
+
+4) Если $X\sim\operatorname{Gamma}(\alpha,\lambda)$ и
+\[
+p_X(x)
+=
+\frac{\lambda^\alpha x^{\alpha-1}}{\Gamma(\alpha)}
+e^{-\lambda x}\mathds{1}(x\geq0)
+\]
+то
+\[
+EX=\frac{\alpha}{\lambda},
+\qquad
+\operatorname{Var}X=\frac{\alpha}{\lambda^2}
+\]
+
+\medskip
+
+5) Для стандартного распределения Коши математическое ожидание не существует, поскольку интеграл
+\[
+\int_{-\infty}^{+\infty}
+\frac{x}{\pi(1+x^2)}\,dx
+\]
+не сходится абсолютно
+
+\end{theorem}
+
+\begin{proofbox}{свойства 1}
+
+Для $X\sim U[a,b]$
+\[
+p_X(x)
+=
+\frac{1}{b-a}\mathds{1}(a\leq x\leq b)
+\]
+
+Поэтому
+\[
+EX
+=
+\frac{1}{b-a}\int_a^b x\,dx
+=
+\frac{a+b}{2}
+\]
+
+Кроме того,
+\[
+EX^2
+=
+\frac{1}{b-a}\int_a^b x^2\,dx
+=
+\frac{a^2+ab+b^2}{3}
+\]
+
+Следовательно,
+\[
+\operatorname{Var}X
+=
+EX^2-(EX)^2
+=
+\frac{(b-a)^2}{12}
+\]
+
+\end{proofbox}
+
+\begin{proofbox}{свойства 2}
+
+Пусть
+\[
+Z=\frac{X-\mu}{\sigma}
+\sim\mathcal{N}(0,1)
+\]
+
+По симметрии стандартного нормального распределения
+\[
+EZ=0
+\]
+
+Кроме того,
+\[
+EZ^2=1
+\]
+
+Так как
+\[
+X=\mu+\sigma Z
+\]
+то
+\[
+EX=\mu+\sigma EZ=\mu
+\]
+и
+\[
+\operatorname{Var}X
+=
+\sigma^2\operatorname{Var}Z
+=
+\sigma^2
+\]
+
+\end{proofbox}
+
+\begin{proofbox}{свойства 3}
+
+Для экспоненциального распределения
+\[
+EX
+=
+\int_0^{+\infty}
+x\lambda e^{-\lambda x}\,dx
+=
+\frac1\lambda
+\]
+
+Также
+\[
+EX^2
+=
+\int_0^{+\infty}
+x^2\lambda e^{-\lambda x}\,dx
+=
+\frac{2}{\lambda^2}
+\]
+
+Следовательно,
+\[
+\operatorname{Var}X
+=
+EX^2-(EX)^2
+=
+\frac1{\lambda^2}
+\]
+
+\end{proofbox}
+
+\begin{proofbox}{свойства 4}
+
+Используем равенство
+\[
+\Gamma(\alpha+1)=\alpha\Gamma(\alpha)
+\]
+
+Тогда
+\[
+\begin{aligned}
+EX
+&=
+\frac{\lambda^\alpha}{\Gamma(\alpha)}
+\int_0^{+\infty}
+x^\alpha e^{-\lambda x}\,dx\\
+&=
+\frac{\Gamma(\alpha+1)}
+{\lambda\Gamma(\alpha)}
+=
+\frac{\alpha}{\lambda}
+\end{aligned}
+\]
+
+Аналогично
+\[
+EX^2
+=
+\frac{\Gamma(\alpha+2)}
+{\lambda^2\Gamma(\alpha)}
+=
+\frac{\alpha(\alpha+1)}{\lambda^2}
+\]
+
+Поэтому
+\[
+\operatorname{Var}X
+=
+EX^2-(EX)^2
+=
+\frac{\alpha}{\lambda^2}
+\]
+
+\end{proofbox}
+
+\begin{proofbox}{свойства 5}
+
+Для стандартного распределения Коши
+\[
+p_X(x)
+=
+\frac{1}{\pi(1+x^2)}
+\]
+
+Для существования математического ожидания требуется абсолютная сходимость
+\[
+\int_{\mathbb{R}}
+|x|p_X(x)\,dx
+<
++\infty
+\]
+
+Однако
+\[
+\begin{aligned}
+\int_{\mathbb{R}}
+\frac{|x|}{\pi(1+x^2)}\,dx
+&=
+\frac{2}{\pi}
+\int_0^{+\infty}
+\frac{x}{1+x^2}\,dx\\
+&=
++\infty
+\end{aligned}
+\]
+
+Следовательно, математическое ожидание стандартного распределения Коши не существует
+
+\end{proofbox}
+
+\begin{definition}
+
+\textbf{Модой} случайной величины $X$ с плотностью $p_X$ называется точка максимума плотности:
+\[
+\operatorname{mod}X
+=
+\operatorname*{arg\,max}_{x\in\mathbb{R}}p_X(x)
+\]
+
+\end{definition}
+
+\begin{definition}
+
+\textbf{$\alpha$-квантилью} случайной величины $X$ называется число $q_\alpha$, для которого
+\[
+P(X\leq q_\alpha)\geq\alpha,
+\qquad
+P(X\geq q_\alpha)\geq1-\alpha
+\]
+
+Если функция распределения непрерывна и строго возрастает, то
+\[
+F_X(q_\alpha)=\alpha
+\]
+
+\end{definition}
+
+\begin{definition}
+
+\textbf{Медианой} случайной величины $X$ называется число, минимизирующее среднее абсолютное отклонение:
+\[
+\operatorname{med}X
+=
+\operatorname*{arg\,min}_{c\in\mathbb{R}}E|X-c|
+\]
+
+\end{definition}
+
+\begin{definition}
+
+Если $\sigma^2=\operatorname{Var}X>0$, то \textbf{коэффициентом асимметрии} называется
+\[
+\gamma_1
+=
+\frac{E(X-EX)^3}{\sigma^3}
+\]
+
+При $\gamma_1=0$ распределение симметрично относительно среднего. Знак коэффициента характеризует направление асимметрии распределения
+
+\end{definition}
+
+\begin{definition}
+
+\textbf{Коэффициентом эксцесса} называется
+\[
+\gamma_2
+=
+\frac{E(X-EX)^4}{\sigma^4}-3
+\]
+
+Для нормального распределения
+\[
+\gamma_2=0
+\]
+
+Положительный эксцесс соответствует более острой вершине распределения, отрицательный --- более плоской
+
+\end{definition}
+
+\begin{definition}
+
+\textbf{Ковариацией} случайных величин $X$ и $Y$ называется
+\[
+\operatorname{Cov}(X,Y)
+=
+E\bigl[(X-EX)(Y-EY)\bigr]
+\]
+
+Для совместной плотности $p_{X,Y}$
+\[
+\operatorname{Cov}(X,Y)
+=
+\iint_{\mathbb{R}^2}
+(x-EX)(y-EY)p_{X,Y}(x,y)\,dx\,dy
+\]
+
+Также
+\[
+\operatorname{Cov}(X,Y)
+=
+E(XY)-EX\,EY
+\]
+
+\end{definition}
+
+\begin{props}{ковариации}
+
+1) Симметричность:
+\[
+\operatorname{Cov}(X,Y)
+=
+\operatorname{Cov}(Y,X)
+\]
+
+\medskip
+
+2)
+\[
+\operatorname{Cov}(X,X)
+=
+\operatorname{Var}X
+\]
+
+\medskip
+
+3) Линейность по каждому аргументу:
+\[
+\operatorname{Cov}(a_1X_1+a_2X_2,Y)
+=
+a_1\operatorname{Cov}(X_1,Y)
++
+a_2\operatorname{Cov}(X_2,Y)
+\]
+
+\medskip
+
+4) Если $X$ и $Y$ независимы, то
+\[
+\operatorname{Cov}(X,Y)=0
+\]
+
+Обратное утверждение в общем случае неверно
+
+\end{props}
+
+\begin{proofbox}{свойства 1}
+
+По определению
+\[
+\begin{aligned}
+\operatorname{Cov}(X,Y)
+&=
+E[(X-EX)(Y-EY)]\\
+&=
+E[(Y-EY)(X-EX)]\\
+&=
+\operatorname{Cov}(Y,X)
+\end{aligned}
+\]
+
+\end{proofbox}
+
+\begin{proofbox}{свойства 2}
+
+Имеем
+\[
+\operatorname{Cov}(X,X)
+=
+E(X-EX)^2
+=
+\operatorname{Var}X
+\]
+
+\end{proofbox}
+
+\begin{proofbox}{свойства 3}
+
+Используя линейность математического ожидания, получаем
+\[
+\begin{aligned}
+&\operatorname{Cov}(a_1X_1+a_2X_2,Y)\\
+&=
+E\left[
+\left(
+a_1(X_1-EX_1)+a_2(X_2-EX_2)
+\right)(Y-EY)
+\right]\\
+&=
+a_1\operatorname{Cov}(X_1,Y)
++
+a_2\operatorname{Cov}(X_2,Y)
+\end{aligned}
+\]
+
+\end{proofbox}
+
+\begin{proofbox}{свойства 4}
+
+Если $X$ и $Y$ независимы, то
+\[
+E(XY)=EX\,EY
+\]
+
+Следовательно,
+\[
+\operatorname{Cov}(X,Y)
+=
+E(XY)-EX\,EY
+=
+0
+\]
+
+\end{proofbox}
+
+Из неравенства Коши--Буняковского
+\[
+|\operatorname{Cov}(X,Y)|
+\leq
+\sqrt{\operatorname{Var}X\,\operatorname{Var}Y}
+\]
+
+\begin{definition}
+
+\textbf{Коэффициентом корреляции} случайных величин с ненулевыми дисперсиями называется
+\[
+\rho(X,Y)
+=
+\frac{\operatorname{Cov}(X,Y)}
+{\sqrt{\operatorname{Var}X\,\operatorname{Var}Y}}
+\]
+
+\end{definition}
+
+\begin{props}{коэффициента корреляции}
+
+1)
+\[
+|\rho(X,Y)|\leq1
+\]
+
+\medskip
+
+2) Равенство
+\[
+|\rho(X,Y)|=1
+\]
+достигается тогда и только тогда, когда
+\[
+Y=aX+b
+\]
+почти наверное для некоторых $a\neq0$ и $b\in\mathbb{R}$
+
+\end{props}
+
+\begin{proofbox}{свойства 1}
+
+Применим неравенство Коши--Буняковского к случайным величинам
+\[
+X-EX,
+\qquad
+Y-EY
+\]
+
+Получаем
+\[
+\begin{aligned}
+|\operatorname{Cov}(X,Y)|
+&=
+|E[(X-EX)(Y-EY)]|\\
+&\leq
+\sqrt{E(X-EX)^2}
+\sqrt{E(Y-EY)^2}\\
+&=
+\sqrt{\operatorname{Var}X\,\operatorname{Var}Y}
+\end{aligned}
+\]
+
+Деление на
+\[
+\sqrt{\operatorname{Var}X\,\operatorname{Var}Y}>0
+\]
+даёт
+\[
+|\rho(X,Y)|\leq1
+\]
+
+\end{proofbox}
+
+\begin{proofbox}{свойства 2}
+
+Равенство в неравенстве Коши--Буняковского достигается тогда и только тогда, когда случайные величины $X-EX$ и $Y-EY$ линейно зависимы почти наверное
+
+Следовательно, существует $a\neq0$ такое, что
+\[
+Y-EY=a(X-EX)
+\quad\text{почти наверное}
+\]
+
+Отсюда
+\[
+Y=aX+b
+\quad\text{почти наверное}
+\]
+где
+\[
+b=EY-aEX
+\]
+
+Обратно, если
+\[
+Y=aX+b
+\quad\text{почти наверное}
+\]
+то
+\[
+\operatorname{Cov}(X,Y)
+=
+a\operatorname{Var}X
+\]
+и
+\[
+\operatorname{Var}Y
+=
+a^2\operatorname{Var}X
+\]
+
+Поэтому
+\[
+|\rho(X,Y)|=1
+\]
+
+\end{proofbox}
+
+\subsection{Числовые характеристики случайного вектора}
+
+\begin{definition}
+
+Математическое ожидание случайного вектора
+\[
+X=(X_1,\ldots,X_n)^T
+\]
+определяется покомпонентно:
+\[
+EX
+=
+(EX_1,\ldots,EX_n)^T
+\]
+
+\end{definition}
+
+\begin{props}{математического ожидания случайного вектора}
+
+Для матрицы $A$ и вектора $b$
+\[
+E(AX+b)=AEX+b
+\]
+
+\end{props}
+
+\begin{proofbox}{}
+
+Каждая компонента вектора $AX+b$ является линейной комбинацией компонент $X$. Поэтому из линейности математического ожидания
+\[
+\begin{aligned}
+E(AX+b)_i
+&=
+E\left(
+\sum_j A_{ij}X_j+b_i
+\right)\\
+&=
+\sum_jA_{ij}EX_j+b_i
+\end{aligned}
+\]
+
+Следовательно,
+\[
+E(AX+b)=AEX+b
+\]
+
+\end{proofbox}
+
+\begin{definition}
+
+\textbf{Ковариационной матрицей} случайного вектора $X$ называется
+\[
+\operatorname{Var}X
+=
+\operatorname{Cov}(X)
+=
+E\bigl[(X-EX)(X-EX)^T\bigr]
+\]
+
+Элементы матрицы ковариаций равны
+\[
+\operatorname{Cov}(X)_{ij}
+=
+\operatorname{Cov}(X_i,X_j)
+\]
+
+\end{definition}
+
+\begin{props}{ковариационной матрицы}
+
+1) Ковариационная матрица симметрична:
+\[
+\operatorname{Cov}(X)
+=
+\operatorname{Cov}(X)^T
+\]
+
+\medskip
+
+2) Ковариационная матрица неотрицательно определена:
+\[
+t^T\operatorname{Cov}(X)t\geq0
+\qquad
+\text{для всех }t\in\mathbb{R}^n
+\]
+
+\medskip
+
+3) Для линейного преобразования
+\[
+\operatorname{Cov}(AX+b)
+=
+A\operatorname{Cov}(X)A^T
+\]
+
+\medskip
+
+4)
+\[
+\operatorname{Var}(X\pm Y)
+=
+\operatorname{Var}X+\operatorname{Var}Y
+\pm2\operatorname{Cov}(X,Y)
+\]
+
+\end{props}
+
+\begin{proofbox}{свойства 1}
+
+Так как
+\[
+\operatorname{Cov}(X_i,X_j)
+=
+\operatorname{Cov}(X_j,X_i)
+\]
+то
+\[
+\operatorname{Cov}(X)_{ij}
+=
+\operatorname{Cov}(X)_{ji}
+\]
+
+Следовательно,
+\[
+\operatorname{Cov}(X)
+=
+\operatorname{Cov}(X)^T
+\]
+
+\end{proofbox}
+
+\begin{proofbox}{свойства 2}
+
+Для любого $t\in\mathbb{R}^n$
+\[
+\begin{aligned}
+t^T\operatorname{Cov}(X)t
+&=
+t^TE[(X-EX)(X-EX)^T]t\\
+&=
+E\left[t^T(X-EX)(X-EX)^Tt\right]\\
+&=
+E\left[(t^T(X-EX))^2\right]\\
+&\geq0
+\end{aligned}
+\]
+
+\end{proofbox}
+
+\begin{proofbox}{свойства 3}
+
+Имеем
+\[
+E(AX+b)=AEX+b
+\]
+
+Следовательно,
+\[
+\begin{aligned}
+\operatorname{Cov}(AX+b)
+&=
+E\left[
+(AX-AEX)(AX-AEX)^T
+\right]\\
+&=
+E\left[
+A(X-EX)(X-EX)^TA^T
+\right]\\
+&=
+A\operatorname{Cov}(X)A^T
+\end{aligned}
+\]
+
+\end{proofbox}
+
+\begin{proofbox}{свойства 4}
+
+По формуле для дисперсии линейной комбинации
+\[
+\begin{aligned}
+\operatorname{Var}(X\pm Y)
+&=
+E\left[
+(X-EX)\pm(Y-EY)
+\right]^2\\
+&=
+\operatorname{Var}X+\operatorname{Var}Y
+\pm2\operatorname{Cov}(X,Y)
+\end{aligned}
+\]
+
+\end{proofbox}
+
+\begin{example}
+
+Стандартный гауссовский случайный вектор
+\[
+X=(X_1,\ldots,X_n)^T
+\]
+имеет плотность
+\[
+p_X(x)
+=
+\prod_{i=1}^n
+\frac{1}{\sqrt{2\pi}}e^{-x_i^2/2}
+=
+\frac{1}{(2\pi)^{n/2}}e^{-x^Tx/2}
+\]
+
+Поэтому его компоненты независимы и имеют распределение $\mathcal{N}(0,1)$, а
+\[
+EX=0,
+\qquad
+\operatorname{Cov}(X)=I_n
+\]
+
+\medskip
+
+Пусть
+\[
+Y=AX+b
+\]
+
+Тогда
+\[
+Y\sim\mathcal{N}(b,AA^T)
+\]
+и
+\[
+EY=AEX+b=b
+\]
+\[
+\operatorname{Cov}(Y)
+=
+A\operatorname{Cov}(X)A^T
+=
+AA^T
+\]
+
+\medskip
+
+Пусть
+\[
+X\sim\mathcal{N}(\mu,\Sigma)
+\]
+где
+\[
+\Sigma=\Sigma^T,
+\qquad
+\Sigma\geq0
+\]
+
+Если $Z\sim\mathcal{N}(0,I_n)$, то можно представить
+\[
+X=\sqrt{\Sigma}\,Z+\mu
+\]
+
+Тогда
+\[
+EX=\mu
+\]
+и
+\[
+\operatorname{Cov}(X)
+=
+\sqrt{\Sigma}\,I_n\,(\sqrt{\Sigma})^T
+=
+\Sigma
+\]
+
+\medskip
+
+Если ковариационная матрица нормального вектора диагональна,
+\[
+X\sim
+\mathcal{N}
+\left(
+\mu,
+\operatorname{diag}(\lambda_1,\ldots,\lambda_n)
+\right)
+\]
+и все $\lambda_i>0$, то совместная плотность равна
+\[
+p_X(x)
+=
+\prod_{i=1}^n
+\frac{1}{\sqrt{2\pi\lambda_i}}
+\exp\left(
+-\frac{(x_i-\mu_i)^2}{2\lambda_i}
+\right)
+\]
+
+Следовательно, компоненты $X_1,\ldots,X_n$ независимы
+
+\end{example}
+
+\newpage
+
+\section{Условные распределения и числовые характеристики}
+
+\subsection{Условное распределение}
+
+\begin{definition}
+
+Для дискретных случайных величин $X$ и $Y$ условное распределение $X$ при условии $Y=y_j$ задаётся равенством
+\[
+P(X=x_i\mid Y=y_j)
+=
+\frac{P(X=x_i,Y=y_j)}
+{P(Y=y_j)}
+\]
+при
+\[
+P(Y=y_j)>0
+\]
+
+\end{definition}
+
+\begin{definition}
+
+Для абсолютно непрерывного случайного вектора $(X,Y)$ \textbf{условной плотностью} $X$ при условии $Y=y$ называется
+\[
+p_{X\mid Y}(x\mid y)
+=
+\frac{p_{X,Y}(x,y)}{p_Y(y)}
+\]
+при
+\[
+p_Y(y)>0
+\]
+
+\end{definition}
+
+Рассмотрим условие
+\[
+y\leq Y\leq y+\Delta y
+\]
+
+Тогда
+\[
+P(X\leq x\mid y\leq Y\leq y+\Delta y)
+=
+\frac{
+P(X\leq x,\ y\leq Y\leq y+\Delta y)
+}{
+P(y\leq Y\leq y+\Delta y)
+}
+\]
+
+Для абсолютно непрерывного распределения
+\[
+P(X\leq x\mid y\leq Y\leq y+\Delta y)
+=
+\frac{
+\displaystyle
+\int_{-\infty}^x
+\int_y^{y+\Delta y}
+p(u,v)\,dv\,du
+}{
+\displaystyle
+\int_y^{y+\Delta y}p_Y(v)\,dv
+}
+\]
+
+При $\Delta y\to0$ получаем
+\[
+F_{X\mid Y}(x\mid y)
+=
+\int_{-\infty}^x
+\frac{p(u,y)}{p_Y(y)}\,du
+\]
+
+Следовательно,
+\[
+p_{X\mid Y}(x\mid y)
+=
+\frac{p(x,y)}{p_Y(y)}
+\]
+
+Также
+\[
+p_X(x)
+=
+\int_{-\infty}^{+\infty}
+p_{X\mid Y}(x\mid y)p_Y(y)\,dy
+\]
+
+\begin{theorem}{Байеса для непрерывного случая}
+
+Если соответствующие плотности положительны, то
+\[
+p_{X\mid Y}(x\mid y)
+=
+\frac{
+p_{Y\mid X}(y\mid x)p_X(x)
+}{
+p_Y(y)
+}
+\]
+
+\end{theorem}
+
+\begin{proofbox}{}
+
+По определению условной плотности
+\[
+p_{X\mid Y}(x\mid y)
+=
+\frac{p_{X,Y}(x,y)}{p_Y(y)}
+\]
+
+С другой стороны,
+\[
+p_{X,Y}(x,y)
+=
+p_{Y\mid X}(y\mid x)p_X(x)
+\]
+
+Следовательно,
+\[
+p_{X\mid Y}(x\mid y)
+=
+\frac{
+p_{Y\mid X}(y\mid x)p_X(x)
+}{
+p_Y(y)
+}
+\]
+
+\end{proofbox}
+
+\begin{example}
+
+Пусть
+\[
+X=(X_1,X_2,X_3)^T
+\sim
+\mathcal{N}(0,I_3)
+\]
+и
+\[
+Y
+=
+\frac{X_1+X_2X_3}{\sqrt{1+X_3^2}}
+\]
+
+Найдём распределение $Y$
+
+Зафиксируем $X_3=x_3$. Тогда
+\[
+Y\mid X_3=x_3
+=
+\frac{X_1+x_3X_2}{\sqrt{1+x_3^2}}
+\]
+
+Так как $X_1$ и $X_2$ независимы и имеют распределение $\mathcal{N}(0,1)$, то
+\[
+X_1+x_3X_2
+\sim
+\mathcal{N}(0,1+x_3^2)
+\]
+
+Следовательно,
+\[
+Y\mid X_3=x_3
+\sim
+\mathcal{N}(0,1)
+\]
+
+Условное распределение не зависит от $x_3$, поэтому
+\[
+p_Y(y)
+=
+\int_{-\infty}^{+\infty}
+p_{Y\mid X_3}(y\mid x_3)p_{X_3}(x_3)\,dx_3
+\]
+
+Отсюда
+\[
+\begin{aligned}
+p_Y(y)
+&=
+\int_{-\infty}^{+\infty}
+\frac{1}{\sqrt{2\pi}}e^{-y^2/2}
+\frac{1}{\sqrt{2\pi}}e^{-x_3^2/2}\,dx_3\\
+&=
+\frac{1}{\sqrt{2\pi}}e^{-y^2/2}
+\end{aligned}
+\]
+
+Таким образом,
+\[
+Y\sim\mathcal{N}(0,1)
+\]
+
+\end{example}
+
+\subsection{Условное математическое ожидание}
+
+\begin{definition}
+
+Для абсолютно непрерывных случайных величин $X$ и $Y$ \textbf{условным математическим ожиданием} $X$ при условии $Y=y$ называется
+\[
+E(X\mid Y=y)
+=
+\int_{-\infty}^{+\infty}
+x\,p_{X\mid Y}(x\mid y)\,dx
+\]
+
+Величина
+\[
+E(X\mid Y)
+\]
+является случайной величиной, являющейся функцией от $Y$
+
+\end{definition}
+
+\begin{props}{условного математического ожидания}
+
+1) Линейность:
+\[
+E(a_1X_1+a_2X_2\mid Y)
+=
+a_1E(X_1\mid Y)+a_2E(X_2\mid Y)
+\]
+
+\medskip
+
+2) Если $f(Y)$ интегрируема, то $E(f(Y)\mid Y)=f(Y)$
+
+\medskip
+
+3) Если $X$ и $Y$ независимы, то $E(X\mid Y)=EX$
+
+\medskip
+
+4) Формула полного математического ожидания:
+\[
+EX
+=
+E\bigl[E(X\mid Y)\bigr]
+\]
+
+\medskip
+
+5) Условное математическое ожидание является наилучшим среднеквадратичным приближением $X$ функцией от $Y$:
+\[
+E(X\mid Y)
+=
+\operatorname*{arg\,min}_{g}
+E(X-g(Y))^2
+\]
+
+\end{props}
+
+\begin{proofbox}{свойства 1}
+
+Из линейности интеграла
+\[
+\begin{aligned}
+&E(a_1X_1+a_2X_2\mid Y=y)\\
+&=
+a_1E(X_1\mid Y=y)
++
+a_2E(X_2\mid Y=y)
+\end{aligned}
+\]
+
+Следовательно,
+\[
+E(a_1X_1+a_2X_2\mid Y)
+=
+a_1E(X_1\mid Y)+a_2E(X_2\mid Y)
+\]
+
+\end{proofbox}
+
+\begin{proofbox}{Доказательство свойства 2}
+
+При фиксированном значении $Y=y$ величина $f(Y)$ равна константе $f(y)$
+
+Поэтому
+\[
+E(f(Y)\mid Y=y)
+=
+f(y)
+\]
+
+Следовательно,
+\[
+E(f(Y)\mid Y)=f(Y)
+\]
+
+\end{proofbox}
+
+\begin{proofbox}{свойства 3}
+
+Если $X$ и $Y$ независимы, то
+\[
+p_{X\mid Y}(x\mid y)=p_X(x)
+\]
+
+Поэтому
+\[
+\begin{aligned}
+E(X\mid Y=y)
+&=
+\int_{\mathbb{R}}
+x p_{X\mid Y}(x\mid y)\,dx\\
+&=
+\int_{\mathbb{R}}
+x p_X(x)\,dx\\
+&=
+EX
+\end{aligned}
+\]
+
+Следовательно,
+\[
+E(X\mid Y)=EX
+\]
+
+\end{proofbox}
+
+\begin{proofbox}{свойства 4}
+
+В абсолютно непрерывном случае
+\[
+\begin{aligned}
+EX
+&=
+\int_{-\infty}^{+\infty}
+x p_X(x)\,dx\\
+&=
+\int_{-\infty}^{+\infty}
+x
+\left(
+\int_{-\infty}^{+\infty}
+p_{X\mid Y}(x\mid y)p_Y(y)\,dy
+\right)dx\\
+&=
+\int_{-\infty}^{+\infty}
+\left(
+\int_{-\infty}^{+\infty}
+x p_{X\mid Y}(x\mid y)\,dx
+\right)p_Y(y)\,dy\\
+&=
+\int_{-\infty}^{+\infty}
+E(X\mid Y=y)p_Y(y)\,dy\\
+&=
+E[E(X\mid Y)]
+\end{aligned}
+\]
+
+\end{proofbox}
+
+\begin{proofbox}{свойства 5}
+
+Пусть $g(Y)$ --- произвольная функция от $Y$. Представим
+\[
+X-g(Y)
+=
+X-E(X\mid Y)+E(X\mid Y)-g(Y)
+\]
+
+Тогда
+\[
+\begin{aligned}
+E(X-g(Y))^2
+&=
+E(X-E(X\mid Y))^2\\
+&\quad+
+E(E(X\mid Y)-g(Y))^2\\
+&\quad+
+2E\left[
+(X-E(X\mid Y))
+(E(X\mid Y)-g(Y))
+\right]
+\end{aligned}
+\]
+
+Для последнего слагаемого по формуле полного математического ожидания
+\[
+\begin{aligned}
+&E\left[
+(X-E(X\mid Y))
+(E(X\mid Y)-g(Y))
+\right]\\
+&=
+E\left[
+E\left(
+(X-E(X\mid Y))
+(E(X\mid Y)-g(Y))
+\mid Y
+\right)
+\right]\\
+&=
+E\left[
+(E(X\mid Y)-g(Y))
+E(X-E(X\mid Y)\mid Y)
+\right]\\
+&=
+0
+\end{aligned}
+\]
+
+Следовательно,
+\[
+E(X-g(Y))^2
+=
+E(X-E(X\mid Y))^2
++
+E(E(X\mid Y)-g(Y))^2
+\]
+
+Минимум достигается при
+\[
+g(Y)=E(X\mid Y)
+\]
+
+\end{proofbox}
+
+\subsection{Геометрическая интерпретация условного математического ожидания}
+
+Рассмотрим пространство случайных величин с конечным вторым моментом и введём скалярное произведение
+\[
+\langle X,Y\rangle
+=
+E(XY)
+\]
+
+Оно линейно по каждому аргументу и удовлетворяет
+\[
+\langle X,X\rangle
+=
+EX^2\geq0
+\]
+
+Причём
+\[
+EX^2=0
+\quad\Longrightarrow\quad
+X=0
+\quad\text{почти наверное}
+\]
+
+Соответствующая норма имеет вид
+\[
+\|X\|
+=
+\sqrt{EX^2}
+\]
+а расстояние между случайными величинами равно
+\[
+\rho(X,Y)
+=
+\|X-Y\|
+\]
+
+Пусть
+\[
+\mathcal{H}_Y
+=
+\left\{
+g(Y):Eg^2(Y)<+\infty
+\right\}
+\]
+
+Тогда
+\[
+E(X\mid Y)
+\]
+является ортогональной проекцией $X$ на пространство $\mathcal{H}_Y$
+
+Действительно, для любой $g(Y)\in\mathcal{H}_Y$
+\[
+E\left[
+(X-E(X\mid Y))g(Y)
+\right]
+=
+0
+\]
+
+\subsection{Условная дисперсия}
+
+\begin{definition}
+
+\textbf{Условной дисперсией} случайной величины $X$ при условии $Y$ называется
+\[
+\operatorname{Var}(X\mid Y)
+=
+E\left[
+(X-E(X\mid Y))^2
+\mid Y
+\right]
+\]
+
+Эквивалентно,
+\[
+\operatorname{Var}(X\mid Y)
+=
+E(X^2\mid Y)-E^2(X\mid Y)
+\]
+
+\end{definition}
+
+\begin{theorem}{о полной дисперсии}
+
+\[
+\operatorname{Var}X
+=
+\operatorname{Var}(E(X\mid Y))
++
+E[\operatorname{Var}(X\mid Y)]
+\]
+
+\end{theorem}
+
+\begin{proofbox}{}
+
+\[
+\begin{aligned}
+\operatorname{Var}X
+&=
+EX^2-(EX)^2\\
+&=
+E\bigl(E(X^2\mid Y)\bigr)
+-
+\bigl(E(E(X\mid Y))\bigr)^2\\
+&=
+E\bigl(\operatorname{Var}(X\mid Y)+E^2(X\mid Y)\bigr)
+-
+\bigl(E(E(X\mid Y))\bigr)^2\\
+&=
+E\operatorname{Var}(X\mid Y)
++
+\operatorname{Var}(E(X\mid Y))
+\end{aligned}
+\]
+
+\end{proofbox}
+
+\begin{example}
+
+Пусть
+\[
+\begin{pmatrix}
+X_1\\
+X_2
+\end{pmatrix}
+\sim
+\mathcal{N}
+\left(
+\begin{pmatrix}
+\mu_1\\
+\mu_2
+\end{pmatrix},
+\begin{pmatrix}
+\Sigma_{11} & \Sigma_{12}\\
+\Sigma_{21} & \Sigma_{22}
+\end{pmatrix}
+\right)
+\]
+
+Найдём условное распределение $X_1$ при фиксированном $X_2$
+
+Положим
+\[
+U=X_1-AX_2
+\]
+
+Выберем $A$ так, чтобы $U$ и $X_2$ были некоррелированы:
+\[
+\operatorname{Cov}(U,X_2)=0
+\]
+
+Имеем
+\[
+\begin{aligned}
+\operatorname{Cov}(X_1-AX_2,X_2)
+&=
+\Sigma_{12}-A\Sigma_{22}
+\end{aligned} = 0
+\]
+
+Не умаляя общности, предположим, что компоненты $X_2$ невырожденные, то есть
+\[
+\Sigma_{22}>0
+\]
+
+Докажем, что из нулевой компоненты $X_2$ следует
+\[
+\Sigma_{22}>0
+\]
+
+Предположим противное, то есть
+\[
+\Sigma_{22}\geq 0
+\]
+и существует $t\neq 0$ такое, что
+\[
+t^T\Sigma_{22}t=0
+\]
+
+Тогда
+\[
+\underbrace{\operatorname{Var}(t^TX_2)}_{=0}=0
+\]
+следовательно,
+\[
+t^TX_2=\operatorname{const}
+\]
+то есть компоненты $X_2$ линейно зависимы, что приводит к противоречию
+
+Рассмотрим
+\[
+U=X_1-AX_2
+\]
+
+Подберём $A$ так, чтобы $U$ и $X_2$ были некоррелированы:
+\[
+\begin{aligned}
+\operatorname{Cov}(X_1-AX_2,X_2)
+&=
+\operatorname{Cov}(X_1,X_2)
+-
+A\operatorname{Cov}(X_2,X_2)\\
+&=
+\Sigma_{12}-A\Sigma_{22}
+=
+0
+\end{aligned}
+\]
+
+Отсюда
+\[
+A=\Sigma_{12}\Sigma_{22}^{-1}
+\]
+
+Имеем
+\[
+X_1=U+AX_2
+\]
+
+Тогда распределение $X_1$ при условии $X_2$ имеет вид
+\[
+X_1\mid X_2
+\sim
+\mathcal{N}
+\left(
+E(X_1\mid X_2),
+\operatorname{Var}(X_1\mid X_2)
+\right)
+\]
+
+Найдём условное математическое ожидание:
+\[
+\begin{aligned}
+E(X_1\mid X_2)
+&=
+E(U+AX_2\mid X_2)\\
+&=
+EU+AX_2\\
+&=
+\mu_1-A\mu_2+AX_2\\
+&=
+\mu_1+A(X_2-\mu_2)\\
+&=
+\mu_1+
+\Sigma_{12}\Sigma_{22}^{-1}(X_2-\mu_2)
+\end{aligned}
+\]
+
+Найдём условную дисперсию:
+\[
+\begin{aligned}
+\operatorname{Var}(X_1\mid X_2)
+&=
+\operatorname{Var}(U+AX_2\mid X_2)\\
+&=
+\operatorname{Var}U
++
+A\operatorname{Var}(X_2\mid X_2)A^T\\
+&=
+\operatorname{Var}U\\
+&=
+\operatorname{Var}(X_1-AX_2)\\
+&=
+\operatorname{Cov}(X_1-AX_2,X_1-AX_2)\\
+&=
+\operatorname{Var}X_1
+-
+A\operatorname{Cov}(X_2,X_1)
+-
+\operatorname{Cov}(X_1,X_2)A^T
++
+A\operatorname{Cov}(X_2,X_2)A^T\\
+&=
+\Sigma_{11}
+-
+\Sigma_{12}\Sigma_{22}^{-1}\Sigma_{21}
+-
+\Sigma_{12}\Sigma_{22}^{-1}\Sigma_{21}
++
+\Sigma_{12}\Sigma_{22}^{-1}
+\Sigma_{22}
+\Sigma_{22}^{-1}\Sigma_{21}\\
+&=
+\Sigma_{11}
+-
+\Sigma_{12}\Sigma_{22}^{-1}\Sigma_{21}
+\end{aligned}
+\]
+
+\begin{corollary}
+
+$X_1,X_2$ --- 1d величины
+
+\[
+E(X_1\mid X_2)
+=
+\mu_1
++
+\operatorname{cov}(X_1,X_2)\cdot
+\sigma_2^{-2}(X_2-\mu_2)
+\]
+
+\[
+\operatorname{Var}(X_1\mid X_2)
+=
+\sigma_1^2
+-
+\frac{\operatorname{cov}^2(X_1,X_2)}
+{\sigma_2^2}
+\]
+
+\end{corollary}
+
+\end{example}
+
+\newpage
+
+\section{Сходимости случайных величин}
+
+\begin{definition}
+
+\textbf{Сходимость по вероятности}
+
+Пусть $(\Omega,\mathcal{A},P)$ --- вероятностное пространство, $X_n,X$ --- случайные величины на $(\Omega,\mathcal{A},P)$
+
+Говорят, что $X_n$ сходится к $X$ по вероятности, если
+\[
+X_n\xrightarrow[n\to\infty]{P}X
+\quad\Longleftrightarrow\quad
+P(|X_n-X|\geq\varepsilon)\xrightarrow[n\to\infty]{}0
+\\
+\Longleftrightarrow P(|X_n-X|<\varepsilon)\xrightarrow[n\to\infty]{}1
+\]
+для любого $\varepsilon>0$
+
+\end{definition}
+
+\begin{definition}
+
+\textbf{Сходимость по распределению}
+
+Говорят, что $X_n$ сходится к $X$ по распределению, если
+\[
+X_n\xrightarrow[n\to\infty]{d}X
+\quad\Longleftrightarrow\quad
+F_n(t)\xrightarrow[n\to\infty]{}F(t)
+\qquad
+\forall t\in C(F)
+\]
+где
+\[
+C(F)=\{t:F\text{ непрерывна в }t\}
+\]
+
+Также используется обозначение
+\[
+F_n\xrightarrow{d}F
+\]
+
+\end{definition}
+
+\begin{note}
+1) Сходимость по распределению, вообще говоря, не влечёт сходимость по вероятности
+
+\[
+\xrightarrow{d} \ \not\Rightarrow \ \xrightarrow{P}
+\]
+
+\bigskip
+
+2) Если $F\in C(\mathbb{R})$, то
+   \[
+   X_n\xrightarrow{d}X
+   \quad\Longleftrightarrow\quad
+   F_n(t)\longrightarrow F(t)
+   \quad \forall t\in\mathbb{R},
+   \]
+   где $F_n$ и $F$ --- функции распределения $X_n$ и $X$ соответственно.
+
+\bigskip
+
+3)  $X_n, X$ - дискретные, $\sup pX_n = \sup pX$. Тогда
+\[
+X_n \xrightarrow{d}X \Longleftrightarrow P(X_n=t_m) \to P(X = t_m) \ \forall t_m 
+\]
+
+\end{note}
+
+\begin{proofbox}{пункта 1}
+Пусть
+\[
+P\left(X=1\right)=P\left(X=-1\right)=\frac12,
+\qquad
+X_n=(-1)^nX.
+\]
+Тогда для любого $n$
+\[
+X_n\overset{d}{=}X,
+\]
+поэтому
+\[
+X_n\xrightarrow{d}X.
+\]
+Однако
+\[
+|X_n-X|=
+\begin{cases}
+0, & n \text{ чётное},\\
+2, & n \text{ нечётное}.
+\end{cases}
+\]
+Следовательно, при $0<\varepsilon<2$
+\[
+P\left(|X_n-X|>\varepsilon\right)=
+\begin{cases}
+0, & n \text{ чётное},\\
+1, & n \text{ нечётное},
+\end{cases}
+\]
+и потому $X_n\not\xrightarrow{p}X$.
+\end{proofbox}
+
+\begin{proofbox}{пункта 2}
+По определению сходимости по распределению
+\[
+X_n\xrightarrow{d}X
+\]
+означает, что
+\[
+F_n(t)\longrightarrow F(t)
+\]
+во всех точках непрерывности функции распределения $F$.
+
+Так как $F\in C(\mathbb{R})$, каждая точка $t\in\mathbb{R}$ является точкой непрерывности $F$. Поэтому
+\[
+X_n\xrightarrow{d}X
+\quad\Longleftrightarrow\quad
+F_n(t)\longrightarrow F(t)
+\quad\forall t\in\mathbb{R}.
+\]
+\end{proofbox}
+
+\begin{proofbox}{пункта 3}
+Обозначим общее дискретное множество значений
+\[
+\operatorname{supp}X_n=\operatorname{supp}X=\{t_1,t_2,\ldots\}.
+\]
+
+\(\Rightarrow\)
+
+Пусть
+\[
+X_n\xrightarrow{d}X
+\]
+Тогда для любой точки непрерывности \(x\) функции распределения \(F_X\)
+\[
+F_{X_n}(x)\to F_X(x)
+\]
+
+Зафиксируем \(t_m\). Поскольку множество \(\{t_k\}\) дискретно, можно выбрать \(a<t_m<b\) так, чтобы
+\[
+(a,b)\cap\operatorname{supp}X=\{t_m\}
+\]
+причём \(a,b\notin\operatorname{supp}X\). Следовательно, \(a,b\) — точки непрерывности \(F_X\).
+
+Так как носители \(X_n\) и \(X\) совпадают,
+\[
+P(X_n=t_m)=F_{X_n}(b)-F_{X_n}(a).
+\]
+По сходимости по распределению
+\[
+F_{X_n}(b)\to F_X(b),\qquad
+F_{X_n}(a)\to F_X(a).
+\]
+Значит,
+\[
+P(X_n=t_m)
+\to F_X(b)-F_X(a)
+=P(X=t_m).
+\]
+
+Таким образом,
+\[
+P(X_n=t_m)\to P(X=t_m)
+\qquad\forall t_m.
+\]
+
+\(\Leftarrow\)
+
+Пусть теперь
+\[
+P(X_n=t_m)\to P(X=t_m)
+\qquad\forall m.
+\]
+
+Нужно доказать
+\[
+X_n\xrightarrow{d}X
+\]
+
+Возьмём произвольную точку непрерывности \(x\) функции \(F_X\). Имеем
+\[
+F_{X_n}(x)
+=
+\sum_{t_m\le x}P(X_n=t_m),
+\qquad
+F_X(x)
+=
+\sum_{t_m\le x}P(X=t_m).
+\]
+
+Если множество значений конечно, результат сразу следует из почленной сходимости конечной суммы.
+
+В общем счётном случае зафиксируем \(\varepsilon>0\). Поскольку
+\[
+\sum_{m=1}^{\infty}P(X=t_m)=1,
+\]
+можно выбрать конечное множество индексов \(I\), для которого
+\[
+\sum_{m\notin I}P(X=t_m)<\varepsilon.
+\]
+Из
+\[
+P(X_n=t_m)\to P(X=t_m),\qquad m\in I,
+\]
+следует
+\[
+\sum_{m\in I}P(X_n=t_m)
+\to
+\sum_{m\in I}P(X=t_m).
+\]
+Поэтому при достаточно больших \(n\)
+\[
+\sum_{m\notin I}P(X_n=t_m)<2\varepsilon.
+\]
+
+Теперь
+\[
+\begin{aligned}
+|F_{X_n}(x)-F_X(x)|
+&\le
+\sum_{\substack{m\in I\\t_m\le x}}
+|P(X_n=t_m)-P(X=t_m)|
+\\
+&\quad+
+\sum_{m\notin I}P(X_n=t_m)
++
+\sum_{m\notin I}P(X=t_m).
+\end{aligned}
+\]
+Первое слагаемое стремится к нулю, а два остальных при больших \(n\) меньше \(2\varepsilon\) и \(\varepsilon\). Поскольку \(\varepsilon>0\) произвольно,
+\[
+F_{X_n}(x)\to F_X(x).
+\]
+Следовательно,
+\[
+X_n\xrightarrow{d}X.
+\]
+
+Итак,
+\[
+X_n\xrightarrow{d}X
+\Longleftrightarrow
+P(X_n=t_m)\to P(X=t_m)
+\quad\forall t_m.
+\]
+
+Здесь существенно условие об общем дискретном носителе: оно позволяет в первой части изолировать каждую точку \(t_m\) одинаково для \(X_n\) и \(X\)
+\end{proofbox}
+
+\begin{props}{сходимостей случайных величин}
+
+1) Если $X_n\xrightarrow{d}c$, то $X_n\xrightarrow{p}c$
+
+\bigskip
+
+2) \textbf{Теорема Слуцкого}
+
+Если $X_n\xrightarrow{d}X, \ \ Y_n\xrightarrow{p}c$,
+   где $c\in\mathbb{R}$ --- константа, то $X_n + Y_n\xrightarrow{d}X + c$
+
+\bigskip
+
+3) Если $X_n\xrightarrow{d}X, \ \ Y_n\xrightarrow{p}c$,
+   где $c\in\mathbb{R}$ --- константа, то $X_nY_n\xrightarrow{d}cX$
+
+\bigskip
+
+4) Если $X_n\xrightarrow{p}X$, то $X_n\xrightarrow{d}X$
+
+\bigskip
+   
+5) Пусть
+   \[
+   X_{1n}\xrightarrow{p}X_1,\quad
+   X_{2n}\xrightarrow{p}X_2,\quad \ldots,\quad
+   X_{mn}\xrightarrow{p}X_m,
+   \]
+   и $g\in C(\mathbb{R}^m)$. Тогда
+   \[
+   g(X_{1n},\ldots,X_{mn})
+   \xrightarrow{p}
+   g(X_1,\ldots,X_m).
+   \]
+
+\bigskip
+
+6) Если $X_n\xrightarrow{d}X$ и $g$ непрерывна, то $g(X_n)\xrightarrow{d}g(X)$
+
+\bigskip
+   
+7) Пусть
+   \[
+   X_n\xrightarrow{d}X,
+   \qquad
+   t_n\longrightarrow t\in[-\infty,+\infty].
+   \]
+   Тогда:
+а) если $t\in\mathbb{R}$ и $t\in C(F_X)$, то
+\[
+F_{X_n}(t_n)\longrightarrow F_X(t);
+\]
+б) если $t=+\infty$, то
+\[
+F_{X_n}(t_n)\longrightarrow1;
+\]
+в) если $t=-\infty$, то
+\[
+F_{X_n}(t_n)\longrightarrow0.
+\]
+\end{props}
+
+\begin{proofbox}{свойства 1}
+\[
+P(|X_n-c|<\varepsilon)
+=
+P\left(c-\frac{\varepsilon}{2}<X_n\leq c+\frac{\varepsilon}{2}\right)
+=
+F_{X_n}\left(c+\frac{\varepsilon}{2}\right)
+-
+F_{X_n}\left(c-\frac{\varepsilon}{2}\right).
+\]
+\[
+\longrightarrow
+F_{I(c)}\left(c+\frac{\varepsilon}{2}\right)
+-
+F_{I(c)}\left(c-\frac{\varepsilon}{2}\right)
+=
+1-0=1.
+\]
+\end{proofbox}
+
+\begin{proofbox}{свойства 2}
+Не умаляя общности, можно сказать, что $c=0$, так как
+\[
+X_n\xrightarrow{d}X
+\Rightarrow
+X_n-c\xrightarrow{d}X-c.
+\]
+\[
+P(X_n+Y_n\leq t)
+\overset{?}{\longrightarrow}
+P(X\leq t),
+\qquad
+\forall t\in C(F_X).
+\]
+\[
+P(X_n+Y_n\leq t)
+=
+P(X_n+Y_n\leq t,\ |Y_n|<\varepsilon)
++
+P(X_n+Y_n\leq t,\ |Y_n|\geq\varepsilon).
+\]
+\[
+P(X_n+Y_n\leq t,\ |Y_n|\geq\varepsilon)
+\leq
+P(|Y_n|\geq\varepsilon)
+\xrightarrow[n\to\infty]{}0.
+\]
+\[
+\begin{cases}
+X_n+Y_n\leq t,\\
+-\varepsilon<Y_n<\varepsilon
+\end{cases}
+\Rightarrow
+X_n\leq t+\varepsilon.
+\]
+\[
+P(X_n+Y_n\leq t,\ |Y_n|<\varepsilon)
+\leq
+P(X_n\leq t+\varepsilon).
+\]
+\[
+P(X_n\leq t+\varepsilon)
++
+P(|Y_n|\geq\varepsilon)
+\Rightarrow
+\overline{\lim}
+P(X_n+Y_n\leq t)
+\leq
+F_X(t+\varepsilon).
+\]
+\[
+P(X_n\leq t-\varepsilon)
+=
+P(X_n\leq t-\varepsilon,\ |Y_n|<\varepsilon)
++
+P(X_n\leq t-\varepsilon,\ |Y_n|\geq\varepsilon).
+\]
+\[
+\begin{cases}
+X_n\leq t-\varepsilon,\\
+-\varepsilon<Y_n<\varepsilon
+\end{cases}
+\Rightarrow
+X_n+Y_n\leq t.
+\]
+\[
+P(X_n\leq t-\varepsilon)
+\leq
+P(X_n+Y_n\leq t)
++
+P(|Y_n|\geq\varepsilon).
+\]
+\[
+\Rightarrow
+P(X_n+Y_n\leq t)
+\geq
+P(X_n\leq t-\varepsilon)
+-
+P(|Y_n|\geq\varepsilon).
+\]
+\[
+\underline{\lim}
+P(X_n+Y_n\leq t)
+\geq
+F_X(t-\varepsilon).
+\]
+\end{proofbox}
+
+\begin{proofbox}{свойства 3}
+\[
+X_n(Y_n-c+c)=X_n(Y_n-c)+cX_n\xrightarrow{d}cX.
+\]
+
+\[
+Y_n\to0 \Rightarrow X_nY_n\xrightarrow{d}0.
+\]
+
+\[
+P(X_nY_n\leq t)\longrightarrow
+\begin{cases}
+0, & t<0,\\
+1, & t>0.
+\end{cases}
+\]
+
+\[
+P(-t\leq X_nY_n\leq t)\longrightarrow1
+\qquad \forall t>0.
+\]
+
+\[
+P(-t\leq X_nY_n\leq t)
+=
+P(-t\leq X_nY_n\leq t,\ |X_n|\geq M)
++
+P(-t\leq X_nY_n\leq t,\ |X_n|<M).
+\]
+
+\[
+P(-t\leq X_nY_n\leq t)
+=
+P(-t\leq X_nY_n\leq t,\ |X_n|\leq M)
++
+P(-t\leq X_nY_n\leq t,\ |X_n|>M),
+\]
+\[
+P(-t\leq X_nY_n\leq t,\ |X_n|>M)
+\leq P(|X_n|>M),
+\]
+\[
+P(|X_n|>M)\longrightarrow 1-F(M)+F(-M)<\varepsilon.
+\]
+
+\[
+P(-t\leq Y_n\leq t)
+=
+P(-t\leq Y_n\leq t,\ |X_n|\leq M)
++
+P(-t\leq Y_n\leq t,\ |X_n|>M)
+\leq
+P\left(-Mt\leq X_nY_n\leq Mt\right)
++
+P(|X_n|>M).
+\]
+\end{proofbox}
+
+\begin{proofbox}{свойства 4}
+\[
+X_n = (X_n - X) + X \xrightarrow{d} 0 + X = X
+\]
+\end{proofbox}
+
+\begin{proofbox}{свойства 5}
+\[
+p(|g(X_n) - g(X)| < \varepsilon) \geq P(|X_n - X| < \varepsilon) \longrightarrow 1
+\]
+\end{proofbox}
+
+\begin{proofbox}{свойства 6}
+Пусть $F_{g(X)}$ --- функция распределения случайной величины $g(X)$ и
+\[
+t\in C(F_{g(X)}).
+\]
+Рассмотрим множество
+\[
+A_t=\{x\in\mathbb{R}:g(x)\leq t\}.
+\]
+Так как $g$ непрерывна, граница этого множества может содержать только точки $x$, для которых $g(x)=t$. Поэтому
+\[
+P(X\in\partial A_t)
+\leq
+P(g(X)=t).
+\]
+Поскольку $t$ является точкой непрерывности $F_{g(X)}$,
+\[
+P(g(X)=t)=0.
+\]
+Следовательно, $A_t$ является множеством непрерывности распределения $X$.
+
+Из $X_n\xrightarrow{d}X$ получаем
+\[
+P(X_n\in A_t)
+\longrightarrow
+P(X\in A_t).
+\]
+То есть
+\[
+P(g(X_n)\leq t)
+\longrightarrow
+P(g(X)\leq t).
+\]
+Следовательно,
+\[
+g(X_n)\xrightarrow{d}g(X).
+\]
+\end{proofbox}
+
+\begin{proofbox}{свойства 7}
+Сначала пусть
+\[
+t_n\longrightarrow t\in\mathbb{R},
+\qquad
+t\in C(F_X).
+\]
+Для любого $\varepsilon>0$ при достаточно больших $n$
+\[
+t-\varepsilon<t_n<t+\varepsilon.
+\]
+Так как функции распределения неубывают,
+\[
+F_{X_n}(t-\varepsilon)
+\leq
+F_{X_n}(t_n)
+\leq
+F_{X_n}(t+\varepsilon).
+\]
+Выберем $\varepsilon>0$ так, чтобы $t-\varepsilon$ и $t+\varepsilon$ были точками непрерывности $F_X$. Из
+\[
+X_n\xrightarrow{d}X
+\]
+следует
+\[
+F_{X_n}(t-\varepsilon)\longrightarrow F_X(t-\varepsilon),
+\qquad
+F_{X_n}(t+\varepsilon)\longrightarrow F_X(t+\varepsilon).
+\]
+Поэтому
+\[
+F_X(t-\varepsilon)
+\leq
+\liminf_{n\to\infty}F_{X_n}(t_n)
+\leq
+\limsup_{n\to\infty}F_{X_n}(t_n)
+\leq
+F_X(t+\varepsilon).
+\]
+Устремляя $\varepsilon\to0$ и используя непрерывность $F_X$ в точке $t$, получаем
+\[
+F_{X_n}(t_n)\longrightarrow F_X(t).
+\]
+Пусть теперь $t_n\to+\infty$. Возьмём произвольную точку непрерывности $M$ функции $F_X$. Для достаточно больших $n$
+\[
+t_n\geq M,
+\]
+поэтому
+\[
+F_{X_n}(t_n)\geq F_{X_n}(M).
+\]
+Следовательно,
+\[
+\liminf_{n\to\infty}F_{X_n}(t_n)
+\geq F_X(M).
+\]
+Устремляя $M\to+\infty$, получаем
+\[
+\liminf_{n\to\infty}F_{X_n}(t_n)\geq1.
+\]
+Так как $F_{X_n}(t_n)\leq1$, имеем
+\[
+F_{X_n}(t_n)\longrightarrow1.
+\]
+Наконец, пусть $t_n\to-\infty$. Возьмём произвольную точку непрерывности $M$ функции $F_X$. Для достаточно больших $n$
+\[
+t_n\leq M,
+\]
+следовательно,
+\[
+F_{X_n}(t_n)\leq F_{X_n}(M).
+\]
+Отсюда
+\[
+\limsup_{n\to\infty}F_{X_n}(t_n)
+\leq F_X(M).
+\]
+Устремляя $M\to-\infty$, получаем
+\[
+\limsup_{n\to\infty}F_{X_n}(t_n)\leq0.
+\]
+Значит,
+\[
+F_{X_n}(t_n)\longrightarrow0.
+\]
+\end{proofbox}
+
+\newpage
+
+\section{Характеристические функции случайных величин}
+
+\begin{definition}
+
+Пусть $X$ --- случайная величина. \textbf{Характеристической функцией} случайной величины $X$ называется
+\[
+f_X(t)
+=
+Ee^{itX},
+\qquad
+t\in\mathbb{R}
+\]
+
+Так как
+\[
+e^{itX}
+=
+\cos(tX)+i\sin(tX)
+\]
+то
+\[
+f_X(t)
+=
+E\cos(tX)+iE\sin(tX)
+\]
+
+Если $X$ --- дискретная случайная величина, то
+\[
+f_X(t)
+=
+\sum_k p_k e^{itx_k}
+\]
+
+Если $X$ имеет плотность $p_X$, то
+\[
+f_X(t)
+=
+\int_{\mathbb{R}}
+p_X(x)e^{itx}\,dx
+\]
+
+\end{definition}
+
+\begin{props}{характеристической функции}
+
+1) $f_X(0)=1 $ и $|f_X(t)|\leq1$
+
+\bigskip
+
+2) Если $Y=aX+b$, то $f_Y(t) = e^{itb}f_X(at)$
+
+В частности, если $Y=-X$, то $f_{-X}(t) =
+f_X(-t) = \overline{f_X(t)}$
+
+\bigskip
+
+3) Если $X\overset{d}{=}-X$, то $f_X(t)=\overline{f_X(t)} \Longrightarrow f_x(t) \in \mathbb{R} \ \ \forall t\in\mathbb{R}$
+
+\bigskip
+
+4) Если существуют моменты $EX^k$, то $f_X^{(k)}(0) = i^kEX^k$
+
+В частности, $f_X'(0)=iEX$ и $f_X''(0)=i^2EX^2=-EX^2$
+
+При наличии моментов до порядка $n$
+\[
+f_X(t)
+=
+1+
+\sum_{k=1}^n
+\frac{i^kEX^k}{k!}t^k
++
+o(t^n),
+\qquad
+t\to0
+\]
+
+\bigskip
+
+5) Если $X_1,\ldots,X_n$ независимы и $S_n=X_1+\cdots+X_n$, 
+то $f_{S_n}(t) = \prod_{j=1}^nf_{X_j}(t)$
+
+\bigskip
+
+6) Характеристическая функция равномерно непрерывна:
+\[
+\sup_{t\in\mathbb{R}}
+|f_X(t+h)-f_X(t)|
+\xrightarrow[h\to0]{}0
+\]
+
+\end{props}
+
+\begin{proofbox}{свойства 1}
+
+Имеем
+\[
+f_X(0)
+=
+Ee^{i0X}
+=
+1
+\]
+
+Кроме того,
+\[
+|f_X(t)|
+=
+|Ee^{itX}|
+\leq
+E|e^{itX}|
+=
+1
+\]
+
+\end{proofbox}
+
+\begin{proofbox}{свойства 2}
+
+Если
+\[
+Y=aX+b
+\]
+то
+\[
+\begin{aligned}
+f_Y(t)
+&=
+Ee^{itY}\\
+&=
+Ee^{it(aX+b)}\\
+&=
+e^{itb}Ee^{i(at)X}\\
+&=
+e^{itb}f_X(at)
+\end{aligned}
+\]
+
+При $Y=-X$
+\[
+f_{-X}(t)
+=
+f_X(-t)
+\]
+
+При этом
+\[
+f_X(-t)
+=
+Ee^{-itX}
+=
+E\overline{e^{itX}}
+=
+\overline{f_X(t)}
+\]
+
+\end{proofbox}
+
+\begin{proofbox}{свойства 3}
+
+По предыдущему свойству $f_{-X}(t) = \overline{f_X(t)}$. Значит
+
+\[
+f_x(t) \in \mathbb{R} \ \ \forall t\in\mathbb{R}
+\]
+
+\end{proofbox}
+
+\begin{proofbox}{свойства 4}
+
+Дифференцируя характеристическую функцию, получаем
+\[
+f_X'(t)
+=
+\left(Ee^{itX}\right)'
+=
+E\left(e^{itX}\right)'
+=
+E\left(iXe^{itX}\right)
+\]
+
+Поэтому
+\[
+f_X'(0)
+=
+iEX
+\]
+
+Аналогично
+\[
+f_X''(0)
+=
+i^2EX^2
+\]
+
+В общем случае
+\[
+f_X^{(k)}(0)
+=
+i^kEX^k
+\]
+
+Следовательно, по формуле Тейлора
+\[
+f_X(t)
+=
+1+
+\sum_{k=1}^n
+\frac{i^kEX^k}{k!}t^k
++
+o(t^n)
+\]
+
+\end{proofbox}
+
+\begin{proofbox}{свойства 5}
+
+Так как $X_1,\ldots,X_n$ независимы, то
+\[
+\begin{aligned}
+f_{S_n}(t)
+&=
+E\exp\left(
+it\sum_{j=1}^nX_j
+\right)\\
+&=
+E\prod_{j=1}^ne^{itX_j}\\
+&=
+\prod_{j=1}^nEe^{itX_j}\\
+&=
+\prod_{j=1}^nf_{X_j}(t)
+\end{aligned}
+\]
+
+\end{proofbox}
+
+\begin{proofbox}{свойства 6}
+
+Для любых $t,h\in\mathbb{R}$
+\[
+\begin{aligned}
+|f_X(t+h)-f_X(t)|
+&=
+\left|
+E\left(
+e^{i(t+h)X}-e^{itX}
+\right)
+\right|\\
+&\leq
+E\left|
+e^{itX}
+\right|
+\left|
+e^{ihX}-1
+\right|\\
+&=
+E|e^{ihX}-1|
+\end{aligned}
+\]
+
+Правая часть не зависит от $t$ и при $h\to0$ стремится к нулю
+
+Следовательно,
+\[
+\sup_{t\in\mathbb{R}}
+|f_X(t+h)-f_X(t)|
+\xrightarrow[h\to0]{}0
+\]
+
+\end{proofbox}
+
+\begin{example}
+
+\textbf{Характеристические функции некоторых дискретных распределений:}
+
+1) $X\sim I(c) \
+\Longrightarrow \
+f_X(t)=Ee^{itX}=e^{itc}$
+
+\bigskip
+
+2) Если $X\sim\operatorname{Bern}(p)$, $q=1-p$, то
+\[
+f_X(t)
+=
+pe^{it}+qe^{i\cdot0\cdot t}
+=
+pe^{it}+q
+\]
+
+\bigskip
+
+3) Если $X\sim\operatorname{Bin}(n,p)$, то
+\[
+f_X(t)
+=
+\left(pe^{it}+q\right)^n
+\]
+
+\bigskip
+
+4) Если $X\sim\operatorname{Geom}(p)$, то
+\[
+\begin{aligned}
+f_X(t)
+&=
+\sum_{k=0}^{\infty}pq^ke^{itk}
+=
+\frac{p}{1-qe^{it}}
+\end{aligned}
+\]
+
+\bigskip
+
+5) Если $X\sim\operatorname{NB}(r,p)$, то
+\[
+f_X(t)
+=
+\left(
+\frac{p}{1-qe^{it}}
+\right)^r
+\]
+
+\bigskip
+
+6) Если $X\sim\operatorname{Pois}(\lambda)$, то
+\[
+\begin{aligned}
+f_X(t)
+&=
+\sum_{k=0}^{\infty}
+e^{itk}e^{-\lambda}\frac{\lambda^k}{k!}\\
+&=
+e^{-\lambda}
+\sum_{k=0}^{\infty}
+\frac{(e^{it}\lambda)^k}{k!}\\
+&=
+e^{-\lambda+\lambda e^{it}}
+=
+e^{\lambda(e^{it}-1)}
+\end{aligned}
+\]
+
+\end{example}
+
+\begin{example}
+
+\textbf{Характеристические функции некоторых абсолютно непрерывных распределений:}
+
+1) Если $X\sim U[a,b]$, то
+\[
+\begin{aligned}
+f_X(t)
+&=
+\frac{1}{b-a}
+\int_a^b e^{itx}\,dx\\
+&=
+\frac{e^{itb}-e^{ita}}{(b-a)it}
+\end{aligned}
+\]
+
+При $a=-b$
+\[
+\begin{aligned}
+f_X(t)
+&=
+\frac{e^{itb}-e^{-itb}}{2bit}\\
+&=
+\frac{\cos(tb)+i\sin(tb)-\cos(tb)+i\sin(tb)}{2bit}\\
+&=
+\frac{\sin(tb)}{tb}
+\end{aligned}
+\]
+
+\bigskip
+
+2) Пусть $X\sim\mathcal{N}(0,1)$. Тогда
+\[
+f_X(t)
+=
+Ee^{itX}
+=
+\frac{1}{\sqrt{2\pi}}
+\int_{-\infty}^{+\infty}
+e^{itx-\frac{x^2}{2}}\,dx
+\]
+
+Дифференцируя по $t$, получаем
+\[
+\begin{aligned}
+f_X'(t)
+&=
+\frac{1}{\sqrt{2\pi}}
+\int_{-\infty}^{+\infty}
+ixe^{itx-\frac{x^2}{2}}\,dx\\
+&=
+-\frac{i}{\sqrt{2\pi}}
+\int_{-\infty}^{+\infty}
+e^{itx}\,d\left(e^{-\frac{x^2}{2}}\right)\\
+&=
+-tf_X(t)
+\end{aligned}
+\]
+
+Причём
+\[
+f_X(0)=1
+\]
+
+Следовательно,
+\[
+\int\frac{df_X}{dt}
+=
+-tf
+\]
+и
+\[
+\int\frac{df_X}{f_X}
+=
+\int-t\,dt
+\]
+
+Заметим, что
+\[
+f_X(t)
+=
+e^{-\frac{t^2}{2}}
+\]
+
+\bigskip
+
+3) Для
+\[
+X\sim\mathcal{N}(\mu,\sigma^2)
+\]
+имеем
+\[
+X=\sigma Z+\mu,
+\qquad
+Z\sim\mathcal{N}(0,1)
+\]
+поэтому
+\[
+f_X(t)
+=
+e^{it\mu}f_Z(\sigma t)
+=
+e^{it\mu-\frac{\sigma^2t^2}{2}}
+\]
+
+\bigskip
+
+4) Если $X\sim\operatorname{Exp}(\lambda)$, то
+\[
+\begin{aligned}
+f_X(t)
+&=
+\lambda
+\int_0^{+\infty}
+e^{itx-\lambda x}\,dx\\
+&=
+\frac{\lambda}{it-\lambda}
+\left.e^{(it-\lambda)x}\right|_0^{+\infty}\\
+&=
+\frac{\lambda}{\lambda-it}
+\end{aligned}
+\]
+
+\bigskip
+
+5) Если $X\sim\Gamma(\alpha,\lambda)$, то
+\[
+f_X(t)
+=
+\int_0^{+\infty}
+\frac{\lambda^\alpha x^{\alpha-1}e^{-\lambda x}}
+{\Gamma(\alpha)}
+e^{itx}\,dx
+\]
+
+Далее
+\[
+\begin{aligned}
+f_X'(t)
+&=
+\int_0^{+\infty}
+\frac{\lambda^\alpha x^{\alpha-1}e^{-\lambda x}}
+{\Gamma(\alpha)}
+ixe^{itx}\,dx
+\end{aligned}
+\]
+
+Отсюда
+\[
+f_X(t)
+=
+\left(
+\frac{\lambda}{\lambda-it}
+\right)^\alpha
+\]
+
+\bigskip
+
+6) Если $X\sim\operatorname{Cauchy}(\mu,\gamma)$, то
+\[
+f_X(t)
+=
+e^{i\mu t-\gamma|t|}
+\]
+
+\end{example}
+
+\begin{theorem}{о связи распределения и характеристической функции}
+
+Распределение случайной величины однозначно определяет её характеристическую функцию и наоборот
+
+То есть
+\[
+f_X=f_Y
+\quad\Longleftrightarrow\quad
+X\overset{d}{=}Y
+\]
+
+\end{theorem}
+
+\begin{proofbox}{}
+
+Если
+\[
+X\overset{d}{=}Y
+\]
+то непосредственно
+\[
+f_X(t)
+=
+Ee^{itX}
+=
+Ee^{itY}
+=
+f_Y(t)
+\]
+
+Докажем обратное утверждение для целочисленной случайной величины $X$
+
+В этом случае характеристическая функция $2\pi$-периодична:
+\[
+f_X(0) = f_X(2\pi) = 1
+\]
+
+Рассмотрим пространство
+\[
+L_2[-\pi,\pi]
+=
+\left\{
+f:[-\pi,\pi]\to\mathbb{C}:
+\int_{-\pi}^{\pi}|f(t)|^2\,dt<\infty
+\right\}
+\]
+
+со скалярным произведением
+\[
+\langle f,g\rangle
+=
+\int_{-\pi}^{\pi}
+f(t)\overline{g(t)}\,dt
+\]
+
+Для функций $e^{ikt}$ имеем
+\[
+\begin{aligned}
+\left\langle e^{ikt},e^{ijt}\right\rangle
+&=
+\int_{-\pi}^{\pi}
+e^{i(k-j)t}\,dt\\
+&=
+\begin{cases}
+0, & k\neq j\\
+2\pi, & k=j
+\end{cases}
+\end{aligned}
+\]
+
+Поэтому коэффициенты разложения
+\[
+f_X(t)
+=
+\sum_k p_ke^{ikt}
+\]
+однозначно восстанавливаются по формуле
+\[
+p_k
+=
+\frac{1}{2\pi}
+\int_{-\pi}^{\pi}
+f_X(t)e^{-ikt}\,dt
+\]
+
+Следовательно, характеристическая функция однозначно определяет вероятности $p_k$, а значит, и распределение $X$
+
+\end{proofbox}
+
+\begin{theorem}{Леви о непрерывности}
+
+Пусть $X_n,X$ --- случайные величины с характеристическими функциями
+$f_{X_n}$ и $f_X$
+
+Тогда
+\[
+X_n\xrightarrow{d}X
+\quad\Longleftrightarrow\quad
+f_{X_n}(t)\xrightarrow[n\to\infty]{}f_X(t)
+\qquad
+\forall t\in\mathbb{R}
+\]
+
+\end{theorem}
+
+\begin{theorem}{закон больших чисел для независимых одинаково распределённых случайных величин}
+
+Пусть $X_1,X_2,\ldots$ --- независимые одинаково распределённые случайные величины и
+\[
+EX_k=\mu
+\]
+
+Тогда
+\[
+\frac{1}{n}\sum_{k=1}^nX_k
+\xrightarrow{P}
+\mu
+\]
+
+\end{theorem}
+
+\begin{proofbox}{}
+
+Для характеристической функции $X_k$ при $t\to0$
+\[
+f_X(t)
+=
+1+it\mu+o(t)
+\]
+
+Обозначим
+\[
+S_n=\sum_{k=1}^nX_k
+\]
+
+Так как случайные величины независимы,
+\[
+f_{S_n}(t)
+=
+\left(1+it\mu+o(t)\right)^n
+\]
+
+Следовательно,
+\[
+\begin{aligned}
+f_{\frac{S_n}{n}}(t)
+=
+f_{S_n}\left(\frac{t}{n}\right)
+=
+\left(
+1+\frac{it\mu}{n}
++
+o\left(\frac{1}{n}\right)
+\right)^n
+&\xrightarrow[n\to\infty]{}
+e^{it\mu}
+\end{aligned}
+\]
+
+Но $e^{it\mu}$ --- характеристическая функция константы $\mu$
+
+По теореме Леви
+\[
+\frac{S_n}{n}
+\xrightarrow{d}
+\mu
+\]
+
+Так как предел является константой,
+\[
+\frac{S_n}{n}
+\xrightarrow{P}
+\mu
+\]
+
+\end{proofbox}
+
+\begin{theorem}{центральная предельная теорема для независимых одинаково распределённых случайных величин}
+
+Пусть $X_1,X_2,\ldots$ --- независимые одинаково распределённые случайные величины,
+\[
+EX_k=\mu,
+\qquad
+\operatorname{Var}X_k=\sigma^2>0
+\]
+
+Тогда
+\[
+\frac{\sum_{k=1}^nX_k-n\mu}
+{\sqrt{n\sigma^2}}
+\xrightarrow{d}
+U\sim\mathcal{N}(0,1)
+\]
+
+\end{theorem}
+
+\begin{proofbox}{}
+
+Положим
+\[
+U_k
+=
+\frac{X_k-\mu}{\sigma}
+\]
+
+Тогда
+\[
+EU_k=0,
+\qquad
+\operatorname{Var}U_k=1,
+\qquad
+EU_k^2=1
+\]
+
+При $t\to0$
+\[
+f_{U_k}(t)
+=
+1-\frac{t^2}{2}+o(t^2)
+\]
+
+Следовательно,
+\[
+\begin{aligned}
+f_{\frac{1}{\sqrt{n}}\sum_{k=1}^nU_k}(t)
+=
+\left(
+f_{U_k}\left(\frac{t}{\sqrt{n}}\right)
+\right)^n
+=
+\left(
+1-\frac{t^2}{2n}
++
+o\left(\frac{1}{n}\right)
+\right)^n
+&\xrightarrow[n\to\infty]{}
+e^{-\frac{t^2}{2}}
+\end{aligned}
+\]
+
+Функция
+\[
+e^{-\frac{t^2}{2}}
+\]
+является характеристической функцией распределения $\mathcal{N}(0,1)$
+
+По теореме Леви
+\[
+\frac{\sum_{k=1}^nX_k-n\mu}
+{\sqrt{n\sigma^2}}
+\xrightarrow{d}
+\mathcal{N}(0,1)
+\]
+
+\end{proofbox}
+
+\begin{corollary}
+
+При достаточно больших $n$
+\[
+P\left(
+a<
+\frac{\sum_{k=1}^nX_k-n\mu}
+{\sqrt{n\sigma^2}}
+<b
+\right)
+\approx
+\Phi(b)-\Phi(a)
+\]
+
+\end{corollary}
+
+
+
+\end{document}
