@@ -6423,6 +6423,383 @@ a<
 
 \end{corollary}
 
+\begin{example}
 
+\[
+\int_{\mathbb{R}^3} x^2 \cos^2(z) \arctg(\sin y) \cdot |x| \cdot \frac{exp(-x^2-y^2-z^2)}{dx\,dy\,dz} = *
+\]
+
+\[
+\exp(-x^2-y^2-z^2) = \exp(-\frac{1}{2} \cdot \frac{x^2}{\frac{1}{2}}) \cdot \exp(-\frac{1}{2} \cdot \frac{y^2}{\frac{1}{2}}) \cdot \exp(-\frac{1}{2} \cdot \frac{z^2}{\frac{1}{2}}) 
+\]
+ \[
+* = c \cdot EX^2 cos^2 x arctg sin x |x|
+\\
+c = \frac{1}{\frac{1}{(2\pi)^3}\sqrt(\frac{1}{2}^3)}
+\]
+
+\[
+I_n = c \cdot \frac{1}{n} \sum^n_{k=1} X_k^2 cos^2(z_k)arctg(sin(y_k)) |x_k|
+\]
+
+По ЗБУ $I_n \xrightarrow[p] I$
+
+\end{example}
+
+\newpage
+
+\section{Статистика}
+
+Пусть $X_1, X_2, ..., X_n - i. id; F(x)$ - теоретическая функция распределения
+
+\[
+F_n(t) = \frac{1}{n} \sum^n_{k=1} \mathds{1}(X_k \leq t) - \text{Эмпирическая функцияраспределения}
+\]
+
+$EF_n(t) = F(t)$ - несмещённость
+
+По ЗБУ $F_n(t) \xrightarrow[p] F(t)$ - состоятельность
+
+По ЦПТ
+\[
+\frac{\sum^n_{k=1} \mathds{1}(X_k \leq t) - nF(t)}{\sqrt{nF(t)(1-F(t))}} \xrightarrow[d] U \sim N(0, 1)
+\]
+
+\[
+\frac{\sum^n_{k=1} \mathds{1}(X_k \leq t) - nF(t)}{\sqrt{nF(t)(1-F(t))}} =
+\\
+\sqrt{n} \cdot \frac{F_n(t) - F(t)}{\sqrt{F(t)(1-F(t))}} - \text{асимптотическая нормальность}
+\]
+
+\[
+\sqrt{n} \cdot \frac{F_n(t) - F(t)}{\sqrt{F_n(t)(1-F_n(t))}} = \sqrt{n} \cdot \frac{F_n(t) - F(t)}{\sqrt{F(t)(1-F(t))}} \cdot \sqrt{\frac{\sqrt{F(t)(1-F(t))}}{F_n(t)(1-F_n(t))}}
+\xrightarrow[d] U \sim N(0, 1)
+\]
+
+Так как
+
+\[
+\sqrt{n} \cdot \frac{F_n(t) - F(t)}{\sqrt{F(t)(1-F(t))}} \xrightarrow[d] N(0, 1)
+\\
+\sqrt{\frac{\sqrt{F(t)(1-F(t))}}{F_n(t)(1-F_n(t))}}
+\xrightarrow[p] 1
+\]
+
+\[
+1 - \alpha \leq P(|F_n(t) - F(t)| < \Delta) =
+\\
+P(\sqrt{n} \cdot \frac{F_n(t) - F(t)}{\sqrt{F_n(t)(1-F_n(t))}} < \frac{\sqrt{n}\Delta}{\sqrt{F_n(t)(1-F_n(t))}})
+\]
+
+\[
+\approx 2 \Phi (\sqrt{n} \cdot \frac{F_n(t) - F(t)}{\sqrt{F_n(t)(1-F_n(t))}}) 
+\\
+\Longrightarrow \Phi(\sqrt{n} \cdot \frac{F_n(t) - F(t)}{\sqrt{F_n(t)(1-F_n(t))}}) =
+\\
+1 - \frac{\alpha}{2} \Longrightarrow q_{1 - \frac{\alpha}{2}} \to \Delta
+\]
+
+\[
+P\left(F_n(t)-\Delta < F(t) < F_n(t)+\Delta\right) \approx 1-\alpha
+\quad [\text{асимпт. д.и. для ф.р.}]
+\]
+
+\begin{definition}
+
+Пусть $\alpha_k = EX_1^k$;
+\[
+\widehat{\alpha}_k = \frac{1}{n}\sum_{j=1}^{n}X_j^k = \overline{X^k}.
+\]
+
+\[
+E\widehat{\alpha}_k = \alpha_k \quad (\text{несмещённость})
+\]
+
+\[
+\widehat{\alpha}_k \xrightarrow{P} \alpha_k \quad (\text{состоятельность})
+\]
+
+\[
+\frac{\sqrt{n}(\widehat{\alpha}_k-\alpha_k)}
+{\sqrt{\alpha_{2k}-\alpha_k^2}}
+\xrightarrow{d} N(0;1)
+\quad (\text{асимптотическая нормальность})
+\]
+
+\[
+\operatorname{Var}X_1^k = EX_1^{2k}-(EX_1^k)^2
+\]
+
+\end{definition}
+
+Пусть $\overline{X}^{(k)}$ — вектор выборочных средних:
+\[
+\overline{X}^{(k)} =
+\begin{pmatrix}
+\overline{X}^{1}\\
+\overline{X}^{2}\\
+\vdots\\
+\overline{X}^{k}
+\end{pmatrix},
+\qquad
+\alpha^{(k)} =
+\begin{pmatrix}
+\mathbb{E}X_1^1\\
+\vdots\\
+\mathbb{E}X_1^k
+\end{pmatrix}.
+\]
+
+Тогда по многомерной ЦПТ:
+\[
+\sqrt{n}\left(\overline{X}^{(k)}-\alpha^{(k)}\right)
+\xrightarrow{d} N(0;\Sigma_k),
+\]
+где $\Sigma_k$ — ковариационная матрица:
+\[
+\Sigma_k =
+\operatorname{Var}
+\begin{pmatrix}
+X_1^1\\
+\vdots\\
+X_1^k
+\end{pmatrix}.
+\]
+
+Элементы ковариационной матрицы имеют вид:
+\[
+(\Sigma_k)_{ij}
+=
+\operatorname{Cov}(X_1^i,X_1^j)
+=
+\mathbb{E}(X_1^iX_1^j)
+-
+\mathbb{E}X_1^i\cdot\mathbb{E}X_1^j.
+\]
+
+\begin{theorem}{Об асимптотической нормальности гладких функций от начальных выборочных моментов}
+
+Пусть $\varphi:\mathbb{R}^k\to\mathbb{R}$ — гладкая функция, а $\overline{X}^{(k)}$ — вектор начальных выборочных моментов.
+
+Тогда:
+
+1) Если
+\[
+\sigma^2
+=
+\nabla\varphi(\alpha^{(k)})^\top
+\Sigma_k
+\nabla\varphi(\alpha^{(k)})>0,
+\]
+то
+\[
+\frac{
+\sqrt{n}\left(
+\varphi(\overline{X}^{(k)})
+-
+\varphi(\alpha^{(k)})
+\right)
+}{\sigma}
+\xrightarrow{d}N(0;1).
+\]
+
+2) Если $\sigma^2=g(\alpha_1,\ldots,\alpha_{2k})$, то
+\[
+\sqrt{n}\,
+\frac{
+\varphi(\overline{X}^{(k)})
+-
+\varphi(\alpha^{(k)})
+}{
+\sigma(\widehat{\alpha}_1,\ldots,\widehat{\alpha}_{2k})
+}
+\xrightarrow{d}N(0;1),
+\]
+где $\widehat{\alpha}_j$ — состоятельные оценки соответствующих начальных моментов.
+
+\end{theorem}
+
+\begin{proofbox}{}
+1) По многомерной центральной предельной теореме:
+\[
+\sqrt{n}\left(
+\overline{X}^{(k)}-\alpha^{(k)}
+\right)
+\xrightarrow{d}N(0;\Sigma_k).
+\]
+
+Разложим функцию $\varphi$ в окрестности точки $\alpha^{(k)}$ по формуле Тейлора:
+\[
+\varphi(\overline{X}^{(k)})
+-
+\varphi(\alpha^{(k)})
+=
+\nabla\varphi(\alpha^{(k)})^\top
+\left(
+\overline{X}^{(k)}-\alpha^{(k)}
+\right)
++
+o_p(n^{-1/2}).
+\]
+
+Умножая на $\sqrt{n}$, получаем:
+\[
+\begin{aligned}
+&\sqrt{n}\left(
+\varphi(\overline{X}^{(k)})
+-
+\varphi(\alpha^{(k)})
+\right)
+\\
+&\quad=
+\nabla\varphi(\alpha^{(k)})^\top
+\sqrt{n}\left(
+\overline{X}^{(k)}-\alpha^{(k)}
+\right)
++o_p(1).
+\end{aligned}
+\]
+
+Следовательно, по теореме Слуцкого:
+\[
+\sqrt{n}\left(
+\varphi(\overline{X}^{(k)})
+-
+\varphi(\alpha^{(k)})
+\right)
+\xrightarrow{d}N(0;\sigma^2),
+\]
+где
+\[
+\sigma^2
+=
+\nabla\varphi(\alpha^{(k)})^\top
+\Sigma_k
+\nabla\varphi(\alpha^{(k)}).
+\]
+
+Так как $\sigma^2>0$, после нормировки получаем:
+\[
+\frac{
+\sqrt{n}\left(
+\varphi(\overline{X}^{(k)})
+-
+\varphi(\alpha^{(k)})
+\right)
+}{\sigma}
+\xrightarrow{d}N(0;1).
+\]
+
+2) По состоятельности оценок начальных моментов:
+\[
+\widehat{\alpha}_j
+\xrightarrow{P}\alpha_j,
+\qquad j=1,\ldots,2k.
+\]
+
+В силу непрерывности функции $g$:
+\[
+g(\widehat{\alpha}_1,\ldots,\widehat{\alpha}_{2k})
+\xrightarrow{P}
+g(\alpha_1,\ldots,\alpha_{2k})
+=\sigma^2.
+\]
+
+Следовательно,
+\[
+\sigma(\widehat{\alpha}_1,\ldots,\widehat{\alpha}_{2k})
+\xrightarrow{P}\sigma.
+\]
+
+По теореме Слуцкого:
+\[
+\sqrt{n}\,
+\frac{
+\varphi(\overline{X}^{(k)})
+-
+\varphi(\alpha^{(k)})
+}{
+\sigma(\widehat{\alpha}_1,\ldots,\widehat{\alpha}_{2k})
+}
+\xrightarrow{d}N(0;1).
+\]
+\end{proofbox}
+
+\begin{example}
+Рассмотрим асимптотическое распределение выборочной дисперсии.
+
+Пусть
+\[
+\varphi(x_1,x_2)=x_2-x_1^2.
+\]
+
+Тогда
+\[
+\varphi(\overline{X}^{(2)})
+=
+\overline{X}^{2}-(\overline{X})^2
+=
+S_*^2,
+\]
+а
+\[
+\varphi(\alpha_1,\alpha_2)
+=
+\alpha_2-\alpha_1^2
+=
+\operatorname{Var}(X_1).
+\]
+
+Обозначим
+\[
+\beta_2=\operatorname{Var}(X_1),
+\qquad
+\beta_4=\mathbb{E}(X_1-\mathbb{E}X_1)^4.
+\]
+
+Тогда
+\[
+\nabla\varphi(x_1,x_2)
+=
+\begin{pmatrix}
+-2x_1\\
+1
+\end{pmatrix}.
+\]
+
+По формуле асимптотической дисперсии:
+\[
+\begin{aligned}
+\sigma^2
+&=
+\nabla\varphi(\alpha^{(2)})^\top
+\Sigma_2
+\nabla\varphi(\alpha^{(2)})
+\\
+&=
+\operatorname{Var}\left(
+X_1^2-2\alpha_1X_1
+\right)
+\\
+&=
+\operatorname{Var}\left(
+(X_1-\alpha_1)^2
+\right)
+\\
+&=
+\beta_4-\beta_2^2.
+\end{aligned}
+\]
+
+Следовательно, при $\beta_4-\beta_2^2>0$:
+\[
+\boxed{
+\sqrt{n}\,
+\frac{S_*^2-\beta_2}
+{\sqrt{\beta_4-\beta_2^2}}
+\xrightarrow{d}N(0;1)
+}.
+\]
+\end{example}
 
 \end{document}
