@@ -892,10 +892,7 @@ P(A_1\cup\dots\cup A_n)
     B_1\supseteq B_2\supseteq\dots\supseteq B_n,\qquad
     B=\bigcap B_k
     \]
-    выполняется
-    \[
-    P(B_k)\to P(B)
-    \]
+    выполняется $P(B_k)\to P(B)$
     (непрерывность сверху).
 
     \item $P$ конечно аддитивно и для
@@ -903,16 +900,12 @@ P(A_1\cup\dots\cup A_n)
     A_1\subseteq A_2\subseteq\dots,\qquad
     A=\bigcup A_k
     \]
-    выполняется
-    \[
-    P(A_k)\to P(A)
-    \]
-    (непрерывность снизу).
+    выполняется $P(A_k)\to P(A)$ (непрерывность снизу).
 \end{enumerate}
 \end{theorem}
 
 \begin{proofbox}{непрерывности снизу из непрерывности сверху}
-\textbf{Непрерывность сверху $\Rightarrow$ непрерывность снизу.}
+\textbf{Непрерывность сверху $\Rightarrow$ непрерывность снизу}
 
 Пусть
 \[
@@ -1273,7 +1266,7 @@ P(X\leq t)
 
     \item Левый предел функции распределения удовлетворяет равенству
     \[
-    F(t-0)=\lim_{s\uparrow t}F(s),
+    F(t-0)=\lim_{s\rightarrow t}F(s),
     \]
     причём
     \[
@@ -1580,6 +1573,8 @@ F_X=F
 
 \section{Типы случайных величин и распределений}
 
+\subsection{Дискретные случайные величины и распределения}
+
 Пусть $(\Omega,\mathcal{A},P)$ --- вероятностное пространство, $X$ --- случайная величина, $P_X$ --- её распределение.
 
 \begin{definition}
@@ -1832,7 +1827,7 @@ k=1,\ldots,n
 
 \newpage
 
-\section{Абсолютно непрерывные случайные величины и распределения}
+\subsection{Абсолютно непрерывные случайные величины и распределения}
 
 \begin{definition}
 
@@ -1930,7 +1925,7 @@ P(a<X<b)
 \end{array}
 \]
 
-\subsection{Равномерное распределение}
+\subsubsection{Равномерное распределение}
 
 \begin{definition}
 
@@ -2005,7 +2000,7 @@ F_Y(t)
 \end{cases}
 \]
 
-\subsection{Нормальное распределение}
+\subsubsection{Нормальное распределение}
 
 \begin{definition}
 
@@ -2107,7 +2102,7 @@ Y\sim\mathcal{N}(0,1),
 
 \end{note}
 
-\subsection{Принцип трёх сигм}
+\subsubsection{Принцип трёх сигм}
 
 Пусть
 \[
@@ -2193,7 +2188,7 @@ Y=\mu+\xi,
 \xi\sim\mathcal{N}(0,\sigma^2)
 \]
 
-\subsection{Экспоненциальное распределение}
+\subsubsection{Экспоненциальное распределение}
 
 \begin{definition}
 
@@ -2255,7 +2250,7 @@ T_k\sim\operatorname{Exp}(\lambda)
 
 \end{example}
 
-\subsection{Гамма-распределение}
+\subsubsection{Гамма-распределение}
 
 \begin{definition}
 
@@ -2279,7 +2274,7 @@ p(x)
 
 \end{definition}
 
-\subsection{Распределение Коши}
+\subsubsection{Распределение Коши}
 
 \begin{definition}
 
@@ -2342,16 +2337,14 @@ F_X(t)
 
 Следовательно,
 \[
-\boxed{
 F_X(t)
 =
 \frac12+
 \frac{1}{\pi}
 \arctan\left(\frac{t-\mu}{\gamma}\right)
-}
 \]
 
-\subsection{Плотность преобразованной случайной величины}
+\subsubsection{Плотность преобразованной случайной величины}
 
 \begin{theorem}{о плотности преобразования}
 
@@ -2470,6 +2463,34 @@ X=(X_1,\ldots,X_n)
 \]
 где $X_1,\ldots,X_n$ --- случайные величины. Тогда $X$ называется \textbf{случайным вектором}
 
+\end{definition}
+
+\begin{definition}
+    Случайные величины $X_1,\ldots,X_n$ имеют
+    \textbf{совместное абсолютно непрерывное распределение},
+    если существует неотрицательная функция
+    $p_{X_1,\ldots,X_n}(x_1,\ldots,x_n)$,
+    называемая \textbf{совместной плотностью распределения},
+    такая что для любых $x_1,\ldots,x_n\in\mathbb{R}$
+    \[
+    F_{X_1,\ldots,X_n}(x_1,\ldots,x_n)
+    =
+    P(X_1\le x_1,\ldots,X_n\le x_n)
+    =
+    \int_{-\infty}^{x_1}\cdots
+    \int_{-\infty}^{x_n}
+    p_{X_1,\ldots,X_n}(t_1,\ldots,t_n)
+    \,dt_n\cdots dt_1
+    \]
+
+    При этом
+    \[
+    p_{X_1,\ldots,X_n}(x_1,\ldots,x_n)\ge 0,
+    \qquad
+    \int_{\mathbb{R}^n}
+    p_{X_1,\ldots,X_n}(x_1,\ldots,x_n)
+    \,dx_1\cdots dx_n=1.
+    \]
 \end{definition}
 
 В дискретном двумерном случае совместное распределение задаётся вероятностями
@@ -2801,7 +2822,7 @@ X_1,\ldots,X_n
 
 \end{definition}
 
-\begin{theorem}{Критерий независимости через функции распределения}
+\begin{theorem}{- Критерий независимости через функции распределения}
 
 Случайные величины $X_1,\ldots,X_n$ независимы тогда и только тогда, когда
 \[
@@ -2870,7 +2891,7 @@ F_{X_2}(a_2+\sigma_2)-F_{X_2}(a_2)
 
 \end{note}
 
-\begin{theorem}{Критерий независимости дискретных случайных величин}
+\begin{theorem}{- Критерий независимости дискретных случайных величин}
 
 Пусть $X_1,\ldots,X_n$ --- дискретные случайные величины. Тогда они независимы тогда и только тогда, когда для любых возможных значений $x_{1,j_1},\ldots,x_{n,j_n}$
 \[
@@ -6256,7 +6277,7 @@ f_{X_n}(t)\xrightarrow[n\to\infty]{}f_X(t)
 
 \end{theorem}
 
-\begin{theorem}{закон больших чисел для независимых одинаково распределённых случайных величин}
+\begin{theorem}{- Закон больших чисел для независимых одинаково распределённых случайных величин}
 
 Пусть $X_1,X_2,\ldots$ --- независимые одинаково распределённые случайные величины и
 \[
@@ -6328,7 +6349,7 @@ e^{it\mu}
 
 \end{proofbox}
 
-\begin{theorem}{центральная предельная теорема для независимых одинаково распределённых случайных величин}
+\begin{theorem}{- Центральная предельная теорема для независимых одинаково распределённых случайных величин}
 
 Пусть $X_1,X_2,\ldots$ --- независимые одинаково распределённые случайные величины,
 \[
@@ -6577,7 +6598,7 @@ X_1^k
 \mathbb{E}X_1^i\cdot\mathbb{E}X_1^j.
 \]
 
-\begin{theorem}{Об асимптотической нормальности гладких функций от начальных выборочных моментов}
+\begin{theorem}{об асимптотической нормальности гладких функций от начальных выборочных моментов}
 
 Пусть $\varphi:\mathbb{R}^k\to\mathbb{R}$ — гладкая функция, а $\overline{X}^{(k)}$ — вектор начальных выборочных моментов.
 
@@ -6625,7 +6646,7 @@ X_1^k
 \sqrt{n}\left(
 \overline{X}^{(k)}-\alpha^{(k)}
 \right)
-\xrightarrow{d}N(0;\Sigma_k).
+\xrightarrow{d}N(0;\Sigma_k)
 \]
 
 Разложим функцию $\varphi$ в окрестности точки $\alpha^{(k)}$ по формуле Тейлора:
@@ -6639,7 +6660,7 @@ X_1^k
 \overline{X}^{(k)}-\alpha^{(k)}
 \right)
 +
-o_p(n^{-1/2}).
+o_p(n^{-1/2})
 \]
 
 Умножая на $\sqrt{n}$, получаем:
@@ -6656,7 +6677,7 @@ o_p(n^{-1/2}).
 \sqrt{n}\left(
 \overline{X}^{(k)}-\alpha^{(k)}
 \right)
-+o_p(1).
++o_p(1)
 \end{aligned}
 \]
 
@@ -6667,7 +6688,7 @@ o_p(n^{-1/2}).
 -
 \varphi(\alpha^{(k)})
 \right)
-\xrightarrow{d}N(0;\sigma^2),
+\xrightarrow{d}N(0;\sigma^2)
 \]
 где
 \[
@@ -6675,7 +6696,7 @@ o_p(n^{-1/2}).
 =
 \nabla\varphi(\alpha^{(k)})^\top
 \Sigma_k
-\nabla\varphi(\alpha^{(k)}).
+\nabla\varphi(\alpha^{(k)})
 \]
 
 Так как $\sigma^2>0$, после нормировки получаем:
@@ -6687,14 +6708,14 @@ o_p(n^{-1/2}).
 \varphi(\alpha^{(k)})
 \right)
 }{\sigma}
-\xrightarrow{d}N(0;1).
+\xrightarrow{d}N(0;1)
 \]
 
 2) По состоятельности оценок начальных моментов:
 \[
 \widehat{\alpha}_j
-\xrightarrow{P}\alpha_j,
-\qquad j=1,\ldots,2k.
+\xrightarrow{P}\alpha_j
+\qquad j=1,\ldots,2k
 \]
 
 В силу непрерывности функции $g$:
@@ -6702,13 +6723,13 @@ o_p(n^{-1/2}).
 g(\widehat{\alpha}_1,\ldots,\widehat{\alpha}_{2k})
 \xrightarrow{P}
 g(\alpha_1,\ldots,\alpha_{2k})
-=\sigma^2.
+=\sigma^2
 \]
 
 Следовательно,
 \[
 \sigma(\widehat{\alpha}_1,\ldots,\widehat{\alpha}_{2k})
-\xrightarrow{P}\sigma.
+\xrightarrow{P}\sigma
 \]
 
 По теореме Слуцкого:
@@ -6721,7 +6742,7 @@ g(\alpha_1,\ldots,\alpha_{2k})
 }{
 \sigma(\widehat{\alpha}_1,\ldots,\widehat{\alpha}_{2k})
 }
-\xrightarrow{d}N(0;1).
+\xrightarrow{d}N(0;1)
 \]
 \end{proofbox}
 
@@ -6730,7 +6751,7 @@ g(\alpha_1,\ldots,\alpha_{2k})
 
 Пусть
 \[
-\varphi(x_1,x_2)=x_2-x_1^2.
+\varphi(x_1,x_2)=x_2-x_1^2
 \]
 
 Тогда
@@ -6747,14 +6768,14 @@ S_*^2,
 =
 \alpha_2-\alpha_1^2
 =
-\operatorname{Var}(X_1).
+\operatorname{Var}(X_1)
 \]
 
 Обозначим
 \[
 \beta_2=\operatorname{Var}(X_1),
 \qquad
-\beta_4=\mathbb{E}(X_1-\mathbb{E}X_1)^4.
+\beta_4=\mathbb{E}(X_1-\mathbb{E}X_1)^4
 \]
 
 Тогда
@@ -6764,7 +6785,7 @@ S_*^2,
 \begin{pmatrix}
 -2x_1\\
 1
-\end{pmatrix}.
+\end{pmatrix}
 \]
 
 По формуле асимптотической дисперсии:
@@ -6787,19 +6808,752 @@ X_1^2-2\alpha_1X_1
 \right)
 \\
 &=
-\beta_4-\beta_2^2.
+\beta_4-\beta_2^2
 \end{aligned}
 \]
 
 Следовательно, при $\beta_4-\beta_2^2>0$:
 \[
-\boxed{
 \sqrt{n}\,
 \frac{S_*^2-\beta_2}
 {\sqrt{\beta_4-\beta_2^2}}
 \xrightarrow{d}N(0;1)
-}.
 \]
 \end{example}
+
+\newpage
+
+\section{Задача точечного оценивания параметра}
+
+Пусть $X_1,\ldots,X_n \sim F_\theta$, где $\theta \in \Theta \subset \mathbb{R}^d$ — неизвестный фиксированный параметр распределения.
+
+Цель — найти оценку $\hat{\theta}=\hat{\theta}(X_1,\ldots,X_n)$ параметра $\theta$.
+
+\subsection{Свойства оценок}
+
+\begin{props}{оценок}
+
+1) \textbf{Состоятельность}
+
+Оценка $\hat{\theta}$ называется состоятельной, если
+\[
+\hat{\theta}\xrightarrow[n\to\infty]{P}\theta
+\qquad \forall \theta\in\Theta
+\]
+
+2) \textbf{Несмещённость}
+
+Оценка $\hat{\theta}$ называется несмещённой, если
+\[
+\operatorname{bias}\hat{\theta}
+=E\hat{\theta}-\theta=0
+\]
+
+3) \textbf{Асимптотическая нормальность}
+
+Оценка $\hat{\theta}$ называется асимптотически нормальной, если
+\[
+\sqrt{n}(\hat{\theta}-\theta)
+\xrightarrow{d} U\sim N(0,\Sigma_\theta)
+\]
+
+4) \textbf{Оптимальность и эффективность}
+
+Среднеквадратичная ошибка оценки определяется как
+\[
+\operatorname{MSE}\hat{\theta}
+=E\|\hat{\theta}-\theta\|^2
+\]
+
+Оценка $\hat{\theta}_1$ эффективнее оценки $\hat{\theta}_2$, если
+\[
+\operatorname{MSE}\hat{\theta}_1
+<
+\operatorname{MSE}\hat{\theta}_2
+\]
+
+Оценка $\hat{\theta}_{\mathrm{opt}}$ оптимальна в классе оценок $T$, если
+\[
+\hat{\theta}_{\mathrm{opt}}
+=\underset{\hat{\theta}\in T}{\operatorname{argmin}}
+\operatorname{MSE}\hat{\theta}
+\]
+
+\end{props}
+
+\begin{note}
+1) Если оценка $\hat{\theta}$ асимптотически нормальна, то она состоятельна.
+
+2) Если
+\[
+\operatorname{bias}\hat{\theta}\to 0
+\qquad
+\operatorname{Var}\hat{\theta}\to 0
+\]
+то оценка $\hat{\theta}$ состоятельна.
+
+3) Среднеквадратичная ошибка представляется в виде
+\[
+\operatorname{MSE}\hat{\theta}
+=
+\operatorname{tr}\operatorname{Var}\hat{\theta}
++
+\|\operatorname{bias}\hat{\theta}\|^2
+\]
+
+При размерности параметра $d=1$:
+\[
+\operatorname{MSE}\hat{\theta}
+=
+\operatorname{Var}\hat{\theta}
++
+(\operatorname{bias}\hat{\theta})^2
+\]
+\end{note}
+
+\textbf{Доказательство замечания 1}
+
+\begin{proofbox}
+
+Пусть
+\[
+\sqrt{n}(\hat{\theta}-\theta)
+\xrightarrow{d}U\sim N(0,\Sigma_\theta)
+\]
+
+Тогда для каждой координаты $i$:
+\[
+\begin{aligned}
+P(|\hat{\theta}_i-\theta_i|<\varepsilon)
+&=
+P\left(
+\sqrt{n}|\hat{\theta}_i-\theta_i|
+<
+\sqrt{n}\varepsilon
+\right)
+\end{aligned}
+\]
+
+Так как
+\[
+\sqrt{n}(\hat{\theta}_i-\theta_i)
+\xrightarrow{d}U_i
+\qquad
+U_i\sim N(0,(\Sigma_\theta)_{ii})
+\]
+а $\sqrt{n}\varepsilon\to+\infty$, получаем
+\[
+P(|\hat{\theta}_i-\theta_i|<\varepsilon)
+\to
+cdf(+\infty)-cdf(infty)=1
+\]
+
+Следовательно, каждая координата оценки сходится по вероятности к соответствующей координате параметра, а значит,
+\[
+\hat{\theta}\xrightarrow{P}\theta
+\]
+
+\end{proofbox}
+
+\textbf{Доказательство замечания 2}
+
+\begin{proofbox}
+
+Пусть
+\[
+\operatorname{bias}\hat{\theta}\to0
+\qquad
+\operatorname{Var}\hat{\theta}\to0
+\]
+
+По неравенству треугольника:
+\[
+\begin{aligned}
+|\hat{\theta}-\theta|
+&=
+|\hat{\theta}-E\hat{\theta}
++E\hat{\theta}-\theta|
+\le
+|\hat{\theta}-E\hat{\theta}|
++
+|\operatorname{bias}\hat{\theta}|
+\end{aligned}
+\]
+
+Следовательно,
+\[
+|\hat{\theta}-E\hat{\theta}|
+\ge
+|\hat{\theta}-\theta|
+-
+|\operatorname{bias}\hat{\theta}|
+\]
+
+Для достаточно больших $n$:
+\[
+|\operatorname{bias}\hat{\theta}|<\frac{\varepsilon}{2}
+\]
+
+Тогда
+\[
+\begin{aligned}
+P(|\hat{\theta}-\theta|>\varepsilon)
+&\le
+P\left(
+|\hat{\theta}-E\hat{\theta}|
+\ge
+\varepsilon-|\operatorname{bias}\hat{\theta}|
+\right)\\
+&\le
+P\left(
+|\hat{\theta}-E\hat{\theta}|
+\ge\frac{\varepsilon}{2}
+\right)\\
+&\le
+\frac{4\operatorname{Var}\hat{\theta}}{\varepsilon^2}
+\to0
+\end{aligned}
+\]
+
+Последнее неравенство следует из неравенства Чебышёва.
+
+Таким образом,
+\[
+\hat{\theta}\xrightarrow{P}\theta
+\]
+
+\end{proofbox}
+
+\textbf{Доказательство замечания 3}
+
+\begin{proofbox}
+
+По определению
+\[
+\operatorname{MSE}\hat{\theta}
+=
+E\|\hat{\theta}-\theta\|^2.
+\]
+
+Представим разность в виде
+\[
+\hat{\theta}-\theta
+=
+(\hat{\theta}-E\hat{\theta})
++
+(E\hat{\theta}-\theta)
+\]
+
+Тогда
+\[
+\begin{aligned}
+\operatorname{MSE}\hat{\theta}
+&=
+E\|\hat{\theta}-E\hat{\theta}
++E\hat{\theta}-\theta\|^2\\
+&=
+E\langle
+\hat{\theta}-E\hat{\theta}
++E\hat{\theta}-\theta,\,
+\hat{\theta}-E\hat{\theta}
++E\hat{\theta}-\theta
+\rangle\\
+&=
+E\|\hat{\theta}-E\hat{\theta}\|^2\\
+&\quad+
+\|E\hat{\theta}-\theta\|^2\\
+&\quad+
+2E\langle
+\hat{\theta}-E\hat{\theta},\,
+E\hat{\theta}-\theta
+\rangle
+\end{aligned}
+\]
+
+Так как
+\[
+E(\hat{\theta}-E\hat{\theta})=0
+\]
+
+то
+
+\[
+\begin{aligned}
+\operatorname{MSE}\hat{\theta}
+&=
+E(\hat{\theta}-E\hat{\theta})^T
+(\hat{\theta}-E\hat{\theta})
++
+\|\operatorname{bias}\hat{\theta}\|^2\\
+&=
+\sum_{i=1}^{d}
+E(\hat{\theta}_i-E\hat{\theta}_i)^2
++
+\|\operatorname{bias}\hat{\theta}\|^2\\
+&=
+\operatorname{tr}\operatorname{Var}\hat{\theta}
++
+\|\operatorname{bias}\hat{\theta}\|^2
+\end{aligned}
+\]
+
+\end{proofbox}
+
+\newpage
+
+\section{Метод моментов}
+
+Пусть $X_1,\ldots,X_n\sim F_\theta$, где
+$\theta=(\theta_1,\ldots,\theta_d)$.
+
+\begin{definition}
+
+\textbf{Метод моментов} — метод построения оценок неизвестных параметров распределения путём приравнивания теоретических моментов к соответствующим выборочным моментам.
+
+Пусть существуют функции $g_1,\ldots,g_d$, такие что
+\[
+Eg_k(X_1)=m_k(\theta_1,\ldots,\theta_d)
+\qquad 1\le k\le d
+\]
+
+По выборке вычисляем
+\[
+\frac{1}{n}\sum_{j=1}^{n}g_k(X_j)
+=
+\overline{g_k(X)}
+\]
+
+Приравниваем выборочные моменты к теоретическим:
+\[
+\overline{g_k(X)}
+=
+m_k(\hat{\theta}_1,\ldots,\hat{\theta}_d)
+\qquad 1\le k\le d
+\]
+
+Решая систему уравнений, получаем оценки
+\[
+\hat{\theta}_k
+=
+\alpha_k\left(
+\overline{g_1(X)},\ldots,
+\overline{g_d(X)}
+\right)
+\]
+
+\end{definition}
+
+\begin{props}{метода моментов}
+
+1) По умолчанию используются обычные моменты: $g_k(x)=x^k$
+
+2) Если $\overline{g_k(X)}$ — состоятельная оценка для $m_k$, а функция $\alpha_k$ непрерывна, то оценка $\hat{\theta}_k$ состоятельна.
+
+3) Если $\overline{g_k(X)}$ асимптотически нормальна, а функция $\alpha_k$ гладкая, то оценка $\hat{\theta}_k$ асимптотически нормальна (дельта-метод).
+
+\end{props}
+
+\textbf{Доказательство свойства 2}
+
+\begin{proofbox}
+
+Пусть
+\[
+\overline{g_k(X)}
+\xrightarrow{P}
+m_k(\theta)
+\qquad k=1,\ldots,d
+\]
+
+Тогда вектор выборочных моментов сходится по вероятности к вектору теоретических моментов:
+\[
+\left(
+\overline{g_1(X)},\ldots,\overline{g_d(X)}
+\right)
+\xrightarrow{P}
+(m_1(\theta),\ldots,m_d(\theta))
+\]
+
+В силу непрерывности $\alpha_k$:
+\[
+\begin{aligned}
+\hat{\theta}_k
+&=
+\alpha_k\left(
+\overline{g_1(X)},\ldots,
+\overline{g_d(X)}
+\right)
+\xrightarrow{P}
+\alpha_k(m_1(\theta),\ldots,m_d(\theta))
+=\theta_k
+\end{aligned}
+\]
+
+Следовательно, оценка состоятельна.
+
+\end{proofbox}
+
+\textbf{Доказательство свойства 3.}
+
+\begin{proofbox}
+
+Пусть вектор выборочных моментов удовлетворяет многомерной центральной предельной теореме:
+\[
+\sqrt{n}(\overline{g(X)}-m(\theta))
+\xrightarrow{d}N(0,\Sigma_g)
+\]
+
+По дельта-методу, если $\alpha$ дифференцируема в точке $m(\theta)$, то
+\[
+\sqrt{n}(\hat{\theta}-\theta)
+\xrightarrow{d}
+N\left(
+0,\,
+D\alpha(m(\theta))
+\Sigma_g
+D\alpha(m(\theta))^T
+\right)
+\]
+
+Следовательно, оценка асимптотически нормальна.
+
+\end{proofbox}
+
+\begin{example}
+
+1) \textbf{Распределение Пуассона}
+
+Пусть
+\[
+X_1,\ldots,X_n\sim\operatorname{Pois}(\lambda)
+\]
+
+Известно, что
+\[
+EX_i=\lambda
+\qquad
+EX_i^2=\lambda+\lambda^2
+\]
+
+По первому моменту:
+\[
+\overline{X}=\hat{\lambda}
+\quad\Longrightarrow\quad
+\hat{\lambda}=\overline{X}
+\]
+
+По второму моменту:
+\[
+\overline{X^2}
+=
+\hat{\lambda}+\hat{\lambda}^2
+\]
+
+Получаем квадратное уравнение:
+\[
+\hat{\lambda}^2+\hat{\lambda}-\overline{X^2}=0
+\]
+
+Его дискриминант:
+\[
+D=1+4\overline{X^2}
+\]
+
+Так как $\lambda\ge0$, выбираем неотрицательный корень:
+\[
+\hat{\lambda}
+=
+\frac{-1+\sqrt{1+4\overline{X^2}}}{2}
+\]
+
+По закону больших чисел:
+\[
+\overline{X^2}\xrightarrow{P}\lambda^2+\lambda
+\]
+
+Поэтому
+\[
+\hat{\lambda}
+\xrightarrow{P}
+\frac{-1+\sqrt{1+4(\lambda^2+\lambda)}}{2}
+=\lambda
+\]
+
+Таким образом, оценка состоятельна.
+
+Рассмотрим функцию
+\[
+f(x)=\frac{-1+\sqrt{1+4x}}{2}
+\]
+
+Разложим её по формуле Тейлора:
+\[
+\begin{aligned}
+f(x)
+&=
+f(x_0)
++
+\frac{1}{\sqrt{1+4x_0}}(x-x_0) -
+\frac{1}{(1+4x_0)^{3/2}}(x-x_0)^2
++
+o((x-x_0)^2)
+\end{aligned}
+\]
+
+Положим
+\[
+x=\overline{X^2}
+\qquad
+x_0=\lambda^2+\lambda
+\]
+
+Тогда
+\[
+f(\overline{X^2})
+=
+\lambda
++
+\frac{1}{2\lambda+1}
+(\overline{X^2}-\lambda^2-\lambda)
+-
+\frac{1}{(2\lambda+1)^3}
+(\overline{X^2}-\lambda^2-\lambda)^2
++
+o_p\left(
+(\overline{X^2}-\lambda^2-\lambda)^2
+\right)
+\]
+
+При взятии математического ожидания главный член равен $\lambda$, линейный член имеет нулевое математическое ожидание, а квадратичный член даёт асимптотическое смещение:
+\[
+E\hat{\lambda}
+=
+\lambda
+-
+\frac{\operatorname{Var}(X_1^2)}
+{n(2\lambda+1)^3}
++
+o\left(\frac{1}{n}\right)
+\]
+
+Следовательно, оценка асимптотически несмещённая.
+
+По дельта-методу:
+\[
+\operatorname{Var}\hat{\lambda}
+\approx
+\frac{1}{n}
+\left(
+f'(\lambda^2+\lambda)
+\right)^2
+\operatorname{Var}(X_1^2)
+\]
+
+Так как
+\[
+f'(\lambda^2+\lambda)=\frac{1}{2\lambda+1}
+\]
+то
+\[
+\operatorname{Var}\hat{\lambda}
+\approx
+\frac{\operatorname{Var}(X_1^2)}
+{n(2\lambda+1)^2}
+\]
+
+2) \textbf{Нормальное распределение}
+
+Пусть
+\[
+X_1,\ldots,X_n\sim N(\mu,b)
+\qquad b=\sigma^2
+\]
+
+Теоретические моменты:
+\[
+\begin{cases}
+EX_i=\mu,\\
+EX_i^2=b+\mu^2.
+\end{cases}
+\]
+
+Приравниваем их к выборочным:
+\[
+\begin{cases}
+\overline{X}=\hat{\mu},\\
+\overline{X^2}=\hat{b}+\hat{\mu}^2.
+\end{cases}
+\]
+
+Отсюда
+\[
+\hat{\mu}=\overline{X}
+\]
+\[
+\hat{b}
+=
+\overline{X^2}-\hat{\mu}^2
+=
+\overline{X^2}-(\overline{X})^2
+=
+S_*^2
+\]
+
+\end{example}
+
+\newpage
+
+\section{Метод максимального правдоподобия}
+
+Пусть $X_1,\ldots,X_n\sim F_\theta$
+
+\begin{definition}
+
+\textbf{Функция правдоподобия} — функция параметра $\theta$, определяемая по наблюдаемой выборке:
+\[
+L(X\mid\theta)
+=
+\prod_{j=1}^{n}p(X_j\mid\theta)
+\]
+где $p(x\mid\theta)$ — плотность или функция вероятностей распределения.
+
+\textbf{Оценка максимального правдоподобия} определяется как
+\[
+\hat{\theta}_{\mathrm{MLE}}
+=
+\underset{\theta\in\Theta}{\operatorname{argmax}}
+L(X\mid\theta)
+\]
+
+\end{definition}
+
+\subsection{Алгоритм метода}
+
+\ \quad 0. Посмотреть и подумать.
+
+\begin{enumerate}
+    \item Построить функцию правдоподобия и подставить наблюдаемую выборку.
+
+    \item Перейти к логарифму функции правдоподобия:
+    \[
+    \ln L(X\mid\theta)
+    \]
+
+    \item Найти стационарные точки:
+    \[
+    \frac{\partial}{\partial\theta}
+    \ln L(X\mid\theta)=0
+    \]
+
+    \item Проверить, что найденная точка является точкой максимума.
+\end{enumerate}
+
+\subsection{Примеры метода максимального правдоподобия}
+
+\begin{example}
+
+1) \textbf{Равномерное распределение}
+
+Пусть
+\[
+X_1,\ldots,X_n\sim U[0,\theta]
+\]
+
+Функция правдоподобия:
+\[
+L(X;\theta)
+=
+\frac{1}{\theta^n}
+\mathbb{1}
+\left(
+0\le X_1\le\theta,\ldots,
+0\le X_n\le\theta
+\right)
+\]
+
+Из условия ненулевого правдоподобия:
+\[
+\theta\ge\max(X_1,\ldots,X_n)
+\]
+
+При этом $\hat{\theta}$ убывает по $\theta>0$.
+
+Следовательно, максимум достигается при минимальном допустимом значении параметра:
+\[
+\hat{\theta}_{\mathrm{MLE}}
+=
+\max\{X_1,\ldots,X_n\}
+\]
+
+2) \textbf{Нормальное распределение}
+
+Пусть
+\[
+X_1,\ldots,X_n\sim N(\mu,b)
+\qquad b=\sigma^2
+\]
+
+Логарифм функции правдоподобия:
+\[
+\ln L(X\mid\mu,b)
+=
+-\frac{n}{2}\ln(2\pi)
+-\frac{n}{2}\ln b
+-\frac{1}{2b}\sum_{j=1}^{n}(X_j-\mu)^2
+\]
+
+Для поиска оценки $\mu$ необходимо минимизировать
+\[
+\sum_{j=1}^{n}(X_j-\mu)^2
+\]
+
+Из условия
+\[
+\frac{\partial}{\partial\mu}
+\sum_{j=1}^{n}(X_j-\mu)^2
+=
+-2\sum_{j=1}^{n}(X_j-\mu)=0
+\]
+получаем
+\[
+\hat{\mu}=\overline{X}
+\]
+
+Для параметра $b$:
+\[
+\frac{\partial\ln L(X\mid\mu,b)}{\partial b}
+=
+-\frac{n}{2b}
++
+\frac{1}{2b^2}
+\sum_{j=1}^{n}(X_j-\mu)^2
+\]
+
+Приравниваем производную к нулю:
+\[
+-\frac{n}{2b}
++
+\frac{1}{2b^2}
+\sum_{j=1}^{n}(X_j-\mu)^2
+=0
+\]
+
+Отсюда
+\[
+b=\frac{1}{n}\sum_{j=1}^{n}(X_j-\mu)^2
+\]
+
+Подставляя $\hat{\mu}=\overline{X}$, получаем
+\[
+\hat{b}
+=
+\frac{1}{n}\sum_{j=1}^{n}(X_j-\overline{X})^2
+=
+S_*^2
+\]
+
+\end{example}
+
+\newpage
 
 \end{document}
