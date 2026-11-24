@@ -5016,4 +5016,2398 @@
     \end{align*}
 \end{example}
 
+\newpage
+
+\section{Кратные интегралы}
+
+\subsection{Элементарные множества}
+
+\begin{definition}
+Множество $E \subset \mathbb{R}^{n+1}$ называется \textbf{элементарным (по $y$)}, если
+\[
+E = \left\{(x,y)\in\mathbb{R}^{n+1}:
+\varphi_1(x)\leq y\leq\varphi_2(x),\
+x\in D\subset\mathbb{R}^n\right\},
+\]
+где $D\subset\mathbb{R}^n$ — ограниченное измеримое множество,
+$\varphi_1,\varphi_2\in C(D)$ и
+$\varphi_1(x)\leq\varphi_2(x)$.
+\end{definition}
+
+Таким образом, элементарное множество ограничено снизу и сверху графиками функций
+$y=\varphi_1(x)$ и $y=\varphi_2(x)$.
+
+При фиксированном $x\in D$ сечение множества $E$ представляет собой отрезок
+\[
+[\varphi_1(x),\varphi_2(x)]
+\]
+
+В пространстве $\mathbb{R}^3$ элементарное множество можно представить как тело, ограниченное поверхностями
+\[
+z=\varphi_1(x,y),\qquad z=\varphi_2(x,y),
+\]
+над областью $D$ в плоскости $Oxy$.
+
+\begin{example}
+Рассмотрим эллипсоид
+\[
+\frac{x^2}{a^2}+\frac{y^2}{b^2}+\frac{z^2}{c^2}\leq 1.
+\]
+
+Выразим $z$ через $x$ и $y$:
+\[
+-c\sqrt{1-\frac{x^2}{a^2}-\frac{y^2}{b^2}}
+\leq z\leq
+c\sqrt{1-\frac{x^2}{a^2}-\frac{y^2}{b^2}}.
+\]
+
+Следовательно,
+\[
+\varphi_1(x,y)=
+-c\sqrt{1-\frac{x^2}{a^2}-\frac{y^2}{b^2}},
+\]
+\[
+\varphi_2(x,y)=
+c\sqrt{1-\frac{x^2}{a^2}-\frac{y^2}{b^2}},
+\]
+а область $D$ задаётся неравенством
+\[
+D=\left\{(x,y):
+\frac{x^2}{a^2}+\frac{y^2}{b^2}\leq 1\right\}.
+\]
+
+Таким образом, эллипсоид является элементарным множеством.
+\end{example}
+
+\subsection{Сведение кратного интеграла к повторному}
+
+Повторный интеграл по элементарному множеству хорошо считается.
+
+\begin{theorem}{(сведение кратного интеграла к повторному)}
+Пусть $E\subset\mathbb{R}^{n+1}$ — элементарное по $y$ множество,
+$f\in R(E)$. Тогда
+\[
+\int_E f\,dx\,dy
+=
+\int_D dx
+\int_{\varphi_1(x)}^{\varphi_2(x)}
+f(x,y)\,dy.
+\]
+\end{theorem}
+
+\begin{proofbox}{}
+Разобьём область $D$ на малые части и рассмотрим сечения множества $E$ при фиксированном $x$.
+
+Каждому $x\in D$ соответствует отрезок
+\[
+\varphi_1(x)\leq y\leq\varphi_2(x).
+\]
+
+Интегрирование функции $f$ по этому отрезку даёт функцию
+\[
+F(x)=\int_{\varphi_1(x)}^{\varphi_2(x)}f(x,y)\,dy.
+\]
+
+Интегрируя $F(x)$ по области $D$, получаем
+\[
+\int_D F(x)\,dx
+=
+\int_D dx
+\int_{\varphi_1(x)}^{\varphi_2(x)}
+f(x,y)\,dy.
+\]
+
+По теореме Фубини этот повторный интеграл равен исходному кратному интегралу:
+\[
+\int_E f\,dx\,dy
+=
+\int_D dx
+\int_{\varphi_1(x)}^{\varphi_2(x)}
+f(x,y)\,dy.
+\]
+\end{proofbox}
+
+\begin{example}
+Вычислим интеграл
+\[
+I=\iint_E (x+y)^2\,dx\,dy
+\]
+где
+\[
+E=\left\{(x,y):
+0\leq x\leq 2,\quad
+0\leq y\leq 1-\frac{x}{2}\right\}
+\]
+
+Область $E$ представляет собой треугольник, ограниченный прямыми
+\[
+x=0,\qquad y=0,\qquad y=1-\frac{x}{2}
+\]
+
+Переходим к повторному интегралу:
+\[
+I=\int_0^2 dx
+\int_0^{1-\frac{x}{2}}(x+y)^2\,dy
+\]
+
+Интегрируем по $y$:
+\[
+I=
+\int_0^2
+\left.
+\frac{(x+y)^3}{3}
+\right|_{y=0}^{y=1-\frac{x}{2}}dx
+\]
+
+Следовательно,
+\[
+I=
+\int_0^2
+\left(
+\frac{\left(1+\frac{x}{2}\right)^3}{3}
+-\frac{x^3}{3}
+\right)dx
+\]
+
+Вычисляя интеграл, получаем
+\[
+I=\frac{11}{6}
+\]
+\end{example}
+
+\subsection{Геометрический смысл двойного интеграла}
+
+Рассмотрим область
+\[
+A=\left\{(x,y):
+x\in[a,b],\
+f_1(x)\leq y\leq f_2(x)\right\}.
+\]
+
+Площадь области $A$ выражается через двойной интеграл:
+\[
+S(A)=\iint_A dx\,dy.
+\]
+
+Переходя к повторному интегралу, получаем
+\[
+S(A)=
+\int_a^b dx
+\int_{f_1(x)}^{f_2(x)}dy.
+\]
+
+Интегрируя по $y$:
+\[
+S(A)=
+\int_a^b
+\bigl(f_2(x)-f_1(x)\bigr)\,dx.
+\]
+
+Это привычная формула площади фигуры между графиками двух функций.
+
+Здесь мы уже знаем способ вычисления интеграла, однако он применим прежде всего к элементарным областям.
+
+\newpage
+
+\section{Замена переменных в кратном интеграле}
+
+\subsection{Диффеоморфизм}
+
+\begin{definition}
+Пусть $E\subset\mathbb{R}^n$.
+
+Отображение
+\[
+\Phi:\mathbb{R}^n\supset E\to\mathbb{R}^n
+\]
+называется \textbf{диффеоморфизмом}, если $\Phi$ биективно и
+\[
+\Phi,\Phi^{-1}\in C^1
+\]
+на соответствующих областях.
+\end{definition}
+
+Матрицы производных $\Phi'$ и $(\Phi^{-1})'$ взаимно обратны.
+
+\begin{theorem}{(замена переменных в кратном интеграле)}
+Пусть
+\[
+\Phi:G\subset\mathbb{R}^n\to\mathbb{R}^n
+\]
+— диффеоморфизм, $E\subset G$ — измеримое по Лебегу множество.
+
+Пусть $f$ интегрируема по $\Phi(E)$. Тогда
+\[
+\int_{\Phi(E)}f(u)\,d\lambda_n(u)
+=
+\int_E
+f(\Phi(x))\,|\det\Phi'(x)|\,d\lambda_n(x)
+\]
+\end{theorem}
+
+\begin{note}
+В формуле замены переменных появляется множитель $|\det\Phi'(x)|$, который называется \textbf{якобианом} отображения.
+
+Якобиан показывает, во сколько раз локально изменяется объём при замене переменных.
+\end{note}
+
+\subsection{Геометрический смысл якобиана}
+
+Рассмотрим двумерный случай:
+\[
+\Phi(u,v)=(x(u,v),y(u,v)).
+\]
+
+Пусть в плоскости $Ouv$ задан малый прямоугольник со сторонами $du$ и $dv$.
+
+При отображении $\Phi$ он переходит в криволинейный четырёхугольник.
+
+Обозначим его вершины:
+\[
+\begin{aligned}
+P_0&=\Phi(u_0,v_0),\\
+P_1&=\Phi(u_0,v_0+dv),\\
+P_2&=\Phi(u_0+du,v_0+dv),\\
+P_3&=\Phi(u_0+du,v_0).
+\end{aligned}
+\]
+
+Пусть
+\[
+P_0=(x_0,y_0).
+\]
+
+Разложим координатные функции по формуле Тейлора.
+
+Для точки $P_1$:
+\[
+\begin{aligned}
+x_1&=x(u_0,v_0+dv)
+=x_0+x_v'(u_0,v_0)\,dv+\alpha_1,\\
+y_1&=y(u_0,v_0+dv)
+=y_0+y_v'(u_0,v_0)\,dv+\beta_1,
+\end{aligned}
+\]
+где
+\[
+\alpha_1=o(|dv|),\qquad
+\beta_1=o(|dv|).
+\]
+
+Для точки $P_3$:
+\[
+\begin{aligned}
+x_3&=x(u_0+du,v_0)
+=x_0+x_u'(u_0,v_0)\,du+\alpha_3,\\
+y_3&=y(u_0+du,v_0)
+=y_0+y_u'(u_0,v_0)\,du+\beta_3,
+\end{aligned}
+\]
+где
+\[
+\alpha_3=o(|du|),\qquad
+\beta_3=o(|du|).
+\]
+
+Для точки $P_2$:
+\[
+\begin{aligned}
+x_2&=x(u_0+du,v_0+dv)\\
+&=x_0+x_u'\,du+x_v'\,dv+\alpha_2,\\
+y_2&=y(u_0+du,v_0+dv)\\
+&=y_0+y_u'\,du+y_v'\,dv+\beta_2,
+\end{aligned}
+\]
+причём
+\[
+\alpha_2,\beta_2
+=o\left(\sqrt{du^2+dv^2}\right).
+\]
+
+Рассмотрим векторы
+\[
+\overrightarrow{P_0P_1}
+=
+\begin{pmatrix}
+x_v'\,dv+\alpha_1\\
+y_v'\,dv+\beta_1
+\end{pmatrix}
+\]
+и
+\[
+\overrightarrow{P_3P_2}
+=
+\begin{pmatrix}
+x_v'\,dv+\alpha_2-\alpha_3\\
+y_v'\,dv+\beta_2-\beta_3
+\end{pmatrix}.
+\]
+
+При $du\to0$, $dv\to0$ остаточные члены стремятся к нулю быстрее соответствующих приращений.
+
+Поэтому криволинейный четырёхугольник приближается параллелограммом, построенным на векторах
+\[
+\begin{pmatrix}
+x_u'\,du\\
+y_u'\,du
+\end{pmatrix},
+\qquad
+\begin{pmatrix}
+x_v'\,dv\\
+y_v'\,dv
+\end{pmatrix}.
+\]
+
+Площадь такого параллелограмма:
+\[
+\begin{aligned}
+S
+&\approx
+\left|
+\det
+\begin{pmatrix}
+x_u'\,du & x_v'\,dv\\
+y_u'\,du & y_v'\,dv
+\end{pmatrix}
+\right|\\
+&=
+\left|
+\det
+\begin{pmatrix}
+x_u'&x_v'\\
+y_u'&y_v'
+\end{pmatrix}
+\right|du\,dv.
+\end{aligned}
+\]
+
+Следовательно,
+\[
+\boxed{
+dS=|\det\Phi'(u,v)|\,du\,dv.
+}
+\]
+
+Именно этот множитель появляется в формуле замены переменных.
+
+\begin{example}
+
+\textbf{Полярные координаты}
+
+\[
+\begin{cases}
+x=\rho\cos\varphi,\\
+y=\rho\sin\varphi,
+\end{cases}
+\]
+
+Найдём якобиан перехода к полярным координатам:
+\[
+J=
+\begin{vmatrix}
+x_\rho'&x_\varphi'\\
+y_\rho'&y_\varphi'
+\end{vmatrix}
+\]
+
+Вычислим производные:
+\[
+\begin{aligned}
+x_\rho'&=\cos\varphi,
+&
+x_\varphi'&=-\rho\sin\varphi,\\
+y_\rho'&=\sin\varphi,
+&
+y_\varphi'&=\rho\cos\varphi.
+\end{aligned}
+\]
+
+Тогда
+\[
+J=
+\begin{vmatrix}
+\cos\varphi&-\rho\sin\varphi\\
+\sin\varphi&\rho\cos\varphi
+\end{vmatrix}
+\]
+
+Раскрывая определитель:
+\[
+J=\rho\cos^2\varphi+\rho\sin^2\varphi=\rho
+\]
+
+Таким образом,
+\[
+dx\,dy=\rho\,d\rho\,d\varphi
+\]
+
+\begin{note}
+Полярные координаты особенно удобны для областей, ограниченных окружностями, а также для функций, зависящих от $x^2+y^2$
+\end{note}
+
+Вычислим интеграл
+\[
+I=\iint_G\sqrt{x^2+y^2}\,dx\,dy,
+\]
+где
+\[
+G=\left\{(x,y):
+x^2+y^2\leq9,\ x\geq0\right\}
+\]
+
+Область $G$ — правая половина круга радиуса $3$.
+
+Переходим к полярным координатам:
+\[
+x=\rho\cos\varphi,\qquad
+y=\rho\sin\varphi
+\]
+
+Тогда
+\[
+\sqrt{x^2+y^2}=\rho.
+\]
+
+Пределы интегрирования:
+\[
+0\leq\rho\leq3,\qquad
+-\frac{\pi}{2}\leq\varphi\leq\frac{\pi}{2}
+\]
+
+Следовательно,
+\[
+I=
+\int_{-\pi/2}^{\pi/2}d\varphi
+\int_0^3\rho\cdot\rho\,d\rho
+\]
+
+То есть
+\[
+I=
+\int_{-\pi/2}^{\pi/2}d\varphi
+\int_0^3\rho^2\,d\rho
+\]
+
+Вычисляем:
+\[
+I=
+\int_{-\pi/2}^{\pi/2}
+\left.\frac{\rho^3}{3}\right|_0^3d\varphi
+=
+9\int_{-\pi/2}^{\pi/2}d\varphi
+\]
+
+Таким образом,
+\[
+I=9\pi
+\]
+
+\end{example}
+
+Геометрически этот интеграл можно рассматривать как объём тела под поверхностью
+\[
+z=\sqrt{x^2+y^2}
+\]
+над областью $G$.
+
+Это поверхность конуса:
+\[
+z^2=x^2+y^2,\qquad z\geq0.
+\]
+
+\newpage
+
+\section{Тройные интегралы}
+
+\subsection{Интеграл Эйлера--Пуассона}
+
+\begin{example}
+Рассмотрим интеграл
+\[
+I=\int_0^{+\infty}e^{-x^2}\,dx
+\]
+
+Для его вычисления возведём обе части в квадрат:
+\[
+I^2=
+\int_0^{+\infty}e^{-x^2}\,dx
+\int_0^{+\infty}e^{-y^2}\,dy
+\]
+
+По теореме Тонелли:
+\[
+I^2=
+\iint_{[0,+\infty)^2}
+e^{-(x^2+y^2)}\,dx\,dy
+\]
+
+Перейдём к полярным координатам:
+\[
+x=\rho\cos\varphi,\qquad
+y=\rho\sin\varphi,
+\]
+\[
+|J|=\rho
+\]
+
+Так как интегрирование ведётся по первой четверти плоскости, получаем
+\[
+0\leq\varphi\leq\frac{\pi}{2},
+\qquad
+0\leq\rho<+\infty
+\]
+
+Следовательно,
+\[
+I^2=
+\int_0^{\pi/2}d\varphi
+\int_0^{+\infty}\rho e^{-\rho^2}\,d\rho
+\]
+
+Внутренний интеграл:
+\[
+\int_0^{+\infty}\rho e^{-\rho^2}\,d\rho
+=
+\left.-\frac12e^{-\rho^2}\right|_0^{+\infty}
+=\frac12
+\]
+
+Поэтому
+\[
+I^2=
+\int_0^{\pi/2}\frac12\,d\varphi
+=\frac{\pi}{4}
+\]
+
+Так как $I>0$, окончательно получаем
+\[
+\int_0^{+\infty}e^{-x^2}\,dx
+=\frac{\sqrt{\pi}}{2}
+\]
+\end{example}
+
+\subsection{Цилиндрические координаты}
+
+\begin{definition}
+\textbf{Цилиндрические координаты} точки $(x,y,z)$ задаются соотношениями
+\[
+\begin{cases}
+x=\rho\cos\varphi,\\
+y=\rho\sin\varphi,\\
+z=z.
+\end{cases}
+\]
+
+Здесь $\rho$ и $\varphi$ — полярные координаты проекции точки на плоскость $Oxy$, а $z$ — её высота.
+\end{definition}
+
+Найдём якобиан:
+\[
+J=
+\frac{\partial(x,y,z)}
+{\partial(\rho,\varphi,z)}.
+\]
+
+По определению
+\[
+J=
+\begin{vmatrix}
+\dfrac{\partial x}{\partial\rho}&
+\dfrac{\partial x}{\partial\varphi}&
+\dfrac{\partial x}{\partial z}\\[6pt]
+\dfrac{\partial y}{\partial\rho}&
+\dfrac{\partial y}{\partial\varphi}&
+\dfrac{\partial y}{\partial z}\\[6pt]
+\dfrac{\partial z}{\partial\rho}&
+\dfrac{\partial z}{\partial\varphi}&
+\dfrac{\partial z}{\partial z}
+\end{vmatrix}.
+\]
+
+Подставляем производные:
+\[
+J=
+\begin{vmatrix}
+\cos\varphi&-\rho\sin\varphi&0\\
+\sin\varphi&\rho\cos\varphi&0\\
+0&0&1
+\end{vmatrix}.
+\]
+
+Получаем
+\[
+J=\rho.
+\]
+
+Следовательно,
+\[
+dx\,dy\,dz=\rho\,d\rho\,d\varphi\,dz
+\]
+
+\subsection{Сферические координаты}
+
+\begin{definition}
+\textbf{Сферические координаты} точки $(x,y,z)$ задаются соотношениями
+\[
+\begin{cases}
+x=r\sin\theta\cos\varphi\\
+y=r\sin\theta\sin\varphi\\
+z=r\cos\theta
+\end{cases}
+\]
+
+Здесь $r=\sqrt{x^2+y^2+z^2}$ — расстояние от начала координат до точки,
+
+$\theta$ — угол между радиус-вектором точки и положительным направлением оси $Oz$,
+
+$\varphi$ — угол между осью $Ox$ и проекцией радиус-вектора на плоскость $Oxy$.
+\end{definition}
+
+Связь с цилиндрическими координатами:
+\[
+\frac{z}{r}=\cos\theta
+\quad\Longrightarrow\quad
+z=r\cos\theta
+\]
+\[
+\frac{\rho}{r}=\sin\theta
+\quad\Longrightarrow\quad
+\rho=r\sin\theta
+\]
+
+Поэтому
+\[
+\begin{cases}
+x=r\sin\theta\cos\varphi\\
+y=r\sin\theta\sin\varphi\\
+z=r\cos\theta
+\end{cases}
+\]
+
+Найдём якобиан сферической замены переменных:
+\[
+J=
+\frac{\partial(x,y,z)}
+{\partial(r,\theta,\varphi)}.
+\]
+
+Матрица производных:
+\[
+\begin{pmatrix}
+\sin\theta\cos\varphi&
+r\cos\theta\cos\varphi&
+-r\sin\theta\sin\varphi\\
+\sin\theta\sin\varphi&
+r\cos\theta\sin\varphi&
+r\sin\theta\cos\varphi\\
+\cos\theta&
+-r\sin\theta&
+0
+\end{pmatrix}
+\]
+
+Её определитель равен
+\[
+J=r^2\sin\theta
+\]
+
+Следовательно,
+\[
+dx\,dy\,dz
+=r^2\sin\theta\,dr\,d\theta\,d\varphi
+\]
+
+\begin{example}
+\textbf{Объём шара}
+
+\[
+V=\left\{(x,y,z):
+x^2+y^2+z^2\leq R^2\right\}
+\]
+
+Объём выражается интегралом
+\[
+\operatorname{Vol}(V)=\iiint_V dx\,dy\,dz
+\]
+
+Переходим к сферическим координатам.
+
+Пределы интегрирования:
+\[
+r\in[0,R],\qquad
+\theta\in[0,\pi],\qquad
+\varphi\in[0,2\pi].
+\]
+
+Тогда
+\[
+\operatorname{Vol}(V)=
+\int_0^{2\pi}d\varphi
+\int_0^\pi\sin\theta\,d\theta
+\int_0^R r^2\,dr
+\]
+
+Вычисляем каждый интеграл:
+\[
+\int_0^{2\pi}d\varphi=2\pi
+\]
+\[
+\int_0^\pi\sin\theta\,d\theta
+=\left.-\cos\theta\right|_0^\pi=2
+\]
+\[
+\int_0^R r^2\,dr=\frac{R^3}{3}
+\]
+
+Следовательно,
+\[
+\operatorname{Vol}(V)=\frac{4\pi R^3}{3}
+\]
+\end{example}
+
+\begin{example}
+\textbf{Объём конуса}
+
+Рассмотрим прямой круговой конус высоты $h$ и радиуса основания $R$.
+
+Требуется вычислить
+\[
+I=\iiint_{\Omega_h}dx\,dy\,dz
+\]
+где $\Omega_h$ — область, ограниченная конусом.
+
+Уравнение боковой поверхности:
+\[
+R^2z^2=h^2(x^2+y^2),
+\]
+причём
+\[
+0\leq z\leq h
+\]
+
+\textbf{Способ 1. Цилиндрические координаты}
+
+Представим интеграл в виде
+\[
+I=\int_0^h dz\iint_{D(z)}dx\,dy
+\]
+где $D(z)$ — горизонтальное сечение конуса на высоте $z$.
+
+Из уравнения поверхности:
+\[
+x^2+y^2=\frac{R^2z^2}{h^2}
+\]
+
+Следовательно, радиус сечения:
+\[
+\rho(z)=\frac{Rz}{h}
+\]
+
+Площадь сечения:
+\[
+S(z)=\pi\frac{R^2z^2}{h^2}
+\]
+
+Тогда
+\[
+I=\int_0^h\pi\frac{R^2z^2}{h^2}\,dz
+\]
+
+Вычисляем:
+\[
+I=
+\frac{\pi R^2}{h^2}
+\left.\frac{z^3}{3}\right|_0^h
+\]
+
+Получаем
+\[
+I=\frac{\pi R^2h}{3}
+\]
+
+То же самое можно записать непосредственно через цилиндрические координаты:
+\[
+I=
+\int_0^{2\pi}d\varphi
+\int_0^h dz
+\int_0^{Rz/h}\rho\,d\rho
+\]
+
+Вычисляя повторный интеграл, получаем тот же результат:
+\[
+I=\frac{\pi R^2h}{3}
+\]
+
+\textbf{Способ 2. Сферические координаты}
+
+Используем замену
+\[
+\begin{cases}
+x=r\sin\theta\cos\varphi,\\
+y=r\sin\theta\sin\varphi,\\
+z=r\cos\theta.
+\end{cases}
+\]
+
+Из уравнения конуса
+\[
+z=\frac{h}{R}\sqrt{x^2+y^2}
+\]
+получаем
+\[
+r\cos\theta=\frac{h}{R}r\sin\theta.
+\]
+
+Следовательно,
+\[
+\tan\theta=\frac{R}{h}
+\]
+
+Поэтому
+\[
+0\leq\theta\leq\arctan\frac{R}{h}
+\]
+
+Из условия $z\leq h$:
+\[
+r\cos\theta\leq h
+\quad\Longrightarrow\quad
+0\leq r\leq\frac{h}{\cos\theta}
+\]
+
+Также
+\[
+0\leq\varphi\leq2\pi
+\]
+
+Таким образом,
+\[
+I=
+\int_0^{2\pi}d\varphi
+\int_0^{\arctan(R/h)}
+\sin\theta\,d\theta
+\int_0^{h/\cos\theta}r^2\,dr
+\]
+
+Интегрируем по $r$:
+\[
+I=
+\frac{h^3}{3}
+\int_0^{2\pi}d\varphi
+\int_0^{\arctan(R/h)}
+\frac{\sin\theta}{\cos^3\theta}\,d\theta
+\]
+
+Так как
+\[
+\int\frac{\sin\theta}{\cos^3\theta}\,d\theta
+=\frac{1}{2\cos^2\theta}
+\]
+получаем
+\[
+I=
+\frac{2\pi h^3}{3}
+\left.
+\frac{1}{2\cos^2\theta}
+\right|_0^{\arctan(R/h)}
+\]
+
+Используя равенство
+\[
+\frac{1}{\cos^2(\arctan(R/h))}
+=1+\frac{R^2}{h^2}
+\]
+находим
+\[
+I=
+\frac{\pi h^3}{3}
+\left(1+\frac{R^2}{h^2}-1\right)
+\]
+
+Окончательно:
+\[
+I=\frac{\pi R^2h}{3}
+\]
+
+Оба способа дают одинаковый результат.
+\end{example}
+
+\newpage
+
+\section{Криволинейный интеграл}
+
+\subsection{Криволинейный интеграл первого рода (КИ-1)}
+
+\begin{definition}
+\textbf{Путь} — непрерывное отображение
+\[
+\gamma \colon [a,b] \to \mathbb{R}^n
+\]
+
+При этом $\gamma(a)$ — начальная точка пути, $\gamma(b)$ — конечная точка пути.
+
+Образ $\gamma$ называется \textbf{носителем}.
+
+\end{definition}
+
+\begin{definition}
+Путь называется \textbf{простым}, если он не имеет самопересечений.
+\end{definition}
+
+\begin{definition}
+Множество называется \textbf{линейно связным (связным по путям)}, если любые две его точки можно соединить непрерывным путём, лежащим в этом множестве.
+\end{definition}
+
+\begin{definition}
+Два пути $\gamma_1$ и $\gamma_2$ называются \textbf{эквивалентными}, если существует строго возрастающая биекция $e$ такая, что
+\[
+\gamma_1(t)=\gamma_2(e(t))
+\]
+\end{definition}
+
+\begin{definition}
+\textbf{Кривая} — класс эквивалентности непрерывных путей по отношению эквивалентности, заданному выше.
+\end{definition}
+
+\begin{definition}
+Кривая называется \textbf{гладкой}, если существует её параметризация
+$\gamma \in C^1([a,b])$ такая, что
+\[
+\gamma'(t)\neq \vec{0}
+\qquad \forall t\in[a,b].
+\]
+
+То есть вектор скорости не обращается в нуль.
+\end{definition}
+
+Пусть кривая $\gamma$ задана параметрически:
+\[
+\gamma:[a,b]\to\mathbb{R}^n
+\]
+
+\begin{definition}
+Вектор $\gamma'(t)$ называется \textbf{касательным вектором} к кривой $\gamma$ в точке $\gamma(t)$.
+
+Если
+\[
+\gamma'(t)\neq 0,
+\]
+то касательный вектор определяет направление касательной к кривой.
+\end{definition}
+
+\begin{definition}
+Кривая называется \textbf{кусочно-гладкой}, если её можно представить в виде объединения конечного числа гладких участков.
+\end{definition}
+
+\begin{definition}
+\textbf{Длина кривой} $\gamma$ определяется как
+\[
+L_\gamma=\sup_{\tau}L_\tau
+\]
+где $\tau$ пробегает все ломаные, вписанные в кривую $\gamma$, а $L_\tau$ — длина соответствующей ломаной
+
+
+Если кривая кусочно-гладкая, то её длина вычисляется по формуле
+\[
+L_\gamma=\int_a^b\|\gamma'(t)\|\,dt
+\]
+
+Здесь
+\[
+\|\gamma'(t)\|
+=
+\sqrt{\bigl(x_1'(t)\bigr)^2+\dots+
+\bigl(x_n'(t)\bigr)^2}
+\]
+— норма касательного вектора
+
+Длина кривой не зависит от выбора её параметризации
+
+\end{definition}
+
+\begin{note}
+Для определения длины кривой можно использовать только конечное число точек разбиения. При переходе к пределу длины вписанных ломаных приближают длину кривой.
+\end{note}
+
+\subsection{Определение криволинейного интеграла первого рода}
+
+Пусть задана кусочно-гладкая кривая
+\[
+\gamma:[a,b]\to\mathbb{R}^n
+\]
+и функция
+\[
+f:\gamma([a,b])\to\mathbb{R}
+\]
+
+Рассмотрим разбиение отрезка $[a,b]$:
+\[
+\tau:\quad a=t_0<t_1<\dots<t_m=b
+\]
+
+Обозначим
+\[
+M_i=\gamma(t_i),\qquad i=0,\dots,m
+\]
+
+На каждом промежутке $[t_{i-1},t_i]$ выберем отмеченную точку
+\[
+\xi_i\in[t_{i-1},t_i]
+\]
+
+Составим интегральную сумму
+\[
+\sigma_\tau(f,\xi)
+=
+\sum_{i=1}^{m}
+f(\gamma(\xi_i))\,
+\ell(\wideparen{M_{i-1}M_i})
+\]
+где $\ell(\wideparen{M_{i-1}M_i})$ — длина участка кривой между точками $M_{i-1}$ и $M_i$.
+
+\begin{definition}
+Число $I$ называется \textbf{криволинейным интегралом первого рода} функции $f$ по кривой $\gamma$, если
+\[
+\forall\varepsilon>0\ \exists\delta>0:
+\quad
+\forall(\tau,\xi),\quad
+\lambda(\tau)<\delta
+\]
+выполняется неравенство
+\[
+|I-\sigma_\tau(f,\xi)|<\varepsilon,
+\]
+где
+\[
+\lambda(\tau)
+=
+\max_{1\leq i\leq m}
+\ell(\wideparen{M_{i-1}M_i})
+\]
+— \textbf{мелкость разбиения}
+
+В этом случае пишут
+\[
+I=\int_\gamma f\,d\ell
+\]
+\end{definition}
+
+Таким образом, криволинейный интеграл первого рода является пределом интегральных сумм при стремлении мелкости разбиения к нулю:
+\[
+\boxed{
+I=\lim_{\lambda(\tau)\to0}
+\sigma_\tau(f,\xi)
+}
+\]
+
+Предел должен существовать и не зависеть от выбора отмеченных точек $\xi_i$.
+
+\begin{note}
+Криволинейный интеграл первого рода является аналогом интеграла Римана, но интегрирование происходит вдоль кривой.
+
+В отличие от обычного интеграла по отрезку, здесь учитывается длина каждого участка кривой.
+\end{note}
+
+\subsection{Физический смысл криволинейного интеграла}
+
+Рассмотрим тонкую проволоку, расположенную вдоль кривой $\gamma$.
+
+Пусть её линейная плотность задаётся функцией
+\[
+\rho:\gamma([a,b])\to\mathbb{R}.
+\]
+
+Разобьём проволоку на маленькие участки.
+
+Массу каждого участка можно приближённо вычислить как произведение плотности на его длину:
+\[
+\Delta m_i\approx
+\rho(\gamma(\xi_i))\Delta\ell_i.
+\]
+
+Тогда полная масса приближённо равна
+\[
+m\approx
+\sum_{i=1}^{m}
+\rho(\gamma(\xi_i))\Delta\ell_i.
+\]
+
+При измельчении разбиения получаем
+\[
+\boxed{
+m=\int_\gamma\rho\,d\ell.
+}
+\]
+
+\begin{example}
+Криволинейные интегралы первого рода применяются для вычисления массы тонкой проволоки, плотность которой зависит от положения точки.
+
+Например, если по проволоке распространяется сигнал и его характеристики зависят от положения, интегрирование вдоль кривой позволяет учитывать распределённые по длине величины.
+\end{example}
+
+\subsection{Вычисление криволинейного интеграла первого рода}
+
+\begin{theorem}{О существовании и вычислении криволинейного интеграла первого рода}
+Пусть $\gamma$ — гладкий путь
+\[
+\gamma:[a,b]\to\mathbb{R}^n,
+\]
+а функция
+\[
+f\in C(\gamma([a,b]))
+\]
+
+Тогда криволинейный интеграл первого рода существует и
+\[
+\int_\gamma f\,d\ell
+=
+\int_a^b
+f(\gamma(t))\|\gamma'(t)\|\,dt
+\]
+\end{theorem}
+
+\begin{proofbox}
+
+\textbf{1. Натуральная параметризация}
+
+Пусть $s$ — длина участка кривой от начальной точки до текущей.
+
+Тогда
+\[
+s\in[0,L_\gamma].
+\]
+
+Обозначим натуральную параметризацию через
+\[
+\widetilde{\gamma}:
+[0,L_\gamma]\to\mathbb{R}^n.
+\]
+
+Для натуральной параметризации
+\[
+\|\widetilde{\gamma}'(s)\|=1.
+\]
+
+Рассмотрим разбиение
+\[
+0=s_0<s_1<\dots<s_m=L_\gamma.
+\]
+
+Интегральная сумма принимает вид
+\[
+\sigma_\tau(f,\xi)
+=
+\sum_{i=1}^{m}
+f(\widetilde{\gamma}(\xi_i))\Delta s_i,
+\]
+где
+\[
+\Delta s_i=s_i-s_{i-1}.
+\]
+
+Это обычная интегральная сумма Римана для функции
+\[
+f(\widetilde{\gamma}(s)).
+\]
+
+Так как $f$ и $\widetilde{\gamma}$ непрерывны, композиция
+\[
+f\circ\widetilde{\gamma}
+\]
+также непрерывна.
+
+Следовательно, интеграл существует и
+\[
+\int_\gamma f\,d\ell
+=
+\int_0^{L_\gamma}
+f(\widetilde{\gamma}(s))\,ds.
+\]
+
+\textbf{2. Переход к произвольной гладкой параметризации}
+
+Пусть
+\[
+\gamma:[a,b]\to\mathbb{R}^n
+\]
+— произвольная гладкая параметризация той же ориентированной кривой.
+
+Существует возрастающая функция
+\[
+s=\varphi(t),
+\]
+связывающая параметр $t$ с длиной дуги.
+
+При этом
+\[
+\gamma(t)=\widetilde{\gamma}(\varphi(t)).
+\]
+
+По правилу дифференцирования сложной функции
+\[
+\gamma'(t)
+=
+\widetilde{\gamma}'(\varphi(t))\varphi'(t).
+\]
+
+Поскольку
+\[
+\|\widetilde{\gamma}'(s)\|=1,
+\]
+получаем
+\[
+\|\gamma'(t)\|=\varphi'(t).
+\]
+
+Следовательно,
+\[
+ds=\|\gamma'(t)\|\,dt.
+\]
+
+Выполним замену переменной:
+\[
+\begin{aligned}
+\int_\gamma f\,d\ell
+&=
+\int_0^{L_\gamma}
+f(\widetilde{\gamma}(s))\,ds\\
+&=
+\int_a^b
+f(\widetilde{\gamma}(\varphi(t)))
+\varphi'(t)\,dt\\
+&=
+\int_a^b
+f(\gamma(t))\|\gamma'(t)\|\,dt.
+\end{aligned}
+\]
+
+Таким образом,
+\[
+\boxed{
+\int_\gamma f\,d\ell
+=
+\int_a^b f(\gamma(t))\|\gamma'(t)\|\,dt.
+}
+\]
+\end{proofbox}
+
+\begin{note}
+Если кривая кусочно-гладкая, формула также справедлива. В этом случае интеграл вычисляется как сумма интегралов по гладким участкам.
+\end{note}
+
+\begin{example}
+Вычислим
+\[
+I=\int_\gamma(x+y)\,d\ell,
+\]
+где $\gamma$ — правая полуокружность
+\[
+x^2+y^2=4,\qquad x\geq0.
+\]
+
+\textbf{Способ 1. Параметризация через тригонометрические функции}
+
+Зададим кривую:
+\[
+\begin{cases}
+x(t)=2\cos t\\
+y(t)=2\sin t
+\end{cases}
+\qquad
+t\in\left[-\frac{\pi}{2},\frac{\pi}{2}\right]
+\]
+
+Найдём производные:
+\[
+x'(t)=-2\sin t,\qquad
+y'(t)=2\cos t
+\]
+
+Норма касательного вектора:
+\[
+\begin{aligned}
+\|\gamma'(t)\|
+&=\sqrt{(x'(t))^2+(y'(t))^2}\\
+&=\sqrt{4\sin^2t+4\cos^2t}\\
+&=2
+\end{aligned}
+\]
+
+Подставляем в формулу:
+\[
+I=
+\int_{-\pi/2}^{\pi/2}
+(2\cos t+2\sin t)\cdot2\,dt
+\]
+
+Получаем
+\[
+I=
+4\int_{-\pi/2}^{\pi/2}
+(\cos t+\sin t)\,dt
+\]
+
+Вычисляем:
+\[
+I=
+4\left.
+(\sin t-\cos t)
+\right|_{-\pi/2}^{\pi/2}
+\]
+
+Следовательно,
+\[
+I=8
+\]
+
+\textbf{Способ 2. Параметризация через координату $y$}
+
+Из уравнения окружности:
+\[
+x=\sqrt{4-y^2},
+\qquad
+y\in[-2,2]
+\]
+
+Зададим параметризацию
+\[
+\gamma(y)=
+\left(\sqrt{4-y^2},y\right)
+\]
+
+Тогда
+\[
+x'(y)=-\frac{y}{\sqrt{4-y^2}},
+\qquad
+y'(y)=1
+\]
+
+Следовательно,
+\[
+\begin{aligned}
+\|\gamma'(y)\|
+&=
+\sqrt{\frac{y^2}{4-y^2}+1}\\
+&=
+\frac{2}{\sqrt{4-y^2}}
+\end{aligned}
+\]
+
+Получаем
+\[
+I=
+\int_{-2}^{2}
+\left(\sqrt{4-y^2}+y\right)
+\frac{2}{\sqrt{4-y^2}}\,dy
+\]
+
+То есть
+\[
+I=
+\int_{-2}^{2}
+\left(
+2+\frac{2y}{\sqrt{4-y^2}}
+\right)dy
+\]
+
+Второе слагаемое является нечётной функцией, поэтому его интеграл по симметричному промежутку равен нулю.
+
+Таким образом,
+\[
+I=\int_{-2}^{2}2\,dy
+\]
+
+Окончательно: $I = 8$
+
+Оба способа дают одинаковый результат.
+\end{example}
+
+\begin{props}{криволинейного интеграла первого рода}
+
+1) \textbf{Независимость от параметризации}
+
+Значение интеграла
+\[
+\int_\gamma f\,d\ell
+\]
+не зависит от выбора допустимой параметризации кривой.
+
+2) \textbf{Независимость от ориентации}
+
+Если $\gamma^{-}$ — кривая $\gamma$, проходимая в обратном направлении, то
+\[
+\int_{\gamma^{-}}f\,d\ell
+=
+\int_\gamma f\,d\ell.
+\]
+
+3) \textbf{Линейность}
+
+Для любых $\alpha,\beta\in\mathbb{R}$:
+\[
+\int_\gamma(\alpha f+\beta g)\,d\ell
+=
+\alpha\int_\gamma f\,d\ell
++
+\beta\int_\gamma g\,d\ell.
+\]
+
+4) \textbf{Аддитивность по кривой}
+
+Если кривая $\gamma$ составлена из двух последовательно проходимых участков $\gamma_1$ и $\gamma_2$, то
+\[
+\int_\gamma f\,d\ell
+=
+\int_{\gamma_1}f\,d\ell
++
+\int_{\gamma_2}f\,d\ell.
+\]
+
+5) \textbf{Монотонность}
+
+Если
+\[
+f\leq g
+\]
+на кривой $\gamma$, то
+\[
+\int_\gamma f\,d\ell
+\leq
+\int_\gamma g\,d\ell.
+\]
+
+6) \textbf{Неравенство для модуля интеграла}
+
+\[
+\left|\int_\gamma f\,d\ell\right|
+\leq
+\int_\gamma|f|\,d\ell
+\]
+
+\end{props}
+
+\textbf{Доказательство свойства 1}
+
+\begin{proofbox}
+Пусть две параметризации одной кривой связаны допустимой заменой параметра
+\[
+s=\varphi(t)
+\]
+
+Тогда
+\[
+\gamma(t)=\widetilde{\gamma}(\varphi(t))
+\]
+
+По правилу дифференцирования
+\[
+\gamma'(t)
+=
+\widetilde{\gamma}'(\varphi(t))\varphi'(t)
+\]
+
+Следовательно,
+\[
+\|\gamma'(t)\|
+=
+\|\widetilde{\gamma}'(\varphi(t))\|
+|\varphi'(t)|
+\]
+
+Выполняя замену переменной в определённом интеграле, получаем
+\[
+\int_a^b f(\gamma(t))\|\gamma'(t)\|\,dt
+=
+\int_c^d
+f(\widetilde{\gamma}(s))
+\|\widetilde{\gamma}'(s)\|\,ds
+\]
+
+Таким образом, значение интеграла не зависит от параметризации.
+\end{proofbox}
+
+\textbf{Доказательство свойства 2}
+
+\begin{proofbox}
+Пусть
+\[
+\gamma:[a,b]\to\mathbb{R}^n
+\]
+
+Обратную параметризацию зададим формулой
+\[
+\gamma^{-}(t)=\gamma(a+b-t)
+\]
+
+Тогда
+\[
+(\gamma^{-})'(t)
+=
+-\gamma'(a+b-t)
+\]
+
+Следовательно,
+\[
+\|(\gamma^{-})'(t)\|
+=
+\|\gamma'(a+b-t)\|
+\]
+
+По формуле вычисления интеграла:
+\[
+\int_{\gamma^{-}}f\,d\ell
+=
+\int_a^b
+f(\gamma(a+b-t))
+\|\gamma'(a+b-t)\|\,dt
+\]
+
+Сделаем замену
+\[
+s=a+b-t.
+\]
+
+Получаем
+\[
+\int_{\gamma^{-}}f\,d\ell
+=
+\int_a^b
+f(\gamma(s))\|\gamma'(s)\|\,ds
+=
+\int_\gamma f\,d\ell
+\]
+\end{proofbox}
+
+\textbf{Доказательство свойства 3}
+
+\begin{proofbox}
+По формуле вычисления криволинейного интеграла:
+\[
+\begin{aligned}
+\int_\gamma(\alpha f+\beta g)\,d\ell
+&=
+\int_a^b
+\bigl(\alpha f(\gamma(t))
++\beta g(\gamma(t))\bigr)
+\|\gamma'(t)\|\,dt\\
+&=
+\alpha\int_a^b
+f(\gamma(t))\|\gamma'(t)\|\,dt\\
+&\quad+
+\beta\int_a^b
+g(\gamma(t))\|\gamma'(t)\|\,dt
+\end{aligned}
+\]
+
+Следовательно,
+\[
+\int_\gamma(\alpha f+\beta g)\,d\ell
+=
+\alpha\int_\gamma f\,d\ell
++
+\beta\int_\gamma g\,d\ell
+\]
+\end{proofbox}
+
+\textbf{Доказательство свойства 4}
+
+\begin{proofbox}
+Пусть кривая $\gamma$ разбивается в точке с параметром $c\in(a,b)$ на два участка.
+
+Тогда
+\[
+\begin{aligned}
+\int_\gamma f\,d\ell
+&=
+\int_a^b
+f(\gamma(t))\|\gamma'(t)\|\,dt\\
+&=
+\int_a^c
+f(\gamma(t))\|\gamma'(t)\|\,dt\\
+&\quad+
+\int_c^b
+f(\gamma(t))\|\gamma'(t)\|\,dt
+\end{aligned}
+\]
+
+Первый интеграл соответствует участку $\gamma_1$, второй — участку $\gamma_2$.
+
+Следовательно,
+\[
+\int_\gamma f\,d\ell
+=
+\int_{\gamma_1}f\,d\ell
++
+\int_{\gamma_2}f\,d\ell
+\]
+\end{proofbox}
+
+\textbf{Доказательство свойства 5}
+
+\begin{proofbox}
+Пусть
+\[
+f(\gamma(t))\leq g(\gamma(t))
+\]
+для всех $t\in[a,b]$
+
+Так как
+\[
+\|\gamma'(t)\|\geq0
+\]
+то
+\[
+f(\gamma(t))\|\gamma'(t)\|
+\leq
+g(\gamma(t))\|\gamma'(t)\|
+\]
+
+По монотонности определённого интеграла:
+\[
+\int_a^b
+f(\gamma(t))\|\gamma'(t)\|\,dt
+\leq
+\int_a^b
+g(\gamma(t))\|\gamma'(t)\|\,dt
+\]
+
+Следовательно,
+\[
+\int_\gamma f\,d\ell
+\leq
+\int_\gamma g\,d\ell
+\]
+\end{proofbox}
+
+\textbf{Доказательство свойства 6}
+
+\begin{proofbox}
+Для любой функции $f$ выполняется
+\[
+-|f|\leq f\leq|f|
+\]
+
+По свойству монотонности:
+\[
+-\int_\gamma|f|\,d\ell
+\leq
+\int_\gamma f\,d\ell
+\leq
+\int_\gamma|f|\,d\ell
+\]
+
+Следовательно,
+\[
+\left|\int_\gamma f\,d\ell\right|
+\leq
+\int_\gamma|f|\,d\ell
+\]
+\end{proofbox}
+
+\subsection{Связь с интегралом по длине кривой}
+
+Если
+\[
+f\equiv1,
+\]
+то
+\[
+\int_\gamma 1\,d\ell
+=
+\int_a^b\|\gamma'(t)\|\,dt
+\]
+
+Правая часть равна длине кривой:
+\[
+L_\gamma=\int_a^b\|\gamma'(t)\|\,dt
+\]
+
+Таким образом,
+\[
+\int_\gamma d\ell=L_\gamma
+\]
+
+\begin{note}
+Криволинейный интеграл первого рода можно рассматривать как интеграл по мере длины на кривой.
+
+В частности, интегрирование единичной функции даёт длину кривой.
+\end{note}
+
+\newpage
+
+\section{Дифференциальные формы в $\mathbb{R}^2$}
+
+Пусть $D \subset \mathbb{R}^2$, $P,Q \colon D \to \mathbb{R}$.
+
+\begin{definition}
+\textbf{Дифференциальная форма} в $\mathbb{R}^2$ — выражение вида
+\[
+\omega = P(x,y)\,dx + Q(x,y)\,dy
+\]
+
+При этом $\omega \colon D \times \mathbb{R}^2 \to \mathbb{R}$.
+
+Если обозначить
+\[
+\vec{F}=(P,Q), \qquad d\vec{r}=(dx,dy)
+\]
+то дифференциальную форму можно записать в виде
+\[
+\omega = \vec{F}\cdot d\vec{r}
+\]
+\end{definition}
+
+\begin{example}
+Рассмотрим дифференциальную форму
+\[
+\omega = 2xy\,dx + x^2\,dy
+\]
+
+Заметим, что
+\[
+\omega = d(x^2y)
+\]
+\end{example}
+
+\begin{definition}
+Дифференциальная форма $\omega$ называется \textbf{точной} в области $D$, если существует первообразная $f \colon D \to \mathbb{R}$ такая, что
+\[
+\omega = df
+\]
+\end{definition}
+
+\begin{example}
+Рассмотрим дифференциальную форму в $\mathbb{R}^1$:
+\[
+\omega = f(x)\,dx
+\]
+
+Если $f \in C(\mathbb{R})$, то $\omega$ — точная, поскольку существует первообразная $F$ функции $f$ и
+\[
+dF = F'(x)\,dx = f(x)\,dx = \omega
+\]
+\end{example}
+
+\newpage
+
+\section{Криволинейные интегралы второго рода}
+
+\subsection{Определение криволинейного интеграла}
+
+Пусть $\gamma \colon [a,b]\to\mathbb{R}^2$ — кривая,
+\[
+\gamma(t)=(x(t),y(t))
+\]
+
+Рассмотрим дифференциальную форму
+\[
+\omega=P\,dx+Q\,dy
+\]
+где $P,Q$ определены на образе кривой $\gamma$.
+
+Возьмём разбиение отрезка $[a,b]$:
+\[
+\tau:\quad a=t_0<t_1<\ldots<t_m=b
+\]
+
+Выберем точки $\xi_i\in[t_{i-1},t_i]$ и обозначим
+\[
+\Delta t_i=t_i-t_{i-1}
+\]
+\[
+(\Delta x_i,\Delta y_i)
+=\Delta\gamma_i
+=\gamma(t_i)-\gamma(t_{i-1})
+\]
+
+\begin{definition}
+\textbf{Интегральной суммой} для дифференциальной формы $\omega$ вдоль кривой $\gamma$ называется выражение
+\[
+G_\tau(\omega,\xi)
+=
+\sum_{i=1}^{m}
+\left(
+P(\gamma(\xi_i))\,\Delta x_i
++
+Q(\gamma(\xi_i))\,\Delta y_i
+\right)
+\]
+
+Эквивалентно,
+\[
+G_\tau(\omega,\xi)
+=
+\sum_{i=1}^{m}
+\vec{F}(\gamma(\xi_i))\cdot\Delta\vec{r}_i
+\]
+
+Если существует предел интегральных сумм при измельчении разбиения, не зависящий от выбора точек $\xi_i$, то он называется \textbf{криволинейным интегралом второго рода}:
+\[
+\int_\gamma\omega
+=
+\lim_{\lambda(\tau)\to0}
+G_\tau(\omega,\xi)
+\]
+где
+\[
+\lambda(\tau)=\max_{1\le i\le m}\Delta t_i
+\]
+\end{definition}
+
+\subsection{Вычисление криволинейного интеграла}
+
+\begin{theorem}{о существовании и вычислении КИ-2}
+Пусть $\gamma\colon[a,b]\to\mathbb{R}^2$ — гладкая кривая,
+\[
+\gamma(t)=(x(t),y(t)),
+\]
+а
+\[
+\omega=P\,dx+Q\,dy,
+\qquad P,Q\in C(\gamma([a,b]))
+\]
+
+Тогда существует криволинейный интеграл второго рода, причём
+\[
+\int_\gamma\omega
+=
+\int_a^b
+\left(
+P(\gamma(t))x'(t)
++
+Q(\gamma(t))y'(t)
+\right)\,dt
+\]
+\end{theorem}
+
+\begin{proofbox}{}
+Рассмотрим интегральную сумму
+\[
+G_\tau
+=
+\sum_{i=1}^{m}
+\left(
+P(\gamma(\xi_i))\Delta x_i
++
+Q(\gamma(\xi_i))\Delta y_i
+\right)
+\]
+
+По теореме Лагранжа существуют точки
+$\eta_i,\zeta_i\in(t_{i-1},t_i)$ такие, что
+\[
+\Delta x_i=x'(\eta_i)\Delta t_i
+\qquad
+\Delta y_i=y'(\zeta_i)\Delta t_i
+\]
+
+Следовательно,
+\[
+\begin{aligned}
+G_\tau
+={}&
+\sum_{i=1}^{m}
+P(\gamma(\xi_i))x'(\eta_i)\Delta t_i
+\\
+&+
+\sum_{i=1}^{m}
+Q(\gamma(\xi_i))y'(\zeta_i)\Delta t_i
+\end{aligned}
+\]
+
+Прибавим и вычтем значения производных в точках $\xi_i$:
+\[
+\begin{aligned}
+G_\tau
+={}&
+\sum_{i=1}^{m}
+\left(
+P(\gamma(\xi_i))x'(\xi_i)
++
+Q(\gamma(\xi_i))y'(\xi_i)
+\right)\Delta t_i
+\\
+&+
+\sum_{i=1}^{m}
+P(\gamma(\xi_i))
+\left(x'(\eta_i)-x'(\xi_i)\right)\Delta t_i
+\\
+&+
+\sum_{i=1}^{m}
+Q(\gamma(\xi_i))
+\left(y'(\zeta_i)-y'(\xi_i)\right)\Delta t_i
+\end{aligned}
+\]
+
+Обозначим первую сумму через $S_\tau$, а оставшиеся две — через $E_\tau$:
+\[
+G_\tau=S_\tau+E_\tau
+\]
+
+Так как $x',y'$ непрерывны на $[a,b]$, они равномерно непрерывны.
+
+Следовательно, для любого $\varepsilon>0$ найдётся $\delta>0$ такое, что при $\lambda(\tau)<\delta$
+\[
+|x'(\eta_i)-x'(\xi_i)|<\varepsilon
+\]
+\[
+|y'(\zeta_i)-y'(\xi_i)|<\varepsilon
+\]
+
+Поскольку $P,Q$ непрерывны на компактном множестве $\gamma([a,b])$, они ограничены. Поэтому
+\[
+\begin{aligned}
+|E_\tau|
+\le{}&
+\sum_{i=1}^{m}
+|P(\gamma(\xi_i))|
+|x'(\eta_i)-x'(\xi_i)|\Delta t_i
+\\
+&+
+\sum_{i=1}^{m}
+|Q(\gamma(\xi_i))|
+|y'(\zeta_i)-y'(\xi_i)|\Delta t_i
+\\
+\le{}&
+\varepsilon(b-a)
+\left(
+\max_{\gamma([a,b])}|P|
++
+\max_{\gamma([a,b])}|Q|
+\right)
+\end{aligned}
+\]
+
+Таким образом,
+\[
+\lim_{\lambda(\tau)\to0}E_\tau=0.
+\]
+
+При этом $S_\tau$ является интегральной суммой Римана для непрерывной функции
+\[
+h(t)=P(\gamma(t))x'(t)+Q(\gamma(t))y'(t).
+\]
+
+Поэтому
+\[
+\lim_{\lambda(\tau)\to0}S_\tau
+=
+\int_a^b
+\left(
+P(\gamma(t))x'(t)
++
+Q(\gamma(t))y'(t)
+\right)\,dt.
+\]
+
+Следовательно,
+\[
+\int_\gamma\omega
+=
+\int_a^b
+\left(
+P(\gamma(t))x'(t)
++
+Q(\gamma(t))y'(t)
+\right)\,dt.
+\]
+\end{proofbox}
+
+\begin{props}{криволинейного интеграла второго рода}
+
+1) \textbf{Независимость от параметризации}
+
+Пусть
+\[
+\gamma(t)=(x(t),y(t)),
+\qquad t\in[a,b],
+\]
+и
+\[
+\widetilde{\gamma}(\theta)
+=
+(\widetilde{x}(\theta),\widetilde{y}(\theta)),
+\qquad \theta\in[\alpha,\beta],
+\]
+причём
+\[
+\widetilde{\gamma}(\theta)
+=
+\gamma(\varphi(\theta))
+\]
+где $\varphi$ — гладкая возрастающая замена параметра,
+\[
+\varphi(\alpha)=a,\qquad
+\varphi(\beta)=b
+\]
+
+Тогда
+\[
+\int_\gamma\omega
+=
+\int_{\widetilde{\gamma}}\omega
+\]
+
+2) \textbf{При смене ориентации интеграл меняет знак}
+
+Если $-\gamma$ — кривая $\gamma$ с противоположной ориентацией, то
+\[
+\int_{-\gamma}\omega
+=
+-\int_\gamma\omega.
+\]
+
+3) \textbf{Линейность}
+
+Для любых дифференциальных форм $\omega_1,\omega_2$ и чисел $\alpha,\beta\in\mathbb{R}$:
+\[
+\int_\gamma
+(\alpha\omega_1+\beta\omega_2)
+=
+\alpha\int_\gamma\omega_1
++
+\beta\int_\gamma\omega_2.
+\]
+
+4) \textbf{Аддитивность}
+
+Если кривая $\gamma$ составлена из последовательно проходимых кривых $\gamma_1$ и $\gamma_2$, то
+\[
+\int_\gamma\omega
+=
+\int_{\gamma_1}\omega
++
+\int_{\gamma_2}\omega.
+\]
+
+\end{props}
+
+\textbf{Доказательство свойства 1}
+
+\begin{proofbox}
+Рассмотрим интеграл
+\[
+\int_\gamma P\,dx
+=
+\int_a^b P(\gamma(t))x'(t)\,dt
+\]
+
+Выполним замену переменной
+\[
+t=\varphi(\theta)
+\]
+
+Тогда
+\[
+dt=\varphi'(\theta)\,d\theta
+\]
+а из равенства
+\[
+\widetilde{\gamma}(\theta)
+=
+\gamma(\varphi(\theta))
+\]
+следует
+\[
+\widetilde{x}'(\theta)
+=
+x'(\varphi(\theta))\varphi'(\theta)
+\]
+
+Поэтому
+\[
+\begin{aligned}
+\int_\gamma P\,dx
+&=
+\int_a^b P(\gamma(t))x'(t)\,dt
+\\
+&=
+\int_\alpha^\beta
+P(\gamma(\varphi(\theta)))
+x'(\varphi(\theta))
+\varphi'(\theta)\,d\theta
+\\
+&=
+\int_\alpha^\beta
+P(\widetilde{\gamma}(\theta))
+\widetilde{x}'(\theta)\,d\theta
+\\
+&=
+\int_{\widetilde{\gamma}}P\,dx
+\end{aligned}
+\]
+
+Аналогично,
+\[
+\int_\gamma Q\,dy
+=
+\int_{\widetilde{\gamma}}Q\,dy
+\]
+
+Следовательно,
+\[
+\int_\gamma\omega
+=
+\int_{\widetilde{\gamma}}\omega
+\]
+\end{proofbox}
+
+\textbf{Доказательство свойства 2}
+
+\begin{proofbox}
+Пусть $\gamma\colon[a,b]\to\mathbb{R}^2$
+
+Противоположную ориентацию можно задать параметризацией
+\[
+\widetilde{\gamma}(t)=\gamma(a+b-t)
+\]
+
+Тогда
+\[
+\widetilde{\gamma}'(t)
+=
+-\gamma'(a+b-t)
+\]
+
+Следовательно,
+\[
+\begin{aligned}
+\int_{-\gamma}\omega
+&=
+-\int_a^b
+\vec{F}(\gamma(a+b-t))
+\cdot\gamma'(a+b-t)\,dt
+\\
+&=
+-\int_a^b
+\vec{F}(\gamma(s))\cdot\gamma'(s)\,ds
+\\
+&=
+-\int_\gamma\omega
+\end{aligned}
+\]
+\end{proofbox}
+
+\textbf{Доказательство свойства 3}
+
+\begin{proofbox}
+Пусть
+\[
+\omega_1=P_1\,dx+Q_1\,dy
+\qquad
+\omega_2=P_2\,dx+Q_2\,dy
+\]
+
+Тогда
+\[
+\begin{aligned}
+\int_\gamma(\alpha\omega_1+\beta\omega_2)
+={}&
+\int_a^b
+\bigl[
+(\alpha P_1+\beta P_2)(\gamma(t))x'(t)
+\\
+&\qquad+
+(\alpha Q_1+\beta Q_2)(\gamma(t))y'(t)
+\bigr]\,dt
+\\
+={}&
+\alpha\int_\gamma\omega_1
++
+\beta\int_\gamma\omega_2
+\end{aligned}
+\]
+\end{proofbox}
+
+\textbf{Доказательство свойства 4}
+
+\begin{proofbox}
+Пусть точка разделения кривой соответствует параметру $c\in(a,b)$.
+
+Тогда по аддитивности определённого интеграла
+\[
+\begin{aligned}
+\int_\gamma\omega
+&=
+\int_a^b
+\vec{F}(\gamma(t))\cdot\gamma'(t)\,dt
+\\
+&=
+\int_a^c
+\vec{F}(\gamma(t))\cdot\gamma'(t)\,dt
++
+\int_c^b
+\vec{F}(\gamma(t))\cdot\gamma'(t)\,dt
+\\
+&=
+\int_{\gamma_1}\omega
++
+\int_{\gamma_2}\omega
+\end{aligned}
+\]
+\end{proofbox}
+
+\subsection{Связь криволинейных интегралов первого и второго рода}
+
+Пусть $\gamma$ — гладкая ориентированная кривая, а $s$ — длина дуги.
+
+Тогда
+\[
+d\vec{r}=(dx,dy)
+\qquad
+ds=|d\vec{r}|
+\]
+
+Единичный касательный вектор имеет вид
+\[
+\vec{\tau}
+=
+\frac{d\vec{r}}{|d\vec{r}|}
+=
+(\cos\alpha,\cos\beta)
+\]
+где $\alpha,\beta$ — углы касательного вектора с координатными осями.
+
+Следовательно,
+\[
+dx=\cos\alpha\,ds
+\qquad
+dy=\cos\beta\,ds
+\]
+
+Отсюда получаем
+\[
+\int_\gamma P\,dx+Q\,dy
+=
+\int_\gamma
+(P\cos\alpha+Q\cos\beta)\,ds
+\]
+
+\begin{note}
+Криволинейный интеграл второго рода можно интерпретировать как работу векторного поля $\vec{F}=(P,Q)$ вдоль кривой $\gamma$:
+\[
+A=\int_\gamma\vec{F}\cdot d\vec{r}
+\]
+
+В частности, из второго закона Ньютона
+\[
+\vec{F}=m\vec{a}
+=
+m\frac{d\vec{v}}{dt}
+\]
+получаем
+\[
+\begin{aligned}
+A
+&=
+\int_{t_0}^{t_1}
+m\frac{d\vec{v}}{dt}\cdot\vec{v}\,dt
+\\
+&=
+\int_{t_0}^{t_1}
+\frac{d}{dt}
+\left(\frac{m|\vec{v}|^2}{2}\right)\,dt
+\\
+&=
+\frac{m|\vec{v}(t_1)|^2}{2}
+-
+\frac{m|\vec{v}(t_0)|^2}{2}
+\end{aligned}
+\]
+\end{note}
+
+\subsection{Примеры вычисления криволинейных интегралов}
+
+\begin{example}
+Вычислим интеграл
+\[
+I=\int_\gamma (x+y)\,dx+2y\,dy
+\]
+
+1) Пусть $\gamma$ — дуга параболы
+\[
+y=x^2,\qquad x\in[0,2],
+\]
+ориентированная в сторону возрастания $x$.
+
+Параметризуем кривую:
+\[
+\gamma(t)=(t,t^2),
+\qquad t\in[0,2].
+\]
+
+Тогда
+\[
+x'(t)=1,\qquad y'(t)=2t
+\]
+
+Подставляя в формулу криволинейного интеграла, получаем
+\[
+\begin{aligned}
+I
+&=
+\int_0^2
+\left[
+(t+t^2)\cdot1
++
+2t^2\cdot2t
+\right]\,dt
+\\
+&=
+\int_0^2
+(t+t^2+4t^3)\,dt
+\\
+&=
+\left.
+\left(
+\frac{t^2}{2}
++
+\frac{t^3}{3}
++
+t^4
+\right)
+\right|_0^2
+\\
+&=
+2+\frac83+16
+=
+\frac{62}{3}
+\end{aligned}
+\]
+
+2) Рассмотрим другую кривую, заданную параметрически:
+\[
+\gamma(t)=
+(2\cos t,2\sin t).
+\]
+
+Тогда
+\[
+dx=-2\sin t\,dt,
+\qquad
+dy=2\cos t\,dt.
+\]
+
+Следовательно,
+\[
+\begin{aligned}
+I
+&=
+\int_\gamma (x+y)\,dx+2y\,dy
+\\
+&=
+\int
+\left[
+(2\cos t+2\sin t)(-2\sin t)
++
+4\sin t\cdot2\cos t
+\right]\,dt,
+\end{aligned}
+\]
+где пределы интегрирования определяются выбранной дугой и её ориентацией.
+
+\end{example}
+
+\newpage
+
 \end{document}
